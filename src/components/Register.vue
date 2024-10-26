@@ -30,6 +30,11 @@
       </el-container>
     </div>
   </div>
+  <div class="videoContainer">
+      <video class="fullscreenVideo"  ref="videoPlayer"  id="bgVid" playsinline=""  muted=""   @ended="onVideoEnded">
+        <source src="../assets/video/loginvideo.mp4" type="video/mp4">
+      </video>
+  </div>
 </template>
 
 <style scoped>
@@ -58,6 +63,10 @@ input {
 .login_card {
   background-color:rgba(255,255,255,20%);
   margin: auto;
+ margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 6%;
   width: 500px;
   height: 50%;
   text-align: center;
@@ -81,11 +90,26 @@ input {
 }
 
 .background_container{
-  background:url("@/assets/figure2.jpg");
   width:100%;
   height:100%;
   position:fixed;
   background-size:100% 100%;
+  z-index: 50;
+}
+.videoContainer{
+  position: fixed;
+  background-color: white;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 10;
+}
+.fullscreenVideo{
+  width: 100%;
+  height: 100%;
+  object-fit: fill
 }
 </style>
 

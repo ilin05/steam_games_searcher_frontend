@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <div class="main" style="overflow-y: hidden; ">
+  <div class="main" style="overflow-y: hidden; ">
       <el-container>
-
         <el-main class="background_container" style="display: flex;" :router = "true">
           <el-card title="登录" class="login_card" style="display: flex; justify-content: center ; vertical-align: center">
             <div style="margin-top: 20px;  font-size: 2em; font-weight: bold; color: #ffffff">
@@ -24,7 +22,11 @@
         </el-main>
 
       </el-container>
-    </div>
+  </div>
+  <div class="videoContainer">
+      <video class="fullscreenVideo"  ref="videoPlayer"  id="bgVid" playsinline=""  muted=""   @ended="onVideoEnded">
+        <source src="../assets/video/loginvideo.mp4" type="video/mp4">
+      </video>
   </div>
 </template>
 
@@ -53,11 +55,15 @@ input {
 
 .login_card {
   background-color:rgba(255,255,255,20%);
-  margin: auto;
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 6%;
   width: 500px;
   height: 50%;
   text-align: center;
   vertical-align:middle;
+
 }
 
 .login-button {
@@ -76,13 +82,31 @@ input {
   background-color: #0056b3;
 }
 
+
 .background_container{
-  background:url("@/assets/figure2.jpg");
   width:100%;
   height:100%;
   position:fixed;
-  background-size:100% 100%;
+  z-index: 50;
 }
+.videoContainer{
+  position: fixed;
+  background-color: white;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 10;
+}
+.fullscreenVideo{
+  width: 100%;
+  height: 100%;
+  object-fit: fill
+}
+
+
+
 </style>
 
 <script>
@@ -100,12 +124,22 @@ export default {
         email : '',
         password : '',
       },
+      backNum:0,
     }
 
   },
 
   methods:{
+
+    onVideoEnded(){
+        router.push('/user');
+    },
     ConfirmUserLogin(){
+       ElMessage.success("登录成功");
+       this.$refs.videoPlayer.play()
+
+      
+      /*
       axios.post("/user/login",{
         email:this.userLoginInfo.email,
         password:this.userLoginInfo.password
@@ -123,7 +157,9 @@ export default {
           .catch(error =>{
             ElMessage.error("用户名或密码错误");
           })
+          */
     },
+    
   }
 }
 

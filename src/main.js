@@ -13,6 +13,18 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import axios from 'axios'
 axios.defaults.baseURL = "http://localhost:8000";
 
+
+
+
+
+
+/*export function fetchJsonData(filePath) {
+  return fetch(filePath)
+    .then(res => res.json())
+    .catch(e => console.error(e));
+}*/
+
+
 //创建vue实例
 const app=createApp(App);
 for(const [key, component] of Object.entries(ElementPlusIconsVue)){
