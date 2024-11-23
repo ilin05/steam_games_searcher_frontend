@@ -5,19 +5,19 @@
 
         <el-main class="background_container" style="display: flex;" :router = "true">
           <el-card title="注册" class="login_card" style="display: flex; justify-content: center ; vertical-align: center">
-            <div style="margin-top: 5%;  font-size: 3em; font-weight: bold; color: #ffffff">
+            <div style="margin-top: 5%;  font-size: 2.5em; font-weight: bold; color: #ffffff">
               注册
             </div>
             <div class="form-group">
-              <label for="username" style="color: white;margin-top: 10%;font-size: x-large">Email:</label>
+              <label for="username" style="color: white;margin-top: 10%;font-size: large">Email:</label>
               <input type="text" id="email" v-model="registerInfo.email" required>
             </div>
             <div class="form-group">
-              <label for="username" style="color: white;margin-top: 10%;font-size:x-large">UserName:</label>
+              <label for="username" style="color: white;margin-top: 10%;font-size:large">UserName:</label>
               <input type="text" id="userName" v-model="registerInfo.userName" required>
             </div>
             <div class="form-group">
-              <label for="password" style="color: white;margin-top:10%;font-size: x-large">Password:</label>
+              <label for="password" style="color: white;margin-top:10%;font-size: large">Password:</label>
               <input type="password" id="password" v-model="registerInfo.password" required>
             </div>
             <button type="submit" class="login-button" style="margin-top:25%" @click="ConfirmRegister">Register</button>
@@ -64,10 +64,10 @@ input {
 .login_card {
   background-color:rgba(255,255,255,20%);
   margin-left: auto;
-  margin-top: 10%;
+  margin-top: 5%;
   margin-bottom: auto;
   margin-right: 6%;
-  width: 20%;
+  width: 30%;
   height: 600px;
   text-align: center;
   vertical-align:middle;
