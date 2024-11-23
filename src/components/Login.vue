@@ -1,22 +1,22 @@
 <template>
-  <div class="main" style="overflow-y: hidden; ">
+  <div class="main" style="overflow-y: hidden;font-family: 'Times New Roman', Times, serif ">
       <el-container>
         <el-main class="background_container" style="display: flex;" :router = "true">
           <el-card title="登录" class="login_card" style="display: flex; justify-content: center ; vertical-align: center">
-            <div style="margin-top: 20px;  font-size: 2em; font-weight: bold; color: #ffffff">
+            <div style="margin-top: 5%;  font-size: 3em; font-weight: bold; color: #ffffff">
               登录账号
             </div>
             <div class="form-group">
-              <label for="username" style="color: white">Email:</label>
+              <label for="username" style="color: white;margin-top: 20%;font-size: x-large">Email:</label>
               <input type="text" id="email" v-model="userLoginInfo.email" required>
             </div>
             <div class="form-group">
-              <label for="password" style="color: white">Password:</label>
+              <label for="password" style="color: white;margin-top: 10%;font-size: x-large">Password:</label>
               <input type="password" id="password" v-model="userLoginInfo.password" required>
             </div>
-            <button type="submit" class="login-button" style="margin-top:20px" @click="ConfirmUserLogin">Login</button>
+            <button type="submit" class="login-button" style="margin-top:40%" @click="ConfirmUserLogin">Login</button>
             <RouterLink to="register">
-              <button type="button" class="login-button" style="margin-top:20px">注册</button>
+              <button type="button" class="login-button" style="margin-top:5%">注册</button>
             </RouterLink>
           </el-card>
         </el-main>
@@ -59,10 +59,11 @@ input {
   margin-top: auto;
   margin-bottom: auto;
   margin-right: 6%;
-  width: 500px;
-  height: 50%;
+  width: 20%;
+  height: 40%;
   text-align: center;
   vertical-align:middle;
+  border-radius: 30px;
 
 }
 

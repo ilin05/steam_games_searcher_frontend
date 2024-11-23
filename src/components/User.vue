@@ -1,56 +1,68 @@
-
-
 <template>
+  <el-container class="main-container">
 
-  <el-header class="title">
-    <div style="margin-top: 12px; display: inline-block;">
-      <span style="font-size: large; font-family: 'Microsoft YaHei'; color: #ffffff; font-weight: bold;">Price Comparator</span>
-      <span style="margin-left :30px; font-size: large; font-family: 'Microsoft YaHei'; color: #ffffff; font-weight: bold;">用户您好！</span>
-      <RouterLink to="/user">
-        <button class="transparent-button">
-          <span style="margin-left: 40px; font-size: medium; font-family: 'Microsoft YaHei'; color: #ffffff; font-weight: lighter">搜索商品</span>
-        </button>
-      </RouterLink>
-      <el-icon style="color: #ffffff; margin-left: 5px">
-        <Reading />
-      </el-icon>
-      <RouterLink to="/favorites">
-        <button class="transparent-button">
-          <span style="margin-left: 40px; font-size: medium; font-family: 'Microsoft YaHei'; color: #ffffff; font-weight: lighter">我的收藏</span>
-        </button>
-      </RouterLink>
-      <el-icon style="color: #ffffff; margin-left: 5px">
-        <UserFilled />
-      </el-icon>
-    </div >
-    <RouterLink to="/login">
-      <el-button type="primary" style="margin-top: 12px; padding-right: 10px;" @click="DeleteToken">
-        <span style="font-size: medium; font-family: 'Microsoft YaHei'; color: #ffffff; font-weight: normal;">登出</span>
-      </el-button>
-    </RouterLink>
-  </el-header>
+    <el-container class="search-show-container">
+      <el-card class="auto-complete-search-card">
+          <input
+              type="text"
+              v-model="query"
+              placeholder="请输入以查询"
+              @input="onInput"
+              @keydown.down="onArrowDown"
+              @keydown.up="onArrowUp"
+              @keydown.enter="onEnter"
+          />
 
-  <div class="auto-complete-search" >
-    <input 
-      type="text" 
-      v-model="query" 
-      @input="onInput"
-      @keydown.down="onArrowDown"
-      @keydown.up="onArrowUp"
-      @keydown.enter="onEnter"
-    />
+          <ul v-if="showSuggestions">
+            <li
+                v-for="(suggestion, index) in filteredSuggestions"
+                :key="index"
+                @click="selectSuggestion(suggestion)"
+                :class="{ highlighted: index === highlightedIndex }"
+                style="font-size: x-large"
+            >
+              {{ suggestion }}
+            </li>
+          </ul>
+      </el-card>
 
-    <ul v-if="showSuggestions">
-      <li 
-        v-for="(suggestion, index) in filteredSuggestions" 
-        :key="index"
-        @click="selectSuggestion(suggestion)"
-        :class="{ highlighted: index === highlightedIndex }"
-      >
-        {{ suggestion }}
-      </li>
-    </ul>
-  </div>
+      <el-card class="advanced-options-card">
+
+        <el-container class="show-options-container">
+          <el-button type="primary" @click="showOptions" style="width:10%;height: 50px   ">高级选项
+          </el-button>
+        </el-container>
+
+        <el-container class="advanced-options-container">
+          <div v-if="showOptions">
+            <el-button> type</el-button>
+          </div>
+
+        </el-container>
+      </el-card>
+
+
+      <el-card class="detailed-information-card">
+
+        <el-container class="main-picture-container">
+          <img :src="MainPictureSrc" alt="Main Picture">
+        </el-container>
+
+        <el-container class="detailed-information-container">
+
+
+
+        </el-container>
+      </el-card>
+
+
+    </el-container>
+
+    <el-container class="You-may-love-container">
+
+    </el-container>
+
+    <!--
   <div class="videoContainer">
     <video class="fullscreenVideo" v-show="backNum===firstbg"  id="bg0" playsinline="" autoplay="" muted="" loop="">
         <source src="../assets/video/firstbg.mp4" type="video/mp4">
@@ -62,31 +74,29 @@
         <source src="../assets/video/speedvideo.mp4" type="video/mp4">
     </video>
   </div>
+
+  -->
+  </el-container>
 </template>
 
 
 <script>
-
 import axios from 'axios';
-import gamesdata from '@/assets/newgames.json';
-import {ElMessage} from "element-plus";
+import gamesData from '@/assets/newgames.json';
+import {ElMessage,ElButton,ElIcon} from "element-plus";
 
 export default {
-  name: 'AutoCompleteSearch',
+
   data() {
     return {
+      MainPictureSrc:'',
       query: '',
-      suggestions: [{"name":"Game A","estimated_owners":"20000"},],
-      // games:gamesdata,
+      showOptions: false,
+      suggestions: [{"name": "Game A", "estimated_owners": "20000"},],
+      toSearchGames: gamesData,
       filteredSuggestions: [],
       showSuggestions: false,
-      backNum:0,
-      firstbg:0,
-      speedbg:2,
-      fpsbg:1,
-      soulbg:3,
       highlightedIndex: -1,
-
       games: [
         {
           appId: 0,
@@ -96,46 +106,43 @@ export default {
           macSupport: false,
           linuxSupport: false,
           price: 0.00,
-          tags: [
-          ],
-          supportedLanguages: [
-          ],
+          tags: [],
+          supportedLanguages: [],
           website: '',
           headerImage: '',
           recommendations: 0,
           positive: 0,
           negative: 0,
           estimatedOwners: 0,
-          screenshots: [
-
-          ],
+          screenshots: [],
           description: '',
-          movies: [
-
-          ]
+          movies: []
         }
       ]
     }
   },
   methods: {
+    showOptions(){
+      if(this.showSuggestions){ this.showSuggestions = false; }
+      else{this.showSuggestions = true;}
+    },
     sortGameData(games) {
       // 按照estimated_owners降序排序
       return games.sort((a, b) => {
-        const ownersA = parseInt(a.estimatedOwners, 10);
-        const ownersB = parseInt(b.estimatedOwners, 10);
+        const ownersA = parseInt(a.estimated_owners, 10);
+        const ownersB = parseInt(b.estimated_owners, 10);
         return ownersB - ownersA; // 降序排序
       });
     },
     onInput() {
       if (this.query.length > 0) {
         this.suggestions = [];
-        this.suggestions = this.games.filter(
+        this.suggestions = this.toSearchGames.filter(
             game => game.name.toLowerCase().includes(this.query.toLowerCase())
         );
         this.suggestions = this.sortGameData(this.suggestions);
-        this.suggestions = this.suggestions.slice(0,10);
-
-        this.filteredSuggestions =  this.suggestions.map(suggestion=>suggestion.name);
+        this.suggestions = this.suggestions.slice(0, 10);
+        this.filteredSuggestions = this.suggestions.map(suggestion => suggestion.name);
         this.showSuggestions = this.filteredSuggestions.length > 0;
       } else {
         this.showSuggestions = false;
@@ -159,35 +166,32 @@ export default {
       if (this.highlightedIndex >= 0) {
         this.selectSuggestion(this.filteredSuggestions[this.highlightedIndex]);
       }
-      if(this.query==="")
-      {
+      if (this.query === "") {
         this.backNum = this.firstbg;
-      }
-      else
-      {
-        if(this.backNum<2 )this.backNum++
+      } else {
+        if (this.backNum < 2) this.backNum++
         else this.backNum = this.fpsbg;
-         axios.post("/user/search",{
-           query:this.query,
-           userId: sessionStorage.getItem("token")
+        axios.post("/user/search", {
+          query: this.query,
+          userId: sessionStorage.getItem("token")
           //password:SHA256(this.adminLoginInfo.password).toString(),
-          })
-          .then(response=>{
-            if(response.data.code === 1){
-              ElMessage.success("搜索成功");
-              this.games = response.data.payload;
-              sessionStorage.setItem("games", response.data.payload);
-            }else{
-              ElMessage.error(response.data)
-            }
-          })
-          .catch(error =>{
-            ElMessage.error("搜索失败");
-          })
+        })
+            .then(response => {
+              if (response.data.code === 1) {
+                ElMessage.success("搜索成功");
+                this.games = response.data.payload;
+                sessionStorage.setItem("games", response.data.payload);
+              } else {
+                ElMessage.error(response.data)
+              }
+            })
+            .catch(error => {
+              ElMessage.error("搜索失败");
+            })
       }
-   
+
     },
-    DeleteToken(){
+    DeleteToken() {
       sessionStorage.clear()
     }
   },
@@ -195,34 +199,89 @@ export default {
     sessionStorage.setItem("games", JSON.stringify(this.games));
   },
   mounted() {
-    if(sessionStorage.getItem("games") != null) {
+    if (sessionStorage.getItem("games") != null) {
       this.games = JSON.parse(sessionStorage.getItem("games"));
     }
   }
+
+
 }
 </script>
 
 <style scoped>
-.auto-complete-search {
-  position: relative;
-  width: 40%;
-  margin: 50px auto;
-  z-index: 50;
-}
-.auto-complete-search input {
+.main-container {
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  background-color: gainsboro;
 
-  padding: 8px;
-  box-sizing: border-box;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+/*******************************************************
+ *                    搜索和结果展示区                    *
+ *******************************************************/
+.search-show-container {
+
+  width: 30%;
+  height: 100%;
+  padding: 1% 2% 3% 1%;
+  display: flex;
+  flex-direction: column;
+}
+
+/**********                搜索卡片              *********/
+
+
+.auto-complete-search-card {
+  width: 100%;
+  height: 9%;
+  border-radius: 20px;
+  margin-bottom: 0.5%;
+  display: flex;
+
+  flex-direction: column;
+}
+.advanced-options-card{
+  width: 100%;
+  height: 30%;
+  border-radius: 20px;
+  margin-bottom:3%;
+  display:flex;
+  flex-direction: column;
+}
+
+
+.show-options-container{
+  width: 100%;
+  height: 20%;
+}
+
+
+.advanced-options-container{
+  width: 100%;
+  height: 20%;
+  display: flex;
+  flex-direction: row;
+}
+
+
+
+
+.auto-complete-search-card input {
+  width: 100%;
+  height: 50px;
+  padding: 4px;
+
   font-size: x-large;
 }
-.auto-complete-search ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  position: relative;
-  width: 100%;
-  max-height: 400px;
+
+.auto-complete-search-card ul {
+  margin-top: auto;
+  position: absolute;
+  width: 30.65%;
+  max-height: 40%;
   overflow-y: auto;
   border: 1px solid #ccc;
   border-top: none;
@@ -230,18 +289,41 @@ export default {
   background-color: #fff;
   z-index: 1000;
 }
-.auto-complete-search li {
+
+.auto-complete-search-card li {
   padding: 8px;
   cursor: pointer;
 }
 
-.auto-complete-search li.highlighted {
+.auto-complete-search-card li.highlighted {
   background-color: #ff002b;
   color: #fff;
 }
 
+/*****************     结果信息卡片     **************/
+.detailed-information-card {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px 30px 15px 30px;
+  display: flex;
+  flex-direction: row;
+}
+.main-picture-container{
+  width: 40%;
+  height: auto;
+  
+}
 
-.videoContainer{
+.You-may-love-container {
+  width: 60%;
+  height: 100%;
+  padding: 1% 2% 3% 1%;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+}
+
+.videoContainer {
   position: fixed;
   background-color: white;
   top: 0;
@@ -251,7 +333,8 @@ export default {
   overflow: hidden;
   z-index: 10;
 }
-.fullscreenVideo{
+
+.fullscreenVideo {
   width: 100%;
   height: 100%;
   object-fit: fill

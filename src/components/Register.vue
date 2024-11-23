@@ -1,28 +1,28 @@
 <template>
   <div>
-    <div class="main" style="overflow-y: hidden; ">
+    <div class="main" style="overflow-y: hidden;font-family: 'Times New Roman', Times, serif ">
       <el-container>
 
         <el-main class="background_container" style="display: flex;" :router = "true">
           <el-card title="注册" class="login_card" style="display: flex; justify-content: center ; vertical-align: center">
-            <div style="margin-top: 20px;  font-size: 2em; font-weight: bold; color: #ffffff">
+            <div style="margin-top: 5%;  font-size: 3em; font-weight: bold; color: #ffffff">
               注册
             </div>
             <div class="form-group">
-              <label for="username" style="color: white">Email:</label>
+              <label for="username" style="color: white;margin-top: 15%;font-size: x-large">Email:</label>
               <input type="text" id="email" v-model="registerInfo.email" required>
             </div>
             <div class="form-group">
-              <label for="username" style="color: white">UserName:</label>
+              <label for="username" style="color: white;margin-top: 10%;font-size:x-large">UserName:</label>
               <input type="text" id="userName" v-model="registerInfo.userName" required>
             </div>
             <div class="form-group">
-              <label for="password" style="color: white">Password:</label>
+              <label for="password" style="color: white;margin-top:10%;font-size: x-large">Password:</label>
               <input type="password" id="password" v-model="registerInfo.password" required>
             </div>
-            <button type="submit" class="login-button" style="margin-top:20px" @click="ConfirmRegister">Register</button>
+            <button type="submit" class="login-button" style="margin-top:30%" @click="ConfirmRegister">Register</button>
             <RouterLink to="login">
-              <button type="button" class="login-button" style="margin-top:20px">Login</button>
+              <button type="button" class="login-button" style="margin-top:5%">Login</button>
             </RouterLink>
           </el-card>
         </el-main>
@@ -37,6 +37,7 @@
   </div>
 </template>
 
+<style scoped>
 <style scoped>
 .login {
   max-width: 300px;
@@ -62,15 +63,16 @@ input {
 
 .login_card {
   background-color:rgba(255,255,255,20%);
-  margin: auto;
- margin-left: auto;
+  margin-left: auto;
   margin-top: auto;
   margin-bottom: auto;
   margin-right: 6%;
-  width: 500px;
-  height: 50%;
+  width: 20%;
+  height: 40%;
   text-align: center;
   vertical-align:middle;
+  border-radius: 30px;
+
 }
 
 .login-button {
@@ -89,11 +91,11 @@ input {
   background-color: #0056b3;
 }
 
+
 .background_container{
   width:100%;
   height:100%;
   position:fixed;
-  background-size:100% 100%;
   z-index: 50;
 }
 .videoContainer{
@@ -111,6 +113,7 @@ input {
   height: 100%;
   object-fit: fill
 }
+
 </style>
 
 <script>
