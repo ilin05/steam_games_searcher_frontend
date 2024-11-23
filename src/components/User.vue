@@ -89,7 +89,7 @@ export default {
 
   data() {
     return {
-      MainPictureSrc:'',
+      MainPictureSrc:'https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469',
       query: '',
       showOptions: false,
       suggestions: [{"name": "Game A", "estimated_owners": "20000"},],

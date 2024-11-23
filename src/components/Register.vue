@@ -31,7 +31,7 @@
     </div>
   </div>
   <div class="videoContainer">
-      <video class="fullscreenVideo"  ref="videoPlayer"  id="bgVid" playsinline=""  muted=""   @ended="onVideoEnded">
+      <video class="fullscreenVideo"  ref="videoPlayer"  id="bgVid" playsinline=""  muted="" autoplay="" loop="">
         <source src="../assets/video/loginvideo.mp4" type="video/mp4">
       </video>
   </div>

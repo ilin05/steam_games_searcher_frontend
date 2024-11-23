@@ -24,7 +24,7 @@
       </el-container>
   </div>
   <div class="videoContainer">
-      <video class="fullscreenVideo"  ref="videoPlayer"  id="bgVid" playsinline=""  muted=""   @ended="onVideoEnded">
+      <video class="fullscreenVideo"  ref="videoPlayer"  id="bgVid" autoplay=""  playsinline=""  muted="" loop="">
         <source src="../assets/video/loginvideo.mp4" type="video/mp4">
       </video>
   </div>
@@ -137,7 +137,6 @@ export default {
     // },
     ConfirmUserLogin(){
       ElMessage.success("登录成功");
-      this.$refs.videoPlayer.play()
       axios.post("/user/login",{
         email:this.userLoginInfo.email,
         password:this.userLoginInfo.password
