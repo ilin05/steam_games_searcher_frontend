@@ -131,15 +131,12 @@ export default {
 
   methods:{
 
-    onVideoEnded(){
-        router.push('/user');
-    },
+    // onVideoEnded(){
+    //     router.push('/user');
+    // },
     ConfirmUserLogin(){
-       ElMessage.success("登录成功");
-       this.$refs.videoPlayer.play()
-
-      
-      /*
+      ElMessage.success("登录成功");
+      this.$refs.videoPlayer.play()
       axios.post("/user/login",{
         email:this.userLoginInfo.email,
         password:this.userLoginInfo.password
@@ -148,6 +145,7 @@ export default {
           .then(response=>{
             if(response.data.code === 1){
               ElMessage.success("登录成功");
+              // token: userId
               sessionStorage.setItem("token", response.data.payload);
               router.push('/user');
             }else{
@@ -157,7 +155,6 @@ export default {
           .catch(error =>{
             ElMessage.error("用户名或密码错误");
           })
-          */
     },
     
   }
