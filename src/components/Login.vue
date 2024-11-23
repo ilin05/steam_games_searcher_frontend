@@ -56,11 +56,11 @@ input {
 .login_card {
   background-color:rgba(255,255,255,20%);
   margin-left: auto;
-  margin-top: auto;
+  margin-top: 10%;
   margin-bottom: auto;
   margin-right: 6%;
   width: 20%;
-  height: 40%;
+  height: 600px;
   text-align: center;
   vertical-align:middle;
   border-radius: 30px;

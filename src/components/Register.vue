@@ -9,7 +9,7 @@
               注册
             </div>
             <div class="form-group">
-              <label for="username" style="color: white;margin-top: 15%;font-size: x-large">Email:</label>
+              <label for="username" style="color: white;margin-top: 10%;font-size: x-large">Email:</label>
               <input type="text" id="email" v-model="registerInfo.email" required>
             </div>
             <div class="form-group">
@@ -20,9 +20,9 @@
               <label for="password" style="color: white;margin-top:10%;font-size: x-large">Password:</label>
               <input type="password" id="password" v-model="registerInfo.password" required>
             </div>
-            <button type="submit" class="login-button" style="margin-top:30%" @click="ConfirmRegister">Register</button>
+            <button type="submit" class="login-button" style="margin-top:25%" @click="ConfirmRegister">Register</button>
             <RouterLink to="login">
-              <button type="button" class="login-button" style="margin-top:5%">Login</button>
+              <button type="button" class="login-button" style="margin-top:3%">Login</button>
             </RouterLink>
           </el-card>
         </el-main>
@@ -64,11 +64,11 @@ input {
 .login_card {
   background-color:rgba(255,255,255,20%);
   margin-left: auto;
-  margin-top: auto;
+  margin-top: 10%;
   margin-bottom: auto;
   margin-right: 6%;
   width: 20%;
-  height: 40%;
+  height: 600px;
   text-align: center;
   vertical-align:middle;
   border-radius: 30px;
