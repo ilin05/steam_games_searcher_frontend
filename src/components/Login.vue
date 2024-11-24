@@ -60,6 +60,7 @@ input {
   margin-bottom: auto;
   margin-right: 6%;
   width: 30%;
+
   height: 600px;
   text-align: center;
   vertical-align:middle;

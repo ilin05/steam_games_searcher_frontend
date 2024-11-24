@@ -37,7 +37,7 @@
   </div>
 </template>
 
-<style scoped>
+
 <style scoped>
 .login {
   max-width: 300px;

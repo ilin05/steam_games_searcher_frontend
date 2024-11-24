@@ -3,27 +3,27 @@
 
     <el-container class="search-show-container">
       <el-card class="auto-complete-search-card">
-          <input
-              type="text"
-              v-model="query"
-              placeholder="请输入以查询"
-              @input="onInput"
-              @keydown.down="onArrowDown"
-              @keydown.up="onArrowUp"
-              @keydown.enter="onEnter"
-          />
+        <input
+            type="text"
+            v-model="query"
+            placeholder="请输入以查询"
+            @input="onInput"
+            @keydown.down="onArrowDown"
+            @keydown.up="onArrowUp"
+            @keydown.enter="onEnter"
+        />
 
-          <ul v-if="showSuggestions">
-            <li
-                v-for="(suggestion, index) in filteredSuggestions"
-                :key="index"
-                @click="selectSuggestion(suggestion)"
-                :class="{ highlighted: index === highlightedIndex }"
-                style="font-size: x-large"
-            >
-              {{ suggestion }}
-            </li>
-          </ul>
+        <ul v-if="showSuggestions">
+          <li
+              v-for="(suggestion, index) in filteredSuggestions"
+              :key="index"
+              @click="selectSuggestion(suggestion)"
+              :class="{ highlighted: index === highlightedIndex }"
+              style="font-size: x-large"
+          >
+            {{ suggestion }}
+          </li>
+        </ul>
       </el-card>
 
       <el-card class="advanced-options-card">
@@ -43,12 +43,24 @@
 
 
       <el-card class="detailed-information-card">
+        <el-container style="display: flex;flex-direction: row;">
+          <el-container class="head-picture-container">
 
-        <el-container class="main-picture-container">
-          <img :src="MainPictureSrc" alt="Main Picture">
-        </el-container>
+            <img :src=ToShowPicture alt="Head Picture" class="head-picture">
 
-        <el-container class="detailed-information-container">
+            <div style="display: flex; flex-direction: row;  overflow-x: auto;white-space: nowrap;margin-top: 5px">
+              <div v-for="(picture,index) in pictures" :key="index" style="display:inline-block;margin-right: 5px">
+                <img :src=picture class="single-picOrMovie-card" alt="Need pic" @click="changePicture(picture)">
+              </div>
+            </div>
+
+          </el-container>
+
+          <el-container class="detailed-information-container ">
+            <img :src="MainPictureSrc" alt="Main Picture" class="main-picture">
+            <div style="width:100%;margin-top:5px;color: gainsboro;font-size: large;word-wrap: break-word;word-break: break-all;overflow: hidden;">   <p> {{description}}</p>   feasfasd </div>
+
+          </el-container>
 
 
 
@@ -62,20 +74,6 @@
 
     </el-container>
 
-    <!--
-  <div class="videoContainer">
-    <video class="fullscreenVideo" v-show="backNum===firstbg"  id="bg0" playsinline="" autoplay="" muted="" loop="">
-        <source src="../assets/video/firstbg.mp4" type="video/mp4">
-    </video>
-  <video class="fullscreenVideo" v-show="backNum===fpsbg"  id="bg1" playsinline="" autoplay="" muted="" loop="">
-        <source src="../assets/video/fpsvideo.mp4" type="video/mp4">
-    </video> 
-     <video class="fullscreenVideo" v-show="backNum===speedbg"  id="bg2" playsinline="" autoplay="" muted="" loop="">
-        <source src="../assets/video/speedvideo.mp4" type="video/mp4">
-    </video>
-  </div>
-
-  -->
   </el-container>
 </template>
 
@@ -83,13 +81,14 @@
 <script>
 import axios from 'axios';
 import gamesData from '@/assets/newgames.json';
-import {ElMessage,ElButton,ElIcon} from "element-plus";
+import {ElMessage, ElButton, ElIcon} from "element-plus";
 
 export default {
 
   data() {
     return {
-      MainPictureSrc:'https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469',
+      MainPictureSrc: 'https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469',
+      description:"Play PUBG: BATTLEGROUNDS for free. Land on strategic locations, loot weapons and supplies, and survive to become the last team standing across various, diverse Battlegrounds. Squad up and join the Battlegrounds for the original Battle Royale experience that only PUBG: BATTLEGROUNDS can offer.",
       query: '',
       showOptions: false,
       suggestions: [{"name": "Game A", "estimated_owners": "20000"},],
@@ -97,6 +96,59 @@ export default {
       filteredSuggestions: [],
       showSuggestions: false,
       highlightedIndex: -1,
+      picOrMovieNum: 0,
+      isMovieSelected: true,
+      pictures: [
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_e2cbfefdff39b9cb8e080da8f30cc07223b041b9.1920x1080.jpg?t=1658287469",
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_01d84950ddfb28ea611f1fa1a28c3cb08ccd7eee.1920x1080.jpg?t=1658287469",
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_606cee13e97530720c678513cb1138ef9854d7d5.1920x1080.jpg?t=1658287469",
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_4454f310776c626a76baeca2d05fd82bd17c6ee0.1920x1080.jpg?t=1658287469",
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_e34bcd20c7e3f5244c17b5af5d192b2149e11d33.1920x1080.jpg?t=1658287469",
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_0985fff929498a15793fc3df766607fb54bf5338.1920x1080.jpg?t=1658287469",
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_2db6a7b87ad61fbee74adcd2d7b03eee1a28743e.1920x1080.jpg?t=1658287469",
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_93e6e1fa807c3b3b09ce4e1e4800e7723dc308a1.1920x1080.jpg?t=1658287469",
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_c49417566f70eec8bf0ddbb2956b235d91504a09.1920x1080.jpg?t=1658287469",
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_de28db240ee8646b1dd883a141b4832271a150e7.1920x1080.jpg?t=1658287469",
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_11e51d12d854712ed7c83e69f1b21d246ab018b3.1920x1080.jpg?t=1658287469",
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_abadb3bfc951cd05150901ff65386e3129c6011a.1920x1080.jpg?t=1658287469",
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_cec7ea5e83407dba51c80d24a2c8076e93752d4f.1920x1080.jpg?t=1658287469",
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_8814c071f0cce53821d8e1b1a96de78d00e5d4d1.1920x1080.jpg?t=1658287469",
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_5fe3d8ce7e90442569fc676e2315fffdf81dd1a5.1920x1080.jpg?t=1658287469",
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_2b1f73afd6efb1952ee267e94f8bcc24ec5e8fb3.1920x1080.jpg?t=1658287469",
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_52773275afe4c34a84fbf38e9960a598a420b3c2.1920x1080.jpg?t=1658287469",
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_c98c609e2f07c80c8455624cc62696c9dde9ea73.1920x1080.jpg?t=1658287469",
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_07590e851053a453e09c7d6f272adf602c3f8ee8.1920x1080.jpg?t=1658287469",
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_56d29e4503ba1a74047feb55986c6bf4ca4297f9.1920x1080.jpg?t=1658287469",
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_f96bc802fb38617ce790c0950b87a7979f096025.1920x1080.jpg?t=1658287469",
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_23af2e59855a833c22d0c11ca23a719f54a554ff.1920x1080.jpg?t=1658287469",
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_108e2981889423b057b778cd07ae25ac18406cf1.1920x1080.jpg?t=1658287469",
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_a403a1f4071d36d42bea7a505089b56b570b2569.1920x1080.jpg?t=1658287469",
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_109d7072cf85f5b3b1e3dacadf3009718db451c4.1920x1080.jpg?t=1658287469",
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_e7e79847eff0933de92192bb62b8bc7068d611da.1920x1080.jpg?t=1658287469",
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_8112cd376568d9470c2edde841908fcdf46f1529.1920x1080.jpg?t=1658287469",
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_4bbcaeac1ef977d962c60c1a5e4675cdd81de564.1920x1080.jpg?t=1658287469",
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_88a8dff0756673179e190c2e16d090de63ecfb2e.1920x1080.jpg?t=1658287469",
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_29d0709711f3204e84b6f9d69f3be163ebe12486.1920x1080.jpg?t=1658287469",
+        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_6595641da498162aedc71136a93feb5bcb1785d8.1920x1080.jpg?t=1658287469"
+      ],
+      movies: [
+        "http://cdn.akamai.steamstatic.com/steam/apps/256896251/movie_max.mp4?t=1657765655",
+        "http://cdn.akamai.steamstatic.com/steam/apps/256868780/movie_max.mp4?t=1641965538",
+        "http://cdn.akamai.steamstatic.com/steam/apps/256864911/movie_max.mp4?t=1639450117",
+        "http://cdn.akamai.steamstatic.com/steam/apps/256842241/movie_max.mp4?t=1625828895",
+        "http://cdn.akamai.steamstatic.com/steam/apps/256814351/movie_max.mp4?t=1626232779",
+        "http://cdn.akamai.steamstatic.com/steam/apps/256805874/movie_max.mp4?t=1619690398",
+        "http://cdn.akamai.steamstatic.com/steam/apps/256793553/movie_max.mp4?t=1595992300",
+        "http://cdn.akamai.steamstatic.com/steam/apps/256782753/movie_max.mp4?t=1587538797",
+        "http://cdn.akamai.steamstatic.com/steam/apps/256773105/movie_max.mp4?t=1619690406",
+        "http://cdn.akamai.steamstatic.com/steam/apps/256774477/movie_max.mp4?t=1619690413",
+        "http://cdn.akamai.steamstatic.com/steam/apps/256774476/movie_max.mp4?t=1619690420",
+        "http://cdn.akamai.steamstatic.com/steam/apps/256774471/movie_max.mp4?t=1619690427",
+        "http://cdn.akamai.steamstatic.com/steam/apps/256774464/movie_max.mp4?t=1619690435",
+        "http://cdn.akamai.steamstatic.com/steam/apps/256757848/movie_max.mp4?t=1564606214",
+        "http://cdn.akamai.steamstatic.com/steam/apps/256720476/movie_max.mp4?t=1619690442"
+      ],
+      ToShowPicture: '',
       games: [
         {
           appId: 0,
@@ -121,10 +173,15 @@ export default {
       ]
     }
   },
+  computed: {},
+
   methods: {
-    showOptions(){
-      if(this.showSuggestions){ this.showSuggestions = false; }
-      else{this.showSuggestions = true;}
+    changePicture(picture) {
+      this.ToShowPicture = picture;
+    },
+
+    showOptions() {
+      this.showSuggestions = !this.showSuggestions;
     },
     sortGameData(games) {
       // 按照estimated_owners降序排序
@@ -202,6 +259,7 @@ export default {
     if (sessionStorage.getItem("games") != null) {
       this.games = JSON.parse(sessionStorage.getItem("games"));
     }
+    this.ToShowPicture = this.pictures[0];
   }
 
 
@@ -214,7 +272,6 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: row;
-  background-color: gainsboro;
 
   font-family: 'Times New Roman', Times, serif;
 }
@@ -224,11 +281,13 @@ export default {
  *******************************************************/
 .search-show-container {
 
-  width: 30%;
+  width: 80%;
   height: 100%;
   padding: 1% 2% 3% 1%;
   display: flex;
+  background: #2c3e50;
   flex-direction: column;
+
 }
 
 /**********                搜索卡片              *********/
@@ -237,29 +296,32 @@ export default {
 .auto-complete-search-card {
   width: 100%;
   height: 9%;
-  border-radius: 20px;
+  border: none;
   margin-bottom: 0.5%;
   display: flex;
-
+  background: #2c3e50;
   flex-direction: column;
 }
-.advanced-options-card{
+
+.advanced-options-card {
   width: 100%;
   height: 30%;
-  border-radius: 20px;
-  margin-bottom:3%;
-  display:flex;
+  border: none;
+  margin-bottom: 3%;
+  display: flex;
+  background: #2c3e50;
   flex-direction: column;
 }
 
 
-.show-options-container{
+.show-options-container {
   width: 100%;
   height: 20%;
+  background: #2c3e50;
 }
 
 
-.advanced-options-container{
+.advanced-options-container {
   width: 100%;
   height: 20%;
   display: flex;
@@ -267,14 +329,13 @@ export default {
 }
 
 
-
-
 .auto-complete-search-card input {
   width: 100%;
   height: 50px;
   padding: 4px;
-
+  background: #2c3e50;
   font-size: x-large;
+  color: white;
 }
 
 .auto-complete-search-card ul {
@@ -286,7 +347,8 @@ export default {
   border: 1px solid #ccc;
   border-top: none;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+  background-color: dimgrey;
+  color: white;
   z-index: 1000;
 }
 
@@ -296,22 +358,58 @@ export default {
 }
 
 .auto-complete-search-card li.highlighted {
-  background-color: #ff002b;
-  color: #fff;
+  background-color: whitesmoke;
+  color: black;
 }
 
 /*****************     结果信息卡片     **************/
 .detailed-information-card {
   width: 100%;
   height: 100%;
-  border-radius: 15px 30px 15px 30px;
   display: flex;
+  background: #2c3e50;
+  border: none;
   flex-direction: row;
 }
-.main-picture-container{
-  width: 40%;
+
+
+.head-picture-container {
+  width: 30vw;
   height: auto;
-  
+  display: flex;
+  flex-direction: column;
+
+
+}
+
+.head-picture {
+  width: 100%;
+  height: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  object-fit: fill;
+}
+
+.main-picture {
+  width: 100%;
+  height: auto;
+  object-fit: fill;
+}
+
+.single-picOrMovie-card {
+  width: 7vw;
+  object-fit: fill;
+}
+
+
+.detailed-information-container {
+  width:30%;
+  height: auto;
+  padding-top: 0;
+  padding-right: 0;
+  padding-left: 1%;
+  display: flex;
+  flex-direction: column;
 }
 
 .You-may-love-container {
@@ -413,6 +511,28 @@ export default {
   cursor: pointer; /* 鼠标悬停时显示手形光标 */
   padding: 10px 20px; /* 设置内边距 */
   font-size: 16px; /* 设置字体大小 */
+}
+
+::-webkit-scrollbar {
+  width: 6px; /* 对垂直滚动条有效 */
+  height: 6px; /* 对水平滚动条有效 */
+}
+
+/* 定义滚动条的轨道颜色、内阴影及圆角 */
+::-webkit-scrollbar-track {
+  border-radius: 4px;
+  background-color: #1a1a1a;
+}
+
+/* 定义滑块颜色、内阴影及圆角 */
+::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: #555;
+}
+
+/* 定义滑块悬停变化颜色、内阴影及圆角 */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #646cff;
 }
 
 </style>
