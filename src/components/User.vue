@@ -43,13 +43,16 @@
 
 
       <el-card class="detailed-information-card">
+
+
         <el-container style="display: flex;flex-direction: row;">
           <el-container class="head-picture-container">
 
             <img :src=ToShowPicture alt="Head Picture" class="head-picture">
 
             <div style="display: flex; flex-direction: row;  overflow-x: auto;white-space: nowrap;margin-top: 5px">
-              <div v-for="(picture,index) in pictures" :key="index" style="display:inline-block;margin-right: 5px">
+              <div v-for="(picture,index) in toShowGame.pictures" :key="index"
+                   style="display:inline-block;margin-right: 5px">
                 <img :src=picture class="single-picOrMovie-card" alt="Need pic" @click="changePicture(picture)">
               </div>
             </div>
@@ -57,18 +60,50 @@
           </el-container>
 
           <el-container class="detailed-information-container ">
-            <img :src="MainPictureSrc" alt="Main Picture" class="main-picture">
-            <div style="width:100%;margin-top:5px;color: gainsboro;font-size: large;word-wrap: break-word;word-break: break-all;overflow: hidden;">   <p> {{description}}</p>   feasfasd </div>
+            <img :src="toShowGame.MainPictureSrc" alt="Main Picture" class="main-picture">
+            <div
+                style="width:100%;margin-top:5px;color: gainsboro;font-size: large;word-wrap: break-word;word-break: break-all;overflow: hidden;">
+              <p> {{ toShowGame.description }}</p></div>
+            <div
+                style="width: 100%;margin-top: 3px;margin-bottom:3px;text-align: center;color:deepskyblue;font-size:2em;font-weight: 300;">
+              <p> {{ toShowGame.title }} </p></div>
+
+            <div style="width:100%;">
+              <p>
+                <span style="font-size: math;color:darkgray;">Release date</span>
+                <span style="font-size: math;color:cornflowerblue; margin-left: 30%">{{this.toShowGame.releaseDate}}</span>
+              </p>
+            </div>
+
+
+            <div style="display: flex; flex-direction: row;overflow: hidden;margin-top: 4%;">
+              <div v-for="(count,tag) in this.toShowGame.tags" :key="tag">
+                <el-tag style="margin-left: 2px;font-size: 14px;color: #2c3e50"> {{tag}}</el-tag>
+              </div>
+            </div>
 
           </el-container>
-
 
 
         </el-container>
       </el-card>
 
+      <el-card class="Action-field-card">
+        <el-container class="Action-field-container">
+          <div style="color: gainsboro;font-size: 20px;margin-top: 10px;margin-left: 15px">更多相关推荐</div>
+          <el-button
+        </el-container>
+
+
+      </el-card>
+      <el-card class="command-card">
+
+      </el-card>
+
 
     </el-container>
+
+
 
     <el-container class="You-may-love-container">
 
@@ -87,8 +122,7 @@ export default {
 
   data() {
     return {
-      MainPictureSrc: 'https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469',
-      description:"Play PUBG: BATTLEGROUNDS for free. Land on strategic locations, loot weapons and supplies, and survive to become the last team standing across various, diverse Battlegrounds. Squad up and join the Battlegrounds for the original Battle Royale experience that only PUBG: BATTLEGROUNDS can offer.",
+
       query: '',
       showOptions: false,
       suggestions: [{"name": "Game A", "estimated_owners": "20000"},],
@@ -96,58 +130,83 @@ export default {
       filteredSuggestions: [],
       showSuggestions: false,
       highlightedIndex: -1,
-      picOrMovieNum: 0,
-      isMovieSelected: true,
-      pictures: [
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_e2cbfefdff39b9cb8e080da8f30cc07223b041b9.1920x1080.jpg?t=1658287469",
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_01d84950ddfb28ea611f1fa1a28c3cb08ccd7eee.1920x1080.jpg?t=1658287469",
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_606cee13e97530720c678513cb1138ef9854d7d5.1920x1080.jpg?t=1658287469",
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_4454f310776c626a76baeca2d05fd82bd17c6ee0.1920x1080.jpg?t=1658287469",
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_e34bcd20c7e3f5244c17b5af5d192b2149e11d33.1920x1080.jpg?t=1658287469",
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_0985fff929498a15793fc3df766607fb54bf5338.1920x1080.jpg?t=1658287469",
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_2db6a7b87ad61fbee74adcd2d7b03eee1a28743e.1920x1080.jpg?t=1658287469",
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_93e6e1fa807c3b3b09ce4e1e4800e7723dc308a1.1920x1080.jpg?t=1658287469",
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_c49417566f70eec8bf0ddbb2956b235d91504a09.1920x1080.jpg?t=1658287469",
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_de28db240ee8646b1dd883a141b4832271a150e7.1920x1080.jpg?t=1658287469",
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_11e51d12d854712ed7c83e69f1b21d246ab018b3.1920x1080.jpg?t=1658287469",
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_abadb3bfc951cd05150901ff65386e3129c6011a.1920x1080.jpg?t=1658287469",
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_cec7ea5e83407dba51c80d24a2c8076e93752d4f.1920x1080.jpg?t=1658287469",
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_8814c071f0cce53821d8e1b1a96de78d00e5d4d1.1920x1080.jpg?t=1658287469",
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_5fe3d8ce7e90442569fc676e2315fffdf81dd1a5.1920x1080.jpg?t=1658287469",
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_2b1f73afd6efb1952ee267e94f8bcc24ec5e8fb3.1920x1080.jpg?t=1658287469",
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_52773275afe4c34a84fbf38e9960a598a420b3c2.1920x1080.jpg?t=1658287469",
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_c98c609e2f07c80c8455624cc62696c9dde9ea73.1920x1080.jpg?t=1658287469",
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_07590e851053a453e09c7d6f272adf602c3f8ee8.1920x1080.jpg?t=1658287469",
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_56d29e4503ba1a74047feb55986c6bf4ca4297f9.1920x1080.jpg?t=1658287469",
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_f96bc802fb38617ce790c0950b87a7979f096025.1920x1080.jpg?t=1658287469",
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_23af2e59855a833c22d0c11ca23a719f54a554ff.1920x1080.jpg?t=1658287469",
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_108e2981889423b057b778cd07ae25ac18406cf1.1920x1080.jpg?t=1658287469",
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_a403a1f4071d36d42bea7a505089b56b570b2569.1920x1080.jpg?t=1658287469",
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_109d7072cf85f5b3b1e3dacadf3009718db451c4.1920x1080.jpg?t=1658287469",
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_e7e79847eff0933de92192bb62b8bc7068d611da.1920x1080.jpg?t=1658287469",
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_8112cd376568d9470c2edde841908fcdf46f1529.1920x1080.jpg?t=1658287469",
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_4bbcaeac1ef977d962c60c1a5e4675cdd81de564.1920x1080.jpg?t=1658287469",
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_88a8dff0756673179e190c2e16d090de63ecfb2e.1920x1080.jpg?t=1658287469",
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_29d0709711f3204e84b6f9d69f3be163ebe12486.1920x1080.jpg?t=1658287469",
-        "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_6595641da498162aedc71136a93feb5bcb1785d8.1920x1080.jpg?t=1658287469"
-      ],
-      movies: [
-        "http://cdn.akamai.steamstatic.com/steam/apps/256896251/movie_max.mp4?t=1657765655",
-        "http://cdn.akamai.steamstatic.com/steam/apps/256868780/movie_max.mp4?t=1641965538",
-        "http://cdn.akamai.steamstatic.com/steam/apps/256864911/movie_max.mp4?t=1639450117",
-        "http://cdn.akamai.steamstatic.com/steam/apps/256842241/movie_max.mp4?t=1625828895",
-        "http://cdn.akamai.steamstatic.com/steam/apps/256814351/movie_max.mp4?t=1626232779",
-        "http://cdn.akamai.steamstatic.com/steam/apps/256805874/movie_max.mp4?t=1619690398",
-        "http://cdn.akamai.steamstatic.com/steam/apps/256793553/movie_max.mp4?t=1595992300",
-        "http://cdn.akamai.steamstatic.com/steam/apps/256782753/movie_max.mp4?t=1587538797",
-        "http://cdn.akamai.steamstatic.com/steam/apps/256773105/movie_max.mp4?t=1619690406",
-        "http://cdn.akamai.steamstatic.com/steam/apps/256774477/movie_max.mp4?t=1619690413",
-        "http://cdn.akamai.steamstatic.com/steam/apps/256774476/movie_max.mp4?t=1619690420",
-        "http://cdn.akamai.steamstatic.com/steam/apps/256774471/movie_max.mp4?t=1619690427",
-        "http://cdn.akamai.steamstatic.com/steam/apps/256774464/movie_max.mp4?t=1619690435",
-        "http://cdn.akamai.steamstatic.com/steam/apps/256757848/movie_max.mp4?t=1564606214",
-        "http://cdn.akamai.steamstatic.com/steam/apps/256720476/movie_max.mp4?t=1619690442"
-      ],
+      toShowGame: {
+        appId: 0,
+        title: 'PUBG:BATTLEGROUNDS',
+        releaseDate: '2017 年 12 月 21 日',
+        winSupport: false,
+        macSupport: false,
+        linuxSupport: false,
+        price: 0.00,
+        tags: {
+          "Survival": 14039,
+          "Shooter": 11849,
+          "Multiplayer": 10176,
+          "Battle Royale": 10065,
+          "FPS": 7776,
+
+        },
+        supportedLanguages: [],
+        website: '',
+        MainPictureSrc: 'https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469',
+        headerImage: '',
+        recommendations: 0,
+        positive: 0,
+        negative: 0,
+        estimatedOwners: 0,
+        pictures: [
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_e2cbfefdff39b9cb8e080da8f30cc07223b041b9.1920x1080.jpg?t=1658287469",
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_01d84950ddfb28ea611f1fa1a28c3cb08ccd7eee.1920x1080.jpg?t=1658287469",
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_606cee13e97530720c678513cb1138ef9854d7d5.1920x1080.jpg?t=1658287469",
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_4454f310776c626a76baeca2d05fd82bd17c6ee0.1920x1080.jpg?t=1658287469",
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_e34bcd20c7e3f5244c17b5af5d192b2149e11d33.1920x1080.jpg?t=1658287469",
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_0985fff929498a15793fc3df766607fb54bf5338.1920x1080.jpg?t=1658287469",
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_2db6a7b87ad61fbee74adcd2d7b03eee1a28743e.1920x1080.jpg?t=1658287469",
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_93e6e1fa807c3b3b09ce4e1e4800e7723dc308a1.1920x1080.jpg?t=1658287469",
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_c49417566f70eec8bf0ddbb2956b235d91504a09.1920x1080.jpg?t=1658287469",
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_de28db240ee8646b1dd883a141b4832271a150e7.1920x1080.jpg?t=1658287469",
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_11e51d12d854712ed7c83e69f1b21d246ab018b3.1920x1080.jpg?t=1658287469",
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_abadb3bfc951cd05150901ff65386e3129c6011a.1920x1080.jpg?t=1658287469",
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_cec7ea5e83407dba51c80d24a2c8076e93752d4f.1920x1080.jpg?t=1658287469",
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_8814c071f0cce53821d8e1b1a96de78d00e5d4d1.1920x1080.jpg?t=1658287469",
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_5fe3d8ce7e90442569fc676e2315fffdf81dd1a5.1920x1080.jpg?t=1658287469",
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_2b1f73afd6efb1952ee267e94f8bcc24ec5e8fb3.1920x1080.jpg?t=1658287469",
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_52773275afe4c34a84fbf38e9960a598a420b3c2.1920x1080.jpg?t=1658287469",
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_c98c609e2f07c80c8455624cc62696c9dde9ea73.1920x1080.jpg?t=1658287469",
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_07590e851053a453e09c7d6f272adf602c3f8ee8.1920x1080.jpg?t=1658287469",
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_56d29e4503ba1a74047feb55986c6bf4ca4297f9.1920x1080.jpg?t=1658287469",
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_f96bc802fb38617ce790c0950b87a7979f096025.1920x1080.jpg?t=1658287469",
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_23af2e59855a833c22d0c11ca23a719f54a554ff.1920x1080.jpg?t=1658287469",
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_108e2981889423b057b778cd07ae25ac18406cf1.1920x1080.jpg?t=1658287469",
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_a403a1f4071d36d42bea7a505089b56b570b2569.1920x1080.jpg?t=1658287469",
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_109d7072cf85f5b3b1e3dacadf3009718db451c4.1920x1080.jpg?t=1658287469",
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_e7e79847eff0933de92192bb62b8bc7068d611da.1920x1080.jpg?t=1658287469",
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_8112cd376568d9470c2edde841908fcdf46f1529.1920x1080.jpg?t=1658287469",
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_4bbcaeac1ef977d962c60c1a5e4675cdd81de564.1920x1080.jpg?t=1658287469",
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_88a8dff0756673179e190c2e16d090de63ecfb2e.1920x1080.jpg?t=1658287469",
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_29d0709711f3204e84b6f9d69f3be163ebe12486.1920x1080.jpg?t=1658287469",
+          "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_6595641da498162aedc71136a93feb5bcb1785d8.1920x1080.jpg?t=1658287469"
+        ],
+        movies: [
+          "http://cdn.akamai.steamstatic.com/steam/apps/256896251/movie_max.mp4?t=1657765655",
+          "http://cdn.akamai.steamstatic.com/steam/apps/256868780/movie_max.mp4?t=1641965538",
+          "http://cdn.akamai.steamstatic.com/steam/apps/256864911/movie_max.mp4?t=1639450117",
+          "http://cdn.akamai.steamstatic.com/steam/apps/256842241/movie_max.mp4?t=1625828895",
+          "http://cdn.akamai.steamstatic.com/steam/apps/256814351/movie_max.mp4?t=1626232779",
+          "http://cdn.akamai.steamstatic.com/steam/apps/256805874/movie_max.mp4?t=1619690398",
+          "http://cdn.akamai.steamstatic.com/steam/apps/256793553/movie_max.mp4?t=1595992300",
+          "http://cdn.akamai.steamstatic.com/steam/apps/256782753/movie_max.mp4?t=1587538797",
+          "http://cdn.akamai.steamstatic.com/steam/apps/256773105/movie_max.mp4?t=1619690406",
+          "http://cdn.akamai.steamstatic.com/steam/apps/256774477/movie_max.mp4?t=1619690413",
+          "http://cdn.akamai.steamstatic.com/steam/apps/256774476/movie_max.mp4?t=1619690420",
+          "http://cdn.akamai.steamstatic.com/steam/apps/256774471/movie_max.mp4?t=1619690427",
+          "http://cdn.akamai.steamstatic.com/steam/apps/256774464/movie_max.mp4?t=1619690435",
+          "http://cdn.akamai.steamstatic.com/steam/apps/256757848/movie_max.mp4?t=1564606214",
+          "http://cdn.akamai.steamstatic.com/steam/apps/256720476/movie_max.mp4?t=1619690442"
+        ],
+        description: "Play PUBG: BATTLEGROUNDS for free. Land on strategic locations, loot weapons and supplies, and survive to become the last team standing across various, diverse Battlegrounds. Squad up and join the Battlegrounds for the original Battle Royale experience that only PUBG: BATTLEGROUNDS can offer.",
+      },
+
       ToShowPicture: '',
       games: [
         {
@@ -173,7 +232,9 @@ export default {
       ]
     }
   },
-  computed: {},
+  computed: {
+
+  },
 
   methods: {
     changePicture(picture) {
@@ -259,7 +320,7 @@ export default {
     if (sessionStorage.getItem("games") != null) {
       this.games = JSON.parse(sessionStorage.getItem("games"));
     }
-    this.ToShowPicture = this.pictures[0];
+    this.ToShowPicture = this.toShowGame.pictures[0];
   }
 
 
@@ -283,7 +344,7 @@ export default {
 
   width: 80%;
   height: 100%;
-  padding: 1% 2% 3% 1%;
+  padding: 1% 2% 0% 1%;
   display: flex;
   background: #2c3e50;
   flex-direction: column;
@@ -305,7 +366,7 @@ export default {
 
 .advanced-options-card {
   width: 100%;
-  height: 30%;
+  height: 15%;
   border: none;
   margin-bottom: 3%;
   display: flex;
@@ -365,7 +426,7 @@ export default {
 /*****************     结果信息卡片     **************/
 .detailed-information-card {
   width: 100%;
-  height: 100%;
+  height: auto;
   display: flex;
   background: #2c3e50;
   border: none;
@@ -378,8 +439,6 @@ export default {
   height: auto;
   display: flex;
   flex-direction: column;
-
-
 }
 
 .head-picture {
@@ -403,7 +462,7 @@ export default {
 
 
 .detailed-information-container {
-  width:30%;
+  width: 30%;
   height: auto;
   padding-top: 0;
   padding-right: 0;
@@ -412,6 +471,30 @@ export default {
   flex-direction: column;
 }
 
+.Action-field-card{
+  width: 100%;
+  height: 4%;
+  background: #535bf2;
+  margin-top: 3px;
+  border:none;
+}
+
+.Action-field-card:deep(.el-card__body) {
+  padding: 0;
+}
+
+.Action-field-container{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.command-card{
+  width: 100%;
+  height:auto;
+  margin-top: 8px
+}
 .You-may-love-container {
   width: 60%;
   height: 100%;
