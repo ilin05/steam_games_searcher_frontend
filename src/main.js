@@ -5,6 +5,7 @@ import App from './App.vue'
 //导入自定义路由文件简写from './router'
 import router from './router/index.js';
 //全局导入element-plus
+
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import './assets/main.css'
