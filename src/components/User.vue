@@ -27,8 +27,6 @@
       </el-card>
 
 
-
-
       <el-card class="advanced-options-card">
 
         <el-container class="show-options-container">
@@ -53,7 +51,7 @@
 
             <img :src=ToShowPicture alt="Head Picture" class="head-picture">
 
-            <div style="display: flex; flex-direction: row;  overflow-x: auto;white-space: nowrap;margin-top: 5px">
+            <div style="display: flex; flex-direction: row;  overflow-x: auto;overflow-y:hidden;white-space: nowrap;margin-top: 5px">
               <div v-for="(picture,index) in toShowGame.pictures" :key="index"
                    style="display:inline-block;margin-right: 5px">
                 <img :src=picture class="single-picOrMovie-card" alt="Need pic" @click="changePicture(picture)">
@@ -75,14 +73,16 @@
               <p>
                 <span style="font-size: math;color:darkgray;">Release date</span>
                 <span
-                    style="font-size: math;color:cornflowerblue; margin-left: 30%">{{ this.toShowGame.releaseDate }}</span>
+                    style="font-size: math;color:cornflowerblue; margin-left: 30%">{{
+                    this.toShowGame.releaseDate
+                  }}</span>
               </p>
             </div>
             <div style="width:100%;">
               <p>
                 <span style="font-size: math;color:darkgray;">Good/bad review</span>
                 <span style="font-size: math;color:cornflowerblue; margin-left: 23%">
-               {{Math.round(100*this.toShowGame.positive/(this.toShowGame.negative+this.toShowGame.positive))}}% positive  </span>
+               {{ Math.round(100 * this.toShowGame.positive / (this.toShowGame.negative + this.toShowGame.positive)) }}% positive  </span>
               </p>
             </div>
 
@@ -100,10 +100,13 @@
 
       <el-card class="Action-field-card">
         <el-container class="Action-field-container">
-          <div style="color: gainsboro;font-size: 20px;margin-top: 0.5%;margin-left: 1%">更多搜索相关</div>
-          <el-button style="margin-top: 0.5%;margin-left: 70%;height: 3vh " @click="ShowMoreInfomation">查看更多信息</el-button>
-          <el-button v-if="!isLoved" style="margin-top: 0.5%;margin-left:1%;height: 3vh" @click="toggleLove">收藏</el-button>
-          <el-button v-if="isLoved" style="margin-top: 0.5%;margin-left:1%;height:3vh " @click="toggleLove">移出收藏</el-button>
+          <div style="color: gainsboro;font-size: 150%;margin-top: 0.5%;margin-left: 1%">更多搜索相关</div>
+          <el-button style="margin-top: 0.5%;margin-left: 68%;height: 3vh " @click="ShowMoreInfomation">查看更多信息
+          </el-button>
+          <el-button v-if="!isLoved" style="margin-top: 0.5%;margin-left:1%;height: 3vh" @click="toggleLove">收藏
+          </el-button>
+          <el-button v-if="isLoved" style="margin-top: 0.5%;margin-left:1%;height:3vh " @click="toggleLove">移出收藏
+          </el-button>
         </el-container>
 
       </el-card>
@@ -112,7 +115,7 @@
         <el-container class="search-related-container">
           <div v-for="(game,index) in games" key="game.appId">
             <div style="width:auto;height: 22vh;margin-right: 4%">
-              <preCard :imageUrl="game.MainPictureSrc" v-if="index>0"  @update-showGame="updateShowGame(game)"></preCard>
+              <preCard :imageUrl="game.MainPictureSrc" v-if="index>0" @update-showGame="updateShowGame(game)"></preCard>
             </div>
           </div>
         </el-container>
@@ -121,62 +124,65 @@
     </el-container>
 
 
-    <el-container class="love-command-user-container">
-      <el-card class="user-love-card">
-        <el-container class="user-love-header-container">
-          <div style="color: gainsboro;font-size: 150%;margin-left: 1%">用户个人收藏</div>
-          <div style="margin-left: 69%">
-          <el-button v-if="expanded.isFavoritesExpanded" @click="">展开
-            <el-icon><Download /></el-icon>
-          </el-button>
-            <el-button v-if="!expanded.isFavoritesExpanded">收起
-              <el-icon><Upload /></el-icon>
-            </el-button>
+    <el-container class="user-love-command-container">
 
+      <div v-show="this.expandedNum === 0" style="width: 100%;height: 100%;">
 
-          </div>
-
-
-
-        </el-container>
-
-
-
-        <el-container class="user-love-preCard-container">
-          <div v-for="(game,index) in favoriteGames" key="game.appId">
-            <div style="width:18vw;height: 15vh;margin-left:0.5%;margin-top:1%;margin-bottom: 2%">
-              <preCard :imageUrl="game.MainPictureSrc"  @update-showGame="ShowFavoriteGame(game)"></preCard>
+        <el-card class="user-information-card">
+          <el-container class="user-information-head-container">
+            <div style="color: gainsboro;font-size: 150%;width: 10vw">用户个人信息</div>
+            <div style="margin-left: 63%;">
+              <el-button style="background-color: lightblue;" @click="handleExpanded(1)">
+                <el-icon style="font-size: 200%"><Download/></el-icon>
+              </el-button>
             </div>
-          </div>
-        </el-container>
-
-      </el-card>
-      <el-card class="user-command-card">
-        <el-container class="user-command-head-container">
+          </el-container>
 
 
+          <el-container class="user-information-body-container">
+
+          </el-container>
+
+        </el-card>
+        <el-card class="user-love-card">
+          <el-container class="user-love-head-container">
+            <div style="color:gainsboro;font-size:150%;width: 10vw">您的收藏</div>
+            <div style="margin-left: 63%;">
+              <el-button style="background-color:lightblue" @click="handleExpanded(1)">
+                <el-icon style="font-size: 200%;"><FullScreen /></el-icon>
+              </el-button>
+            </div>
 
 
-        </el-container>
-        <el-container class="user-command-preCard-container">
+          </el-container>
+          <el-container class="user-love-preCard-container">
+            <div v-for="(game,index) in favoriteGames" key="game.appId" >
+              <div style="width:18vw;height: 15vh;margin-left:0.5%;margin-top:1%;margin-bottom: 4%">
+                <preCard :imageUrl="game.MainPictureSrc" @update-showGame="ShowFavoriteGame(game)"></preCard>
+              </div>
+            </div>
+          </el-container>
 
-        </el-container>
-
-      </el-card>
-
-
-      <el-card class="user-information-card">
-        <el-container class="user-information-head-container">
-
-
-        </el-container>
-
-        <el-container class="user-information-body-container">
-
-        </el-container>
+        </el-card>
 
 
-      </el-card>
+        <el-card class="user-command-card">
+          <el-container class="user-command-head-container">
+
+
+          </el-container>
+
+          <el-container class="user-command-preCard-container">
+
+          </el-container>
+
+
+        </el-card>
+      </div>
+
+
+
+
     </el-container>
 
   </el-container>
@@ -188,29 +194,25 @@ import axios from 'axios';
 import gamesData from '@/assets/newgames.json';
 import {ElMessage, ElButton, ElIcon} from "element-plus";
 import PreCard from "@/components/preCard.vue";
-import {Download, Upload} from "@element-plus/icons-vue";
+import {Download, FullScreen, Upload} from "@element-plus/icons-vue";
 
 export default {
-  components: {Upload, Download, PreCard},
+  components: {FullScreen, Upload, Download, PreCard},
 
   data() {
     return {
       firstLoaded: true,
-      favoriteGames:[
+      favoriteGames: [
         {
-          appId:0,
-          MainPictureSrc:'https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469',
+          appId: 0,
+          MainPictureSrc: 'https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469',
         },
         {
-          appId:1,
-          MainPictureSrc:'https://cdn.akamai.steamstatic.com/steam/apps/255710/header.jpg?t=1654076112',
+          appId: 1,
+          MainPictureSrc: 'https://cdn.akamai.steamstatic.com/steam/apps/255710/header.jpg?t=1654076112',
         }
       ],
-      expanded:{
-        isFavoritesExpanded:false,
-        isCommandExpanded:false,
-        isInformationExpanded:false,
-      },
+      expandedNum:0,
       query: '',
       showOptions: false,
       suggestions: [{"name": "Game A", "estimated_owners": "20000"},],
@@ -387,7 +389,8 @@ export default {
             "Action RPG": 7211,
             "Action": 6779,
             "RPG": 6111,
-            "Souls-like": 5973,},
+            "Souls-like": 5973,
+          },
           supportedLanguages: [],
 
           MainPictureSrc: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2358720/header.jpg?t=1725007201',
@@ -409,7 +412,6 @@ export default {
         },
 
 
-
       ]
     }
   },
@@ -421,18 +423,19 @@ export default {
   },
 
   methods: {
-    ShowFavoriteGame(appId)
+    handleExpanded(num)
     {
+      this.expandedNum = num;
+    },
+    ShowFavoriteGame(appId) {
       axios.post("/user/GetFavoriteGame", {
         appId: appId,
-        userId:sessionStorage.getItem("token"),
+        userId: sessionStorage.getItem("token"),
       })
           .then((response) => {
-            if(respnse.data.code === 1){
+            if (respnse.data.code === 1) {
 
-            }
-            else
-            {
+            } else {
               ElMessage.error("打开收藏失败")
             }
           })
@@ -471,8 +474,8 @@ export default {
     addLove() {
 
       let temp = {
-        appId:this.toShowGame.appId,
-        MainPictureSrc:this.toShowGame.MainPictureSrc
+        appId: this.toShowGame.appId,
+        MainPictureSrc: this.toShowGame.MainPictureSrc
       }
       this.favoriteGames.push(temp);
 
@@ -731,7 +734,7 @@ export default {
 .Action-field-card {
   width: 100%;
   height: 4%;
-  background:darkslategray;
+  background: darkslategray;
   margin-top: 5px;
   margin-bottom: 3px;
   border: none;
@@ -765,7 +768,7 @@ export default {
 
 }
 
-.love-command-user-container {
+.user-love-command-container {
   width: 55%;
   height: 100%;
   padding-right: 1%;
@@ -776,35 +779,69 @@ export default {
   flex-direction: column;
   background: #213547;
 }
-.user-love-card{
+.user-information-card {
+   width: 100%;
+   height: 30%;
+   border: none;
+   border-radius: 10px;
+   display: flex;
+  flex-direction: column;
+  background: #2c3e50;
+ }
+.user-information-head-container {
   width: 100%;
-  height:25%;
+  height:30%;
+  display:flex;
+  flex-direction: row;
+}
+.user-information-body-container{
+  width: 100%;
+  height: 70%;
+  margin-top:0;
+}
+.user-love-card {
+  width: 100%;
+  height: 25%;
+  margin-top:1% ;
   border: none;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   background: #2c3e50;
 }
-.user-love-header-container{
-  width:100%;
+
+.user-love-head-container {
+  width: 100%;
   height: 20%;
   display: flex;
   flex-direction: row;
+  margin-right: 0;
 
 }
-.user-love-preCard-container{
-  display: flex;
-  flex-wrap:nowrap;
-  overflow-x: auto ;
-  overflow-y:hidden;
-  gap:3%;
-}
-.user-command-card{
+
+.user-love-preCard-container {
   width: 100%;
-  height: 40%;
-  border: none;
-  border-radius: 10px;
+
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow-x:auto ;
+  overflow-y: hidden;
+  gap: 2.6%;
+}
+.user-command-card {
+  width: 100%;
+  height: 43%;
+  margin-top:1% ;
+  background: #2c3e50;
+  border-radius: 10px;
+  border: none;
+}
+.user-command-head-container {
+
+}
+.user-command-preCard-container{
+
 }
 
 .videoContainer {
