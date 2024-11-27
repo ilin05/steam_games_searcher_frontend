@@ -26,6 +26,9 @@
         </ul>
       </el-card>
 
+
+
+
       <el-card class="advanced-options-card">
 
         <el-container class="show-options-container">
@@ -97,16 +100,16 @@
 
       <el-card class="Action-field-card">
         <el-container class="Action-field-container">
-          <div style="color: gainsboro;font-size: 20px;margin-top: 1%;margin-left: 1%">更多相关推荐</div>
-          <el-button style="margin-top: 1%;margin-left: 70% "@click="ShowMoreInfomation">查看更多信息</el-button>
-          <el-button v-if="!isLoved" style="margin-top: 1%;margin-left:1%" @click="toggleLove">收藏</el-button>
-          <el-button v-if="isLoved" style="margin-top: 1%;margin-left:1% " @click="toggleLove">移出收藏</el-button>
+          <div style="color: gainsboro;font-size: 20px;margin-top: 0.5%;margin-left: 1%">更多搜索相关</div>
+          <el-button style="margin-top: 0.5%;margin-left: 70%;height: 3vh " @click="ShowMoreInfomation">查看更多信息</el-button>
+          <el-button v-if="!isLoved" style="margin-top: 0.5%;margin-left:1%;height: 3vh" @click="toggleLove">收藏</el-button>
+          <el-button v-if="isLoved" style="margin-top: 0.5%;margin-left:1%;height:3vh " @click="toggleLove">移出收藏</el-button>
         </el-container>
 
       </el-card>
 
-      <el-card class="command-card">
-        <el-container class="command-container">
+      <el-card class="search-related-card">
+        <el-container class="search-related-container">
           <div v-for="(game,index) in games" key="game.appId">
             <div style="width:auto;height: 22vh;margin-right: 4%">
               <preCard :imageUrl="game.MainPictureSrc" v-if="index>0"  @update-showGame="updateShowGame(game)"></preCard>
@@ -115,21 +118,63 @@
         </el-container>
 
       </el-card>
-
-
     </el-container>
 
 
-    <el-container class="user-love-container">
+    <el-container class="love-command-user-container">
       <el-card class="user-love-card">
+        <el-container class="user-love-header-container">
+          <div style="color: gainsboro;font-size: 150%;margin-left: 1%">用户个人收藏</div>
+          <div style="margin-left: 69%">
+          <el-button v-if="expanded.isFavoritesExpanded" @click="">展开
+            <el-icon><Download /></el-icon>
+          </el-button>
+            <el-button v-if="!expanded.isFavoritesExpanded">收起
+              <el-icon><Upload /></el-icon>
+            </el-button>
+
+
+          </div>
+
+
+
+        </el-container>
+
+
 
         <el-container class="user-love-preCard-container">
           <div v-for="(game,index) in favoriteGames" key="game.appId">
-            <div style="width:auto;height: 15vh;margin-left: 5%;margin-top:2%">
+            <div style="width:18vw;height: 15vh;margin-left:0.5%;margin-top:1%;margin-bottom: 2%">
               <preCard :imageUrl="game.MainPictureSrc"  @update-showGame="ShowFavoriteGame(game)"></preCard>
             </div>
           </div>
         </el-container>
+
+      </el-card>
+      <el-card class="user-command-card">
+        <el-container class="user-command-head-container">
+
+
+
+
+        </el-container>
+        <el-container class="user-command-preCard-container">
+
+        </el-container>
+
+      </el-card>
+
+
+      <el-card class="user-information-card">
+        <el-container class="user-information-head-container">
+
+
+        </el-container>
+
+        <el-container class="user-information-body-container">
+
+        </el-container>
+
 
       </el-card>
     </el-container>
@@ -143,9 +188,10 @@ import axios from 'axios';
 import gamesData from '@/assets/newgames.json';
 import {ElMessage, ElButton, ElIcon} from "element-plus";
 import PreCard from "@/components/preCard.vue";
+import {Download, Upload} from "@element-plus/icons-vue";
 
 export default {
-  components: {PreCard},
+  components: {Upload, Download, PreCard},
 
   data() {
     return {
@@ -160,6 +206,11 @@ export default {
           MainPictureSrc:'https://cdn.akamai.steamstatic.com/steam/apps/255710/header.jpg?t=1654076112',
         }
       ],
+      expanded:{
+        isFavoritesExpanded:false,
+        isCommandExpanded:false,
+        isInformationExpanded:false,
+      },
       query: '',
       showOptions: false,
       suggestions: [{"name": "Game A", "estimated_owners": "20000"},],
@@ -407,7 +458,7 @@ export default {
       this.favoriteGames = temp;
 
 
-      axios.post("/user/deleteLove", {appId: this.toShowGame.appId, userId: sessionStorage.getItem("token")})
+      axios.post("/user/deleteFavorites", {appId: this.toShowGame.appId, userId: sessionStorage.getItem("token")})
           .then(response => {
             if (response.data.code === 1) {
               ElMessage.success("更改成功");
@@ -426,7 +477,7 @@ export default {
       this.favoriteGames.push(temp);
 
 
-      axios.post("/user/addLove", {appId: this.toShowGame.appId, userId: sessionStorage.getItem("token")})
+      axios.post("/user/addFavorites", {appId: this.toShowGame.appId, userId: sessionStorage.getItem("token")})
           .then(response => {
             if (response.data.code === 1) {
               ElMessage.success("更改成功");
@@ -697,16 +748,16 @@ export default {
   flex-direction: row;
 }
 
-.command-card {
+.search-related-card {
   width: 100%;
   height: 26%;
-  margin-top: 8px;
+  margin-top: 0.5%;
   background: #2c3e50;
   border: none;
   border-radius: 10px;
 }
 
-.command-container {
+.search-related-container {
   width: 100%;
   height: 100%;
   display: flex;
@@ -714,7 +765,7 @@ export default {
 
 }
 
-.user-love-container {
+.love-command-user-container {
   width: 55%;
   height: 100%;
   padding-right: 1%;
@@ -722,21 +773,38 @@ export default {
   padding-bottom: 0.5%;
   border: none;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   background: #213547;
 }
 .user-love-card{
   width: 100%;
-  height:100%;
+  height:25%;
   border: none;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   background: #2c3e50;
 }
+.user-love-header-container{
+  width:100%;
+  height: 20%;
+  display: flex;
+  flex-direction: row;
+
+}
 .user-love-preCard-container{
   display: flex;
-  flex-wrap: wrap; /* 允许换行 */
+  flex-wrap:nowrap;
+  overflow-x: auto ;
+  overflow-y:hidden;
+  gap:3%;
+}
+.user-command-card{
+  width: 100%;
+  height: 40%;
+  border: none;
+  border-radius: 10px;
+  display: flex;
 }
 
 .videoContainer {
@@ -833,7 +901,7 @@ export default {
 
 ::-webkit-scrollbar {
   width: 6px; /* 对垂直滚动条有效 */
-  height: 6px; /* 对水平滚动条有效 */
+  height: 10px; /* 对水平滚动条有效 */
 }
 
 /* 定义滚动条的轨道颜色、内阴影及圆角 */
