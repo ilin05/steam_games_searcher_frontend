@@ -146,7 +146,7 @@
         </el-card>
         <el-card class="user-love-card">
           <el-container class="user-love-head-container">
-            <div style="color:gainsboro;font-size:150%;width: 10vw">您的收藏</div>
+            <div style="color:gainsboro;font-size:150%;width: 10vw">用户收藏</div>
             <div style="margin-left: 63%;">
               <el-button style="background-color:lightblue" @click="handleExpanded(1)">
                 <el-icon style="font-size: 200%;"><FullScreen /></el-icon>
