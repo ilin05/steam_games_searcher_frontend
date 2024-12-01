@@ -315,6 +315,17 @@
                   </span>
                 </p>
               </div>
+              <!--支持语言-->
+              <div style="width:100%; margin-top: 10px;">
+                <p>
+                  <span style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Support_language</span>
+                  <span style="font-size: 18px; color: cornflowerblue;" v-for="(dev, index) in toShowGame.supported_languages" :key="dev">
+                    <!-- 在第一个开发者之前添加一段距离 -->
+                    <span v-if="index === 0" style="margin-left: 20px;"></span>
+                    &lt;{{ dev }}&gt;
+                  </span>
+                </p>
+              </div>
               <!--游戏类别-->
               <div style="width:100%; margin-top: 10px;">
                 <p>
