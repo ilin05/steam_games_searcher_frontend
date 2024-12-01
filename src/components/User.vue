@@ -193,110 +193,138 @@
           游戏详细信息
         </div>
         <el-card class="detailed-information-card">
-
-
-          <el-container style="display: flex;flex-direction: row;">
-            <el-container class="head-picture-container">
-
-              <img :src=ToShowPicture alt="Head Picture" class="head-picture">
-
-              <div style="display: flex; flex-direction: row;  overflow-x: auto;overflow-y:hidden;white-space: nowrap;margin-top: 5px">
-                <div v-for="(picture,index) in toShowGame.pictures" :key="index"
-                     style="display:inline-block;margin-right: 5px">
-                  <img :src=picture class="single-picOrMovie-card" alt="Need pic" @click="changePicture(picture)">
-                </div>
-              </div>
-
-            </el-container>
-
+          <el-container style="display: flex;flex-direction: row; height: 600px">
             <el-container class="detailed-information-container ">
               <!--游戏主图-->
-              <img :src="toShowGame.MainPictureSrc" alt="Main Picture" class="main-picture">
+              <img :src="toShowGame.MainPictureSrc" alt="Main Picture" width="100%" height="80%">
               <!--描述-->
               <div
                   style="width:100%;margin-top:5px;color: gainsboro;font-size: large;word-wrap: break-word;word-break: break-all;overflow: hidden;">
                 <p> {{ toShowGame.description }}</p></div>
-              <!--标题-->
-              <div
-                  style="width: 100%;margin-top: 3px;margin-bottom:3px;text-align: center;color:deepskyblue;font-size:2em;font-weight: 300;">
-                <p> {{ toShowGame.title }} </p></div>
-              <!--发行时间-->
-              <div style="width:100%;">
-                <p>
-                  <span style="font-size: math;color:darkgray;">Release date</span>
-                  <span
-                      style="font-size: math;color:cornflowerblue; margin-left: 30%">{{
-                      this.toShowGame.releaseDate
-                    }}</span>
-                </p>
-              </div>
-              <!--好评率-->
-              <div style="width:100%;">
-                <p>
-                  <span style="font-size: math;color:darkgray;">Good/bad review</span>
-                  <span style="font-size: math;color:cornflowerblue; margin-left: 23%">
-               {{ Math.round(100 * this.toShowGame.positive / (this.toShowGame.negative + this.toShowGame.positive)) }}% positive  </span>
-                </p>
-              </div>
-              <!--价格-->
-              <div style="width:100%;">
-                <p>
-                  <span style="font-size: math;color:darkgray;">Price</span>
-                  <span
-                      style="font-size: math;color:cornflowerblue; margin-left: 30%">{{
-                      this.toShowGame.price
-                    }}</span>
-                </p>
-              </div>
-              <!--支持系统-->
-              <div style="width:100%;">
-                <p>
-                  <span style="font-size: math;color:darkgray;">Support_OS</span>
-                  <span
-                      v-if="this.toShowGame.winSupport === true & this.toShowGame.macSupport === false & this.toShowGame.linuxSupport === false" style="font-size: math;color:cornflowerblue; margin-left: 30%">
-                    Windows
-                  </span>
-                  <span
-                      v-if="this.toShowGame.winSupport === false & this.toShowGame.macSupport === true & this.toShowGame.linuxSupport === false" style="font-size: math;color:cornflowerblue; margin-left: 30%">
-                    Mac
-                  </span>
-                  <span
-                      v-if="this.toShowGame.winSupport === false & this.toShowGame.macSupport === false & this.toShowGame.linuxSupport === true" style="font-size: math;color:cornflowerblue; margin-left: 30%">
-                    Linux
-                  </span>
-                  <span
-                      v-if="this.toShowGame.winSupport === true & this.toShowGame.macSupport === true & this.toShowGame.linuxSupport === false" style="font-size: math;color:cornflowerblue; margin-left: 30%">
-                    Windows、Mac
-                  </span>
-                  <span
-                      v-if="this.toShowGame.winSupport === false & this.toShowGame.macSupport === true & this.toShowGame.linuxSupport === true" style="font-size: math;color:cornflowerblue; margin-left: 30%">
-                    Mac、Linux
-                  </span>
-                  <span
-                      v-if="this.toShowGame.winSupport === true & this.toShowGame.macSupport === false & this.toShowGame.linuxSupport === true" style="font-size: math;color:cornflowerblue; margin-left: 30%">
-                    Windows、Linux
-                  </span>
-                  <span
-                      v-if="this.toShowGame.winSupport === true & this.toShowGame.macSupport === true & this.toShowGame.linuxSupport === true" style="font-size: math;color:cornflowerblue; margin-left: 30%">
-                    Windows、Mac、Linux
-                  </span>
-                </p>
-              </div>
-              <!--价格-->
-              <div style="width:100%;">
-                <p>
-                  <span style="font-size: math;color:darkgray;">Price</span>
-                  <span
-                      style="font-size: math;color:cornflowerblue; margin-left: 30%">{{
-                      this.toShowGame.price
-                    }}</span>
-                </p>
-              </div>
               <!--标签-->
               <div style="display: flex; flex-direction: row;overflow: hidden;margin-top: 4%;">
                 <div v-for="(count,tag) in this.toShowGame.tags" :key="tag">
                   <el-tag style="margin-left: 2px;font-size: 13px;color: #2c3e50"> {{ tag }}</el-tag>
                 </div>
+              </div>
+
+            </el-container>
+            <el-container class="detailed-information-container">
+              <!--标题-->
+              <div
+                  style="width: 100%;margin-top: 3px;margin-bottom:3px;text-align: center;color:deepskyblue;font-size:2em;font-weight: 300;">
+                <p> {{ toShowGame.title }} </p></div>
+              <!--发行时间-->
+              <div style="width:100%; margin-top: 10px;">
+                <p>
+                  <span style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Release date</span>
+                  <span style="font-size: 18px; color: cornflowerblue; margin-left: 20px;">
+                    {{ this.toShowGame.releaseDate }}
+                  </span>
+                </p>
+              </div>
+              <!--好评率-->
+              <div style="width:100%; margin-top: 10px; ">
+                <p>
+                  <span style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Good/bad review</span>
+                  <span style="font-size: 18px; color: cornflowerblue; margin-left: 20px;">
+                    {{ Math.round(100 * this.toShowGame.positive / (this.toShowGame.negative + this.toShowGame.positive)) }}% positive
+                  </span>
+                </p>
+              </div>
+              <!--价格-->
+              <div style="width:100%; margin-top: 10px;">
+                <p>
+                  <span style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Price</span>
+                  <span style="font-size: 18px; color: cornflowerblue; margin-left: 20px;">
+                    {{ this.toShowGame.price }}
+                  </span>
+                </p>
+              </div>
+              <!--支持系统-->
+              <div style="width:100%; margin-top: 10px;">
+                <p>
+                  <span style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Support_OS</span>
+                  <span style="font-size: 18px; color: cornflowerblue; margin-left: 20px;">
+                  <span
+                      v-if="this.toShowGame.winSupport === true & this.toShowGame.macSupport === false & this.toShowGame.linuxSupport === false" >
+                    Windows
+                  </span>
+                  <span
+                      v-if="this.toShowGame.winSupport === false & this.toShowGame.macSupport === true & this.toShowGame.linuxSupport === false">
+                    Mac
+                  </span>
+                  <span
+                      v-if="this.toShowGame.winSupport === false & this.toShowGame.macSupport === false & this.toShowGame.linuxSupport === true">
+                    Linux
+                  </span>
+                  <span
+                      v-if="this.toShowGame.winSupport === true & this.toShowGame.macSupport === true & this.toShowGame.linuxSupport === false">
+                    Windows、Mac
+                  </span>
+                  <span
+                      v-if="this.toShowGame.winSupport === false & this.toShowGame.macSupport === true & this.toShowGame.linuxSupport === true">
+                    Mac、Linux
+                  </span>
+                  <span
+                      v-if="this.toShowGame.winSupport === true & this.toShowGame.macSupport === false & this.toShowGame.linuxSupport === true" >
+                    Windows、Linux
+                  </span>
+                  <span
+                      v-if="this.toShowGame.winSupport === true & this.toShowGame.macSupport === true & this.toShowGame.linuxSupport === true" >
+                    Windows、Mac、Linux
+                  </span>
+                  </span>
+                </p>
+              </div>
+              <!--官方网站-->
+              <div style="width:100%; margin-top: 10px;">
+                <p>
+                  <span style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">WebSite</span>
+                  <el-link :href="this.toShowGame.website" style="font-size: 18px; color: cornflowerblue; margin-left: 20px;">
+                    {{ this.toShowGame.website }}
+                  </el-link>
+                </p>
+              </div>
+              <!--游戏外平台-->
+              <div style="width:100%; margin-top: 10px;">
+                <p>
+                  <span style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Support_platform</span>
+                  <el-link :href="this.toShowGame.support_url" style="font-size: 18px; color: cornflowerblue; margin-left: 20px;">{{this.toShowGame.support_url}}</el-link>
+                </p>
+              </div>
+              <!--开发者-->
+              <div style="width:100%; margin-top: 10px;">
+                <p>
+                  <span style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Developer</span>
+                  <span style="font-size: 18px; color: cornflowerblue;" v-for="(dev, index) in toShowGame.developers" :key="dev">
+                    <!-- 在第一个开发者之前添加一段距离 -->
+                    <span v-if="index === 0" style="margin-left: 20px;"></span>
+                    &lt;{{ dev }}&gt;
+                  </span>
+                </p>
+              </div>
+              <!--发行者-->
+              <div style="width:100%; margin-top: 10px;">
+                <p>
+                  <span style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Publisher</span>
+                  <span style="font-size: 18px; color: cornflowerblue;" v-for="(dev, index) in toShowGame.publishers" :key="dev">
+                    <!-- 在第一个开发者之前添加一段距离 -->
+                    <span v-if="index === 0" style="margin-left: 20px;"></span>
+                    &lt;{{ dev }}&gt;
+                  </span>
+                </p>
+              </div>
+              <!--游戏类别-->
+              <div style="width:100%; margin-top: 10px;">
+                <p>
+                  <span style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Genres</span>
+                  <span style="font-size: 18px; color: cornflowerblue;" v-for="(dev, index) in toShowGame.genres" :key="dev">
+                    <!-- 在第一个开发者之前添加一段距离 -->
+                    <span v-if="index === 0" style="margin-left: 20px;"></span>
+                    <el-tag style="margin-left: 2px;font-size: 13px;color: #2c3e50"> {{ dev }}</el-tag>
+                  </span>
+                </p>
               </div>
 
             </el-container>
@@ -308,8 +336,6 @@
           <el-button @click="dialog1 = false" style="width: 100px">关闭</el-button>
         </div>
       </el-dialog>
-
-
     </el-container>
 
 
@@ -450,7 +476,8 @@ export default {
             "Ukrainian"
           ],
           developers: [
-            "KRAFTON, Inc."
+            "KRAFTON, Inc.",
+              "dfwefwe"
           ],
           publishers: [
             "KRAFTON, Inc."
@@ -948,6 +975,15 @@ export default {
 .detailed-information-card {
   width: 100%;
   height: auto;
+  display: flex;
+  background: #2c3e50;
+  border: none;
+  flex-direction: row;
+}
+
+.detailed-information-card-for-dialog {
+  width: 60%;
+  height: 100%;
   display: flex;
   background: #2c3e50;
   border: none;
