@@ -180,10 +180,138 @@
         </el-card>
       </div>
 
+      <el-dialog
+          v-model="dialog1"
+          width="80%"
+          height="200%"
+          :show-close="false"
+          :close-on-click-modal="false"
+          :close-on-press-escape="false"
+          style="background-color: #cccccc"
+      >
+        <div slot="title" style="font-weight: bold; font-size: 24px; text-align: center; color: #333; margin-bottom: 20px">
+          游戏详细信息
+        </div>
+        <el-card class="detailed-information-card">
 
+
+          <el-container style="display: flex;flex-direction: row;">
+            <el-container class="head-picture-container">
+
+              <img :src=ToShowPicture alt="Head Picture" class="head-picture">
+
+              <div style="display: flex; flex-direction: row;  overflow-x: auto;overflow-y:hidden;white-space: nowrap;margin-top: 5px">
+                <div v-for="(picture,index) in toShowGame.pictures" :key="index"
+                     style="display:inline-block;margin-right: 5px">
+                  <img :src=picture class="single-picOrMovie-card" alt="Need pic" @click="changePicture(picture)">
+                </div>
+              </div>
+
+            </el-container>
+
+            <el-container class="detailed-information-container ">
+              <!--游戏主图-->
+              <img :src="toShowGame.MainPictureSrc" alt="Main Picture" class="main-picture">
+              <!--描述-->
+              <div
+                  style="width:100%;margin-top:5px;color: gainsboro;font-size: large;word-wrap: break-word;word-break: break-all;overflow: hidden;">
+                <p> {{ toShowGame.description }}</p></div>
+              <!--标题-->
+              <div
+                  style="width: 100%;margin-top: 3px;margin-bottom:3px;text-align: center;color:deepskyblue;font-size:2em;font-weight: 300;">
+                <p> {{ toShowGame.title }} </p></div>
+              <!--发行时间-->
+              <div style="width:100%;">
+                <p>
+                  <span style="font-size: math;color:darkgray;">Release date</span>
+                  <span
+                      style="font-size: math;color:cornflowerblue; margin-left: 30%">{{
+                      this.toShowGame.releaseDate
+                    }}</span>
+                </p>
+              </div>
+              <!--好评率-->
+              <div style="width:100%;">
+                <p>
+                  <span style="font-size: math;color:darkgray;">Good/bad review</span>
+                  <span style="font-size: math;color:cornflowerblue; margin-left: 23%">
+               {{ Math.round(100 * this.toShowGame.positive / (this.toShowGame.negative + this.toShowGame.positive)) }}% positive  </span>
+                </p>
+              </div>
+              <!--价格-->
+              <div style="width:100%;">
+                <p>
+                  <span style="font-size: math;color:darkgray;">Price</span>
+                  <span
+                      style="font-size: math;color:cornflowerblue; margin-left: 30%">{{
+                      this.toShowGame.price
+                    }}</span>
+                </p>
+              </div>
+              <!--支持系统-->
+              <div style="width:100%;">
+                <p>
+                  <span style="font-size: math;color:darkgray;">Support_OS</span>
+                  <span
+                      v-if="this.toShowGame.winSupport === true & this.toShowGame.macSupport === false & this.toShowGame.linuxSupport === false" style="font-size: math;color:cornflowerblue; margin-left: 30%">
+                    Windows
+                  </span>
+                  <span
+                      v-if="this.toShowGame.winSupport === false & this.toShowGame.macSupport === true & this.toShowGame.linuxSupport === false" style="font-size: math;color:cornflowerblue; margin-left: 30%">
+                    Mac
+                  </span>
+                  <span
+                      v-if="this.toShowGame.winSupport === false & this.toShowGame.macSupport === false & this.toShowGame.linuxSupport === true" style="font-size: math;color:cornflowerblue; margin-left: 30%">
+                    Linux
+                  </span>
+                  <span
+                      v-if="this.toShowGame.winSupport === true & this.toShowGame.macSupport === true & this.toShowGame.linuxSupport === false" style="font-size: math;color:cornflowerblue; margin-left: 30%">
+                    Windows、Mac
+                  </span>
+                  <span
+                      v-if="this.toShowGame.winSupport === false & this.toShowGame.macSupport === true & this.toShowGame.linuxSupport === true" style="font-size: math;color:cornflowerblue; margin-left: 30%">
+                    Mac、Linux
+                  </span>
+                  <span
+                      v-if="this.toShowGame.winSupport === true & this.toShowGame.macSupport === false & this.toShowGame.linuxSupport === true" style="font-size: math;color:cornflowerblue; margin-left: 30%">
+                    Windows、Linux
+                  </span>
+                  <span
+                      v-if="this.toShowGame.winSupport === true & this.toShowGame.macSupport === true & this.toShowGame.linuxSupport === true" style="font-size: math;color:cornflowerblue; margin-left: 30%">
+                    Windows、Mac、Linux
+                  </span>
+                </p>
+              </div>
+              <!--价格-->
+              <div style="width:100%;">
+                <p>
+                  <span style="font-size: math;color:darkgray;">Price</span>
+                  <span
+                      style="font-size: math;color:cornflowerblue; margin-left: 30%">{{
+                      this.toShowGame.price
+                    }}</span>
+                </p>
+              </div>
+              <!--标签-->
+              <div style="display: flex; flex-direction: row;overflow: hidden;margin-top: 4%;">
+                <div v-for="(count,tag) in this.toShowGame.tags" :key="tag">
+                  <el-tag style="margin-left: 2px;font-size: 13px;color: #2c3e50"> {{ tag }}</el-tag>
+                </div>
+              </div>
+
+            </el-container>
+
+
+          </el-container>
+        </el-card>
+        <div style="display: flex; justify-content: flex-end; margin-top: 50px">
+          <el-button @click="dialog1 = false" style="width: 100px">关闭</el-button>
+        </div>
+      </el-dialog>
 
 
     </el-container>
+
 
   </el-container>
 </template>
@@ -201,6 +329,7 @@ export default {
 
   data() {
     return {
+      dialog1:false,
       firstLoaded: true,
       favoriteGames: [
         {
@@ -234,6 +363,13 @@ export default {
         positive: 0,
         negative: 0,
         pictures: [],
+        website: "http://www.pubg.com",
+        support_url: "https://support.playbattlegrounds.com",
+        supported_languages: [],
+        developers: [],
+        publishers: [],
+        categories: [],
+        genres: [],
         description: "",
       },
 
@@ -243,7 +379,7 @@ export default {
           appId: 0,
           title: 'PUBG:BATTLEGROUNDS',
           releaseDate: '2017 年 12 月 21 日',
-          winSupport: false,
+          winSupport: true,
           macSupport: false,
           linuxSupport: false,
           price: 0.00,
@@ -291,6 +427,47 @@ export default {
             "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_88a8dff0756673179e190c2e16d090de63ecfb2e.1920x1080.jpg?t=1658287469",
             "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_29d0709711f3204e84b6f9d69f3be163ebe12486.1920x1080.jpg?t=1658287469",
             "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_6595641da498162aedc71136a93feb5bcb1785d8.1920x1080.jpg?t=1658287469"
+          ],
+          website: "http://www.pubg.com",
+          support_url: "https://support.playbattlegrounds.com",
+          supported_languages: [
+            "English",
+            "Korean",
+            "Simplified Chinese",
+            "French",
+            "German",
+            "Spanish - Spain",
+            "Arabic",
+            "Japanese",
+            "Polish",
+            "Portuguese",
+            "Russian",
+            "Turkish",
+            "Thai",
+            "Italian",
+            "Portuguese - Brazil",
+            "Traditional Chinese",
+            "Ukrainian"
+          ],
+          developers: [
+            "KRAFTON, Inc."
+          ],
+          publishers: [
+            "KRAFTON, Inc."
+          ],
+          categories: [
+            "Multi-player",
+            "PvP",
+            "Online PvP",
+            "Stats",
+            "Remote Play on Phone",
+            "Remote Play on Tablet"
+          ],
+          genres: [
+            "Action",
+            "Adventure",
+            "Free to Play",
+            "Massively Multiplayer"
           ],
           description: "Play PUBG: BATTLEGROUNDS for free. Land on strategic locations, loot weapons and supplies, and survive to become the last team standing across various, diverse Battlegrounds. Squad up and join the Battlegrounds for the original Battle Royale experience that only PUBG: BATTLEGROUNDS can offer.",
         },
@@ -373,7 +550,47 @@ export default {
             "https://cdn.akamai.steamstatic.com/steam/apps/1245620/ss_fb2957cce97f4633bc743b561f76865e6993c781.1920x1080.jpg?t=1654259241",
             "https://cdn.akamai.steamstatic.com/steam/apps/1245620/ss_35ff7ed4b67e2bb73e54f6c10a4f8d9390c16203.1920x1080.jpg?t=1654259241"
           ],
-
+          website: "http://www.pubg.com",
+          support_url: "https://support.playbattlegrounds.com",
+          supported_languages: [
+            "English",
+            "Korean",
+            "Simplified Chinese",
+            "French",
+            "German",
+            "Spanish - Spain",
+            "Arabic",
+            "Japanese",
+            "Polish",
+            "Portuguese",
+            "Russian",
+            "Turkish",
+            "Thai",
+            "Italian",
+            "Portuguese - Brazil",
+            "Traditional Chinese",
+            "Ukrainian"
+          ],
+          developers: [
+            "KRAFTON, Inc."
+          ],
+          publishers: [
+            "KRAFTON, Inc."
+          ],
+          categories: [
+            "Multi-player",
+            "PvP",
+            "Online PvP",
+            "Stats",
+            "Remote Play on Phone",
+            "Remote Play on Tablet"
+          ],
+          genres: [
+            "Action",
+            "Adventure",
+            "Free to Play",
+            "Massively Multiplayer"
+          ],
           description: "THE NEW FANTASY ACTION RPG. Rise, Tarnished, and be guided by grace to brandish the power of the Elden Ring and become an Elden Lord in the Lands Between.",
         },
         {
@@ -407,6 +624,47 @@ export default {
             "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2358720/ss_415397426d4c939ebb8a93ac66831f28ee7199be.1920x1080.jpg?t=1725007201",
             "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2358720/ss_63477e8ce2c0582b81c6ed576377d78e692b5642.1920x1080.jpg?t=1725007201"
           ],
+          website: "http://www.pubg.com",
+          support_url: "https://support.playbattlegrounds.com",
+          supported_languages: [
+            "English",
+            "Korean",
+            "Simplified Chinese",
+            "French",
+            "German",
+            "Spanish - Spain",
+            "Arabic",
+            "Japanese",
+            "Polish",
+            "Portuguese",
+            "Russian",
+            "Turkish",
+            "Thai",
+            "Italian",
+            "Portuguese - Brazil",
+            "Traditional Chinese",
+            "Ukrainian"
+          ],
+          developers: [
+            "KRAFTON, Inc."
+          ],
+          publishers: [
+            "KRAFTON, Inc."
+          ],
+          categories: [
+            "Multi-player",
+            "PvP",
+            "Online PvP",
+            "Stats",
+            "Remote Play on Phone",
+            "Remote Play on Tablet"
+          ],
+          genres: [
+            "Action",
+            "Adventure",
+            "Free to Play",
+            "Massively Multiplayer"
+          ],
 
           description: "Black Myth: Wukong is an action RPG rooted in Chinese mythology. You shall set out as the Destined One to venture into the challenges and marvels ahead, to uncover the obscured truth beneath the veil of a glorious legend from the past.",
         },
@@ -423,6 +681,9 @@ export default {
   },
 
   methods: {
+    ShowMoreInfomation(){
+      this.dialog1 = true
+    },
     handleExpanded(num)
     {
       this.expandedNum = num;
