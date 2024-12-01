@@ -124,9 +124,7 @@
     </el-container>
 
 
-    <el-container class="user-love-command-container">
-
-      <div v-show="this.expandedNum === 0" style="width: 100%;height: 100%;">
+    <el-container v-show="expandedNum===0" class="user-love-command-container">
 
         <el-card class="user-information-card">
           <el-container class="user-information-head-container">
@@ -157,7 +155,7 @@
           </el-container>
           <el-container class="user-love-preCard-container">
             <div v-for="(game,index) in favoriteGames" key="game.appId" >
-              <div style="width:18vw;height: 15vh;margin-left:0.5%;margin-top:1%;margin-bottom: 4%">
+              <div style="width:18vw;height: 15vh;margin-left:2%;margin-top:1%;margin-bottom: 4%">
                 <preCard :imageUrl="game.MainPictureSrc" @update-showGame="ShowFavoriteGame(game)"></preCard>
               </div>
             </div>
@@ -178,7 +176,19 @@
 
 
         </el-card>
-      </div>
+
+    </el-container>
+
+    <el-container v-show="expandedNum===1" class="all-right-information-container">
+
+    </el-container>
+
+    <el-container v-show="expandedNum===2" class="all-right-favorites-container">
+    </el-container>
+
+    <el-container v-show="expandedNum===3" class="all-right-command-container">
+
+    </el-container>
 
       <el-dialog
           v-model="dialog1"
@@ -336,7 +346,7 @@
           <el-button @click="dialog1 = false" style="width: 100px">关闭</el-button>
         </div>
       </el-dialog>
-    </el-container>
+
 
 
   </el-container>
@@ -1139,6 +1149,40 @@ export default {
 }
 .user-command-preCard-container{
 
+}
+
+.all-right-information-container{
+  width: 55%;
+  height: 100%;
+  padding-right: 1%;
+  padding-top: 1%;
+  padding-bottom: 0.5%;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  background: #213547;
+}
+.all-right-favorites-container{
+  width: 55%;
+  height: 100%;
+  padding-right: 1%;
+  padding-top: 1%;
+  padding-bottom: 0.5%;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  background: #213547;
+}
+.all-right-command-container{
+  width: 55%;
+  height: 100%;
+  padding-right: 1%;
+  padding-top: 1%;
+  padding-bottom: 0.5%;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  background: #213547;
 }
 
 .videoContainer {
