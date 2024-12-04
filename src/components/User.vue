@@ -160,7 +160,7 @@
           <el-container class="user-love-preCard-container">
             <div v-for="(game,index) in favoriteGames" key="game.appId">
               <div style="width:18vw;height: 15vh;margin-left:2%;margin-top:1%;margin-bottom: 4%">
-                <preCard :imageUrl="game.MainPictureSrc" @update-showGame="ShowFavoriteGame(game)"></preCard>
+                <preCard :imageUrl="game.MainPictureSrc" @update-showGame="ShowFavoriteGame(game.appId)"></preCard>
               </div>
             </div>
           </el-container>
@@ -183,11 +183,13 @@
           </el-container>
 
           <el-container class="user-command-preCard-container">
-            <div v-for="(game,index) in commandGames" key="game.appId">
-              <div style="width:18vw;height: 15vh;margin-left:2%;margin-top:1%;margin-bottom: 4%">
-                <preCard :imageUrl="game.MainPictureSrc" @update-showGame="ShowFavoriteGame(game)"></preCard>
-              </div>
-            </div>
+            <el-carousel :interval="4000" type="card" >
+              <el-carousel-item v-for="(game,index) in commandGames" :key="index">
+                <pre-card imageUrl="game.MainPictureSrc" @click="ShowFavoriteGame(game.appId)"> </pre-card>
+
+
+              </el-carousel-item>
+            </el-carousel>
           </el-container>
 
 
@@ -220,7 +222,7 @@
           <el-container style="flex-direction: row;display: flex;width: 100%;height: 100%;gap: 2.6%;flex-wrap: wrap;overflow-x:hidden;overflow-y:auto">
           <div v-for="(game,index) in screenedFavorites" key="game.appId">
             <div style="width:18vw;height: 15vh;margin-left:1%;margin-top:1%;margin-bottom: 4%">
-              <preCard :imageUrl="game.MainPictureSrc" @update-showGame="ShowFavoriteGame(game)"></preCard>
+              <preCard :imageUrl="game.MainPictureSrc" @update-showGame="ShowFavoriteGame(game.appId)"></preCard>
             </div>
           </div>
 
@@ -814,10 +816,10 @@ export default {
         userId: sessionStorage.getItem("token"),
       })
           .then((response) => {
-            if (respnse.data.code === 1) {
-
+            if (response.data.code === 1) {
+              this.toShowGame = response.data.payload
             } else {
-              ElMessage.error("打开收藏失败")
+              ElMessage.error("打开游戏失败")
             }
           })
     },
@@ -1002,6 +1004,7 @@ export default {
   display: flex;
   background: #2c3e50;
   flex-direction: column;
+  justify-content: center;
 }
 
 .advanced-options-card {
@@ -1237,13 +1240,9 @@ export default {
 .user-command-preCard-container {
   width: 100%;
 
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  overflow-x: auto;
-  overflow-y: hidden;
-  gap: 2.6%;
 }
+
+
 
 .all-right-information-container {
   width: 55%;
@@ -1304,97 +1303,6 @@ export default {
   background: #213547;
 }
 
-.videoContainer {
-  position: fixed;
-  background-color: white;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  z-index: 10;
-}
-
-.fullscreenVideo {
-  width: 100%;
-  height: 100%;
-  object-fit: fill
-}
-
-.title {
-  background-color: rgb(17, 71, 117);
-  height: 60px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
-}
-
-.aside {
-  min-height: calc(100vh - 60px);
-  width: 180px;
-  background-color: red;
-}
-
-.title2 {
-  background: url("../assets/figure2.jpg");
-  height: 60px;
-  display: flex;
-  align-items: center;
-  text-align: left;
-  color: #ffffff;
-  font-weight: bold;
-  font-size: xx-large;
-  font-family: 'Microsoft YaHei';
-}
-
-.history-trail {
-  margin-left: 30px;
-  font-size: medium;
-  color: #ffffff;
-  font-weight: normal;
-}
-
-.product_table {
-  position: absolute;
-  top: 20%;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  min-height: 100%;
-  height: auto;
-  background-color: #ffffff;
-  overflow-y: hidden;
-}
-
-.add_cashier_button {
-  position: absolute;
-  top: 20%;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  min-height: 100%;
-  height: auto;
-  background-color: #ffffff;
-  overflow-y: hidden;
-}
-
-.left-image {
-  width: 150px; /* 设置图片宽度 */
-  height: auto; /* 自适应高度 */
-  margin-right: 10px; /* 图片与文本之间的间距 */
-}
-
-.transparent-button {
-  background-color: transparent; /* 设置背景为透明 */
-  border: none; /* 去掉边框 */
-  color: #000; /* 设置字体颜色，可以根据需要调整 */
-  cursor: pointer; /* 鼠标悬停时显示手形光标 */
-  padding: 10px 20px; /* 设置内边距 */
-  font-size: 16px; /* 设置字体大小 */
-}
 
 ::-webkit-scrollbar {
   width: 6px; /* 对垂直滚动条有效 */
