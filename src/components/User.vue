@@ -1095,7 +1095,7 @@ export default {
 /*****************     结果信息卡片     **************/
 .detailed-information-card {
   width: 100%;
-  height: auto;
+  height: 48%;
   display: flex;
   background: #2c3e50;
   border: none;
