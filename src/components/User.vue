@@ -101,7 +101,7 @@
       <el-card class="Action-field-card">
         <el-container class="Action-field-container">
           <div style="color: gainsboro;font-size: 150%;margin-top: 0.5%;margin-left: 1%">更多搜索相关</div>
-          <el-button style="margin-top: 0.5%;margin-left: 68%;height: 3vh " @click="ShowMoreInfomation">查看更多信息
+          <el-button style="margin-top: 0.5%;margin-left: 68%;height: 3vh " @click="ShowMoreInformation">查看更多信息
           </el-button>
           <el-button v-if="!isLoved" style="margin-top: 0.5%;margin-left:1%;height: 3vh" @click="toggleLove">收藏
           </el-button>
@@ -124,16 +124,16 @@
     </el-container>
 
 
-    <el-container class="user-love-command-container">
-
-      <div v-show="this.expandedNum === 0" style="width: 100%;height: 100%;">
+      <el-container v-if="expandedNum===0" key="0" class="user-love-command-container">
 
         <el-card class="user-information-card">
           <el-container class="user-information-head-container">
             <div style="color: gainsboro;font-size: 150%;width: 10vw">用户个人信息</div>
-            <div style="margin-left: 63%;">
-              <el-button style="background-color: lightblue;" @click="handleExpanded(1)">
-                <el-icon style="font-size: 200%"><Download/></el-icon>
+            <div style="margin-left: 66%;">
+              <el-button type="text" @click="handleExpanded(1)">
+                <el-icon style="font-size: 300%">
+                  <Avatar/>
+                </el-icon>
               </el-button>
             </div>
           </el-container>
@@ -147,18 +147,20 @@
         <el-card class="user-love-card">
           <el-container class="user-love-head-container">
             <div style="color:gainsboro;font-size:150%;width: 10vw">用户收藏</div>
-            <div style="margin-left: 63%;">
-              <el-button style="background-color:lightblue" @click="handleExpanded(1)">
-                <el-icon style="font-size: 200%;"><FullScreen /></el-icon>
+            <div style="margin-left: 65%;">
+              <el-button type="text" @click="handleExpanded(2)">
+                <el-icon style="font-size: 200%;">
+                  <MoreFilled/>
+                </el-icon>
               </el-button>
             </div>
 
 
           </el-container>
           <el-container class="user-love-preCard-container">
-            <div v-for="(game,index) in favoriteGames" key="game.appId" >
-              <div style="width:18vw;height: 15vh;margin-left:0.5%;margin-top:1%;margin-bottom: 4%">
-                <preCard :imageUrl="game.MainPictureSrc" @update-showGame="ShowFavoriteGame(game)"></preCard>
+            <div v-for="(game,index) in favoriteGames" key="game.appId">
+              <div style="width:18vw;height: 15vh;margin-left:2%;margin-top:2%;margin-bottom: 4%">
+                <preCard :imageUrl="game.MainPictureSrc" @update-showGame="ShowFavoriteGame(game.appId)"></preCard>
               </div>
             </div>
           </el-container>
@@ -168,186 +170,247 @@
 
         <el-card class="user-command-card">
           <el-container class="user-command-head-container">
-
-
+            <div style="color:gainsboro;font-size:150%;width: 10vw">根据收藏猜您喜欢</div>
+            <!--
+            <div style="margin-left: 63%;">
+              <el-button style="background-color:lightblue" @click="handleExpanded(3)">
+                <el-icon style="font-size: 200%;">
+                  <FullScreen/>
+                </el-icon>
+              </el-button>
+            </div>
+            -->
           </el-container>
 
-          <el-container class="user-command-preCard-container">
 
-          </el-container>
+          <el-carousel :interval="2000" type="card" height="17vh" indicator-position="outside" style="margin-top: 3%" >
+            <el-carousel-item v-for="game in commandGames" :key="game.appId"  >
+              <preCard :imageUrl="game.MainPictureSrc" @update-showGame="ShowFavoriteGame(game.appId)"></preCard>
+            </el-carousel-item>
+          </el-carousel>
 
 
         </el-card>
+
+      </el-container>
+
+      <el-container v-else-if="expandedNum===1" key="1" class="all-right-information-container">
+
+      </el-container>
+
+      <el-container v-else-if="expandedNum===2" key="2" class="all-right-favorites-container">
+        <el-card class="all-right-favorites-head-card">
+          <el-container style="width:120%;  height: 100%;display: flex;flex-direction: row;">
+            <div style="color: gainsboro;font-size: 150%;margin-top: 1.5%;margin-left: 2%;width: 10vw">您的收藏</div>
+            <el-input v-model="searchInFavorites" placeholder="输入查询"
+                      style="width: 20vw;height: 70%;margin-top: 1%;margin-left: 20%">
+            </el-input>
+            <div style="margin-left: 1%;margin-top: 1%">
+              <el-button style="background-color: lightblue;height: 80%;width: 85%" @click="handleExpanded(0)">
+                <el-icon style="font-size: 200%">
+                  <HomeFilled/>
+                </el-icon>
+              </el-button>
+            </div>
+
+          </el-container>
+        </el-card>
+        <el-card class="all-right-favorites-body-card">
+          <el-container style="flex-direction: row;display: flex;width: 100%;height: 100%;gap: 2.6%;flex-wrap: wrap;overflow-x:hidden;overflow-y:auto">
+          <div v-for="(game,index) in screenedFavorites" key="game.appId">
+            <div style="width:18vw;height: 15vh;margin-left:1%;margin-top:1%;margin-bottom: 4%">
+              <preCard :imageUrl="game.MainPictureSrc" @update-showGame="ShowFavoriteGame(game.appId)"></preCard>
+            </div>
+          </div>
+
+          </el-container>
+        </el-card>
+      </el-container>
+
+      <el-container v-else-if="expandedNum===3" key="3" class="all-right-command-container">
+
+      </el-container>
+
+    <el-dialog
+        v-model="dialog1"
+        width="80%"
+        height="200%"
+        :show-close="false"
+        :close-on-click-modal="false"
+        :close-on-press-escape="false"
+        style="background-color: #cccccc"
+    >
+      <div slot="title"
+           style="font-weight: bold; font-size: 24px; text-align: center; color: #333; margin-bottom: 20px">
+        游戏详细信息
       </div>
-
-      <el-dialog
-          v-model="dialog1"
-          width="80%"
-          height="200%"
-          :show-close="false"
-          :close-on-click-modal="false"
-          :close-on-press-escape="false"
-          style="background-color: #cccccc"
-      >
-        <div slot="title" style="font-weight: bold; font-size: 24px; text-align: center; color: #333; margin-bottom: 20px">
-          游戏详细信息
-        </div>
-        <el-card class="detailed-information-card">
-          <el-container style="display: flex;flex-direction: row; height: 600px">
-            <el-container class="detailed-information-container ">
-              <!--游戏主图-->
-              <img :src="toShowGame.MainPictureSrc" alt="Main Picture" width="100%" height="80%">
-              <!--描述-->
-              <div
-                  style="width:100%;margin-top:5px;color: gainsboro;font-size: large;word-wrap: break-word;word-break: break-all;overflow: hidden;">
-                <p> {{ toShowGame.description }}</p></div>
-              <!--标签-->
-              <div style="display: flex; flex-direction: row;overflow: hidden;margin-top: 4%;">
-                <div v-for="(count,tag) in this.toShowGame.tags" :key="tag">
-                  <el-tag style="margin-left: 2px;font-size: 13px;color: #2c3e50"> {{ tag }}</el-tag>
-                </div>
+      <el-card class="detailed-information-card">
+        <el-container style="display: flex;flex-direction: row; height: 600px">
+          <el-container class="detailed-information-container ">
+            <!--游戏主图-->
+            <img :src="toShowGame.MainPictureSrc" alt="Main Picture" width="100%" height="80%">
+            <!--描述-->
+            <div
+                style="width:100%;margin-top:5px;color: gainsboro;font-size: large;word-wrap: break-word;word-break: break-all;overflow: hidden;">
+              <p> {{ toShowGame.description }}</p></div>
+            <!--标签-->
+            <div style="display: flex; flex-direction: row;overflow: hidden;margin-top: 4%;">
+              <div v-for="(count,tag) in this.toShowGame.tags" :key="tag">
+                <el-tag style="margin-left: 2px;font-size: 13px;color: #2c3e50"> {{ tag }}</el-tag>
               </div>
-
-            </el-container>
-            <el-container class="detailed-information-container">
-              <!--标题-->
-              <div
-                  style="width: 100%;margin-top: 3px;margin-bottom:3px;text-align: center;color:deepskyblue;font-size:2em;font-weight: 300;">
-                <p> {{ toShowGame.title }} </p></div>
-              <!--发行时间-->
-              <div style="width:100%; margin-top: 10px;">
-                <p>
-                  <span style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Release date</span>
-                  <span style="font-size: 18px; color: cornflowerblue; margin-left: 20px;">
-                    {{ this.toShowGame.releaseDate }}
-                  </span>
-                </p>
-              </div>
-              <!--好评率-->
-              <div style="width:100%; margin-top: 10px; ">
-                <p>
-                  <span style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Good/bad review</span>
-                  <span style="font-size: 18px; color: cornflowerblue; margin-left: 20px;">
-                    {{ Math.round(100 * this.toShowGame.positive / (this.toShowGame.negative + this.toShowGame.positive)) }}% positive
-                  </span>
-                </p>
-              </div>
-              <!--价格-->
-              <div style="width:100%; margin-top: 10px;">
-                <p>
-                  <span style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Price</span>
-                  <span style="font-size: 18px; color: cornflowerblue; margin-left: 20px;">
-                    {{ this.toShowGame.price }}
-                  </span>
-                </p>
-              </div>
-              <!--支持系统-->
-              <div style="width:100%; margin-top: 10px;">
-                <p>
-                  <span style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Support_OS</span>
-                  <span style="font-size: 18px; color: cornflowerblue; margin-left: 20px;">
-                  <span
-                      v-if="this.toShowGame.winSupport === true & this.toShowGame.macSupport === false & this.toShowGame.linuxSupport === false" >
-                    Windows
-                  </span>
-                  <span
-                      v-if="this.toShowGame.winSupport === false & this.toShowGame.macSupport === true & this.toShowGame.linuxSupport === false">
-                    Mac
-                  </span>
-                  <span
-                      v-if="this.toShowGame.winSupport === false & this.toShowGame.macSupport === false & this.toShowGame.linuxSupport === true">
-                    Linux
-                  </span>
-                  <span
-                      v-if="this.toShowGame.winSupport === true & this.toShowGame.macSupport === true & this.toShowGame.linuxSupport === false">
-                    Windows、Mac
-                  </span>
-                  <span
-                      v-if="this.toShowGame.winSupport === false & this.toShowGame.macSupport === true & this.toShowGame.linuxSupport === true">
-                    Mac、Linux
-                  </span>
-                  <span
-                      v-if="this.toShowGame.winSupport === true & this.toShowGame.macSupport === false & this.toShowGame.linuxSupport === true" >
-                    Windows、Linux
-                  </span>
-                  <span
-                      v-if="this.toShowGame.winSupport === true & this.toShowGame.macSupport === true & this.toShowGame.linuxSupport === true" >
-                    Windows、Mac、Linux
-                  </span>
-                  </span>
-                </p>
-              </div>
-              <!--官方网站-->
-              <div style="width:100%; margin-top: 10px;">
-                <p>
-                  <span style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">WebSite</span>
-                  <el-link :href="this.toShowGame.website" style="font-size: 18px; color: cornflowerblue; margin-left: 20px;">
-                    {{ this.toShowGame.website }}
-                  </el-link>
-                </p>
-              </div>
-              <!--游戏外平台-->
-              <div style="width:100%; margin-top: 10px;">
-                <p>
-                  <span style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Support_platform</span>
-                  <el-link :href="this.toShowGame.support_url" style="font-size: 18px; color: cornflowerblue; margin-left: 20px;">{{this.toShowGame.support_url}}</el-link>
-                </p>
-              </div>
-              <!--开发者-->
-              <div style="width:100%; margin-top: 10px;">
-                <p>
-                  <span style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Developer</span>
-                  <span style="font-size: 18px; color: cornflowerblue;" v-for="(dev, index) in toShowGame.developers" :key="dev">
-                    <!-- 在第一个开发者之前添加一段距离 -->
-                    <span v-if="index === 0" style="margin-left: 20px;"></span>
-                    &lt;{{ dev }}&gt;
-                  </span>
-                </p>
-              </div>
-              <!--发行者-->
-              <div style="width:100%; margin-top: 10px;">
-                <p>
-                  <span style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Publisher</span>
-                  <span style="font-size: 18px; color: cornflowerblue;" v-for="(dev, index) in toShowGame.publishers" :key="dev">
-                    <!-- 在第一个开发者之前添加一段距离 -->
-                    <span v-if="index === 0" style="margin-left: 20px;"></span>
-                    &lt;{{ dev }}&gt;
-                  </span>
-                </p>
-              </div>
-              <!--支持语言-->
-              <div style="width:100%; margin-top: 10px;">
-                <p>
-                  <span style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Support_language</span>
-                  <span style="font-size: 18px; color: cornflowerblue;" v-for="(dev, index) in toShowGame.supported_languages" :key="dev">
-                    <!-- 在第一个开发者之前添加一段距离 -->
-                    <span v-if="index === 0" style="margin-left: 20px;"></span>
-                    &lt;{{ dev }}&gt;
-                  </span>
-                </p>
-              </div>
-              <!--游戏类别-->
-              <div style="width:100%; margin-top: 10px;">
-                <p>
-                  <span style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Genres</span>
-                  <span style="font-size: 18px; color: cornflowerblue;" v-for="(dev, index) in toShowGame.genres" :key="dev">
-                    <!-- 在第一个开发者之前添加一段距离 -->
-                    <span v-if="index === 0" style="margin-left: 20px;"></span>
-                    <el-tag style="margin-left: 2px;font-size: 13px;color: #2c3e50"> {{ dev }}</el-tag>
-                  </span>
-                </p>
-              </div>
-
-            </el-container>
-
+            </div>
 
           </el-container>
-        </el-card>
-        <div style="display: flex; justify-content: flex-end; margin-top: 50px">
-          <el-button @click="dialog1 = false" style="width: 100px">关闭</el-button>
-        </div>
-      </el-dialog>
-    </el-container>
+          <el-container class="detailed-information-container">
+            <!--标题-->
+            <div
+                style="width: 100%;margin-top: 3px;margin-bottom:3px;text-align: center;color:deepskyblue;font-size:2em;font-weight: 300;">
+              <p> {{ toShowGame.title }} </p></div>
+            <!--发行时间-->
+            <div style="width:100%; margin-top: 10px;">
+              <p>
+                <span
+                    style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Release date</span>
+                <span style="font-size: 18px; color: cornflowerblue; margin-left: 20px;">
+            {{ this.toShowGame.releaseDate }}
+          </span>
+              </p>
+            </div>
+            <!--好评率-->
+            <div style="width:100%; margin-top: 10px; ">
+              <p>
+                <span
+                    style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Good/bad review</span>
+                <span style="font-size: 18px; color: cornflowerblue; margin-left: 20px;">
+            {{ Math.round(100 * this.toShowGame.positive / (this.toShowGame.negative + this.toShowGame.positive)) }}% positive
+          </span>
+              </p>
+            </div>
+            <!--价格-->
+            <div style="width:100%; margin-top: 10px;">
+              <p>
+                <span style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Price</span>
+                <span style="font-size: 18px; color: cornflowerblue; margin-left: 20px;">
+            {{ this.toShowGame.price }}
+          </span>
+              </p>
+            </div>
+            <!--支持系统-->
+            <div style="width:100%; margin-top: 10px;">
+              <p>
+                <span style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Support_OS</span>
+                <span style="font-size: 18px; color: cornflowerblue; margin-left: 20px;">
+          <span
+              v-if="this.toShowGame.winSupport === true & this.toShowGame.macSupport === false & this.toShowGame.linuxSupport === false">
+            Windows
+          </span>
+          <span
+              v-if="this.toShowGame.winSupport === false & this.toShowGame.macSupport === true & this.toShowGame.linuxSupport === false">
+            Mac
+          </span>
+          <span
+              v-if="this.toShowGame.winSupport === false & this.toShowGame.macSupport === false & this.toShowGame.linuxSupport === true">
+            Linux
+          </span>
+          <span
+              v-if="this.toShowGame.winSupport === true & this.toShowGame.macSupport === true & this.toShowGame.linuxSupport === false">
+            Windows、Mac
+          </span>
+          <span
+              v-if="this.toShowGame.winSupport === false & this.toShowGame.macSupport === true & this.toShowGame.linuxSupport === true">
+            Mac、Linux
+          </span>
+          <span
+              v-if="this.toShowGame.winSupport === true & this.toShowGame.macSupport === false & this.toShowGame.linuxSupport === true">
+            Windows、Linux
+          </span>
+          <span
+              v-if="this.toShowGame.winSupport === true & this.toShowGame.macSupport === true & this.toShowGame.linuxSupport === true">
+            Windows、Mac、Linux
+          </span>
+          </span>
+              </p>
+            </div>
+            <!--官方网站-->
+            <div style="width:100%; margin-top: 10px;">
+              <p>
+                <span style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">WebSite</span>
+                <el-link :href="this.toShowGame.website"
+                         style="font-size: 18px; color: cornflowerblue; margin-left: 20px;">
+                  {{ this.toShowGame.website }}
+                </el-link>
+              </p>
+            </div>
+            <!--游戏外平台-->
+            <div style="width:100%; margin-top: 10px;">
+              <p>
+                <span
+                    style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Support_platform</span>
+                <el-link :href="this.toShowGame.support_url"
+                         style="font-size: 18px; color: cornflowerblue; margin-left: 20px;">
+                  {{ this.toShowGame.support_url }}
+                </el-link>
+              </p>
+            </div>
+            <!--开发者-->
+            <div style="width:100%; margin-top: 10px;">
+              <p>
+                <span style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Developer</span>
+                <span style="font-size: 18px; color: cornflowerblue;" v-for="(dev, index) in toShowGame.developers"
+                      :key="dev">
+            <!-- 在第一个开发者之前添加一段距离 -->
+            <span v-if="index === 0" style="margin-left: 20px;"></span>
+            &lt;{{ dev }}&gt;
+          </span>
+              </p>
+            </div>
+            <!--发行者-->
+            <div style="width:100%; margin-top: 10px;">
+              <p>
+                <span style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Publisher</span>
+                <span style="font-size: 18px; color: cornflowerblue;" v-for="(dev, index) in toShowGame.publishers"
+                      :key="dev">
+            <!-- 在第一个开发者之前添加一段距离 -->
+            <span v-if="index === 0" style="margin-left: 20px;"></span>
+            &lt;{{ dev }}&gt;
+          </span>
+              </p>
+            </div>
+            <!--支持语言-->
+            <div style="width:100%; margin-top: 10px;">
+              <p>
+                <span
+                    style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Support_language</span>
+                <span style="font-size: 18px; color: cornflowerblue;"
+                      v-for="(dev, index) in toShowGame.supported_languages" :key="dev">
+            <!-- 在第一个开发者之前添加一段距离 -->
+            <span v-if="index === 0" style="margin-left: 20px;"></span>
+            &lt;{{ dev }}&gt;
+          </span>
+              </p>
+            </div>
+            <!--游戏类别-->
+            <div style="width:100%; margin-top: 10px;">
+              <p>
+                <span style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Genres</span>
+                <span style="font-size: 18px; color: cornflowerblue;" v-for="(dev, index) in toShowGame.genres"
+                      :key="dev">
+            <!-- 在第一个开发者之前添加一段距离 -->
+            <span v-if="index === 0" style="margin-left: 20px;"></span>
+            <el-tag style="margin-left: 2px;font-size: 13px;color: #2c3e50"> {{ dev }}</el-tag>
+          </span>
+              </p>
+            </div>
+
+          </el-container>
+
+
+        </el-container>
+      </el-card>
+      <div style="display: flex; justify-content: flex-end; margin-top: 50px">
+        <el-button @click="dialog1 = false" style="width: 100px">关闭</el-button>
+      </div>
+    </el-dialog>
 
 
   </el-container>
@@ -359,16 +422,15 @@ import axios from 'axios';
 import gamesData from '@/assets/newgames.json';
 import {ElMessage, ElButton, ElIcon} from "element-plus";
 import PreCard from "@/components/preCard.vue";
-import {Download, FullScreen, Upload} from "@element-plus/icons-vue";
+import {Avatar, Download, FullScreen, HomeFilled, MoreFilled, Upload} from "@element-plus/icons-vue";
 
 export default {
-  components: {FullScreen, Upload, Download, PreCard},
+  components: {HomeFilled, Avatar, MoreFilled, FullScreen, Upload, Download, PreCard},
 
   data() {
     return {
-      dialog1:false,
-      firstLoaded: true,
-      favoriteGames: [
+      searchInFavorites: '',
+      commandGames: [
         {
           appId: 0,
           MainPictureSrc: 'https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469',
@@ -376,9 +438,27 @@ export default {
         {
           appId: 1,
           MainPictureSrc: 'https://cdn.akamai.steamstatic.com/steam/apps/255710/header.jpg?t=1654076112',
+        },
+        {
+          appId: 2,
+          MainPictureSrc: 'https://cdn.akamai.steamstatic.com/steam/apps/255710/header.jpg?t=1654076112',
         }
       ],
-      expandedNum:0,
+      dialog1: false,
+      firstLoaded: true,
+      favoriteGames: [
+        {
+          appId: 0,
+          title:'PUBG:BATTLEGROUNDS',
+          MainPictureSrc: 'https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469',
+        },
+        {
+          appId: 1,
+          title:'Cities: Skylines',
+          MainPictureSrc: 'https://cdn.akamai.steamstatic.com/steam/apps/255710/header.jpg?t=1654076112',
+        }
+      ],
+      expandedNum: 0,
       query: '',
       showOptions: false,
       suggestions: [{"name": "Game A", "estimated_owners": "20000"},],
@@ -487,8 +567,7 @@ export default {
             "Ukrainian"
           ],
           developers: [
-            "KRAFTON, Inc.",
-              "dfwefwe"
+            "KRAFTON, Inc."
           ],
           publishers: [
             "KRAFTON, Inc."
@@ -712,18 +791,24 @@ export default {
     }
   },
   computed: {
-
+    screenedFavorites(){
+      if(this.searchInFavorites.length > 0){
+        return this.favoriteGames.filter(game => game.title.toLowerCase().includes(this.searchInFavorites.toLowerCase()))
+      }
+      else{
+        return this.favoriteGames
+      }
+    },
     isLoved() {
       return this.favoriteGames.find(item => item.appId === this.toShowGame.appId);
     },
   },
 
   methods: {
-    ShowMoreInfomation(){
+    ShowMoreInformation() {
       this.dialog1 = true
     },
-    handleExpanded(num)
-    {
+    handleExpanded(num) {
       this.expandedNum = num;
     },
     ShowFavoriteGame(appId) {
@@ -732,10 +817,10 @@ export default {
         userId: sessionStorage.getItem("token"),
       })
           .then((response) => {
-            if (respnse.data.code === 1) {
-
+            if (response.data.code === 1) {
+              this.toShowGame = response.data.payload
             } else {
-              ElMessage.error("打开收藏失败")
+              ElMessage.error("打开游戏失败")
             }
           })
     },
@@ -920,6 +1005,7 @@ export default {
   display: flex;
   background: #2c3e50;
   flex-direction: column;
+  justify-content: center;
 }
 
 .advanced-options-card {
@@ -986,15 +1072,6 @@ export default {
 .detailed-information-card {
   width: 100%;
   height: auto;
-  display: flex;
-  background: #2c3e50;
-  border: none;
-  flex-direction: row;
-}
-
-.detailed-information-card-for-dialog {
-  width: 60%;
-  height: 100%;
   display: flex;
   background: #2c3e50;
   border: none;
@@ -1087,30 +1164,34 @@ export default {
   flex-direction: column;
   background: #213547;
 }
+
 .user-information-card {
-   width: 100%;
-   height: 30%;
-   border: none;
-   border-radius: 10px;
-   display: flex;
+  width: 100%;
+  height: 40%;
+  border: none;
+  border-radius: 10px;
+  display: flex;
   flex-direction: column;
   background: #2c3e50;
- }
+}
+
 .user-information-head-container {
   width: 100%;
-  height:30%;
-  display:flex;
+  height: 30%;
+  display: flex;
   flex-direction: row;
 }
-.user-information-body-container{
+
+.user-information-body-container {
   width: 100%;
   height: 70%;
-  margin-top:0;
+  margin-top: 0;
 }
+
 .user-love-card {
   width: 100%;
   height: 25%;
-  margin-top:1% ;
+  margin-top: 1%;
   border: none;
   border-radius: 10px;
   display: flex;
@@ -1133,116 +1214,96 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  overflow-x:auto ;
+  overflow-x: auto;
   overflow-y: hidden;
   gap: 2.6%;
 }
+
 .user-command-card {
   width: 100%;
-  height: 43%;
-  margin-top:1% ;
+  height: 33%;
+  margin-top: 1%;
   background: #2c3e50;
   border-radius: 10px;
   border: none;
+  display: flex;
+  flex-direction: column;
 }
+
 .user-command-head-container {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  flex-direction: row;
+  margin-right: 0;
+}
+
+.user-command-preCard-container {
+  width: 100%;
 
 }
-.user-command-preCard-container{
 
+
+
+.all-right-information-container {
+  width: 55%;
+  height: 100%;
+  padding-right: 1%;
+  padding-top: 1%;
+  padding-bottom: 0.5%;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  background: #213547;
 }
 
-.videoContainer {
-  position: fixed;
-  background-color: white;
-  top: 0;
-  left: 0;
+.all-right-favorites-container {
+  width: 55%;
+  height: 100%;
+  padding-right: 1%;
+  padding-top: 1%;
+  padding-bottom: 0.5%;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  background: #213547;
+}
+
+.all-right-favorites-head-card {
+  width: 100%;
+  height: 5%;
+  background-color: #2c3e50;
+  border: none;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.all-right-favorites-head-card:deep(.el-card__body) {
+  padding: 0;
+}
+
+.all-right-favorites-body-card {
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  z-index: 10;
+  margin-top: 2%;
+  background-color: #2c3e50;
+  border: none;
+  border-radius: 10px;
 }
 
-.fullscreenVideo {
-  width: 100%;
+.all-right-command-container {
+  width: 55%;
   height: 100%;
-  object-fit: fill
-}
-
-.title {
-  background-color: rgb(17, 71, 117);
-  height: 60px;
+  padding-right: 1%;
+  padding-top: 1%;
+  padding-bottom: 0.5%;
+  border: none;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
+  flex-direction: column;
+  background: #213547;
 }
 
-.aside {
-  min-height: calc(100vh - 60px);
-  width: 180px;
-  background-color: red;
-}
-
-.title2 {
-  background: url("../assets/figure2.jpg");
-  height: 60px;
-  display: flex;
-  align-items: center;
-  text-align: left;
-  color: #ffffff;
-  font-weight: bold;
-  font-size: xx-large;
-  font-family: 'Microsoft YaHei';
-}
-
-.history-trail {
-  margin-left: 30px;
-  font-size: medium;
-  color: #ffffff;
-  font-weight: normal;
-}
-
-.product_table {
-  position: absolute;
-  top: 20%;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  min-height: 100%;
-  height: auto;
-  background-color: #ffffff;
-  overflow-y: hidden;
-}
-
-.add_cashier_button {
-  position: absolute;
-  top: 20%;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  min-height: 100%;
-  height: auto;
-  background-color: #ffffff;
-  overflow-y: hidden;
-}
-
-.left-image {
-  width: 150px; /* 设置图片宽度 */
-  height: auto; /* 自适应高度 */
-  margin-right: 10px; /* 图片与文本之间的间距 */
-}
-
-.transparent-button {
-  background-color: transparent; /* 设置背景为透明 */
-  border: none; /* 去掉边框 */
-  color: #000; /* 设置字体颜色，可以根据需要调整 */
-  cursor: pointer; /* 鼠标悬停时显示手形光标 */
-  padding: 10px 20px; /* 设置内边距 */
-  font-size: 16px; /* 设置字体大小 */
-}
 
 ::-webkit-scrollbar {
   width: 6px; /* 对垂直滚动条有效 */
@@ -1265,5 +1326,6 @@ export default {
 ::-webkit-scrollbar-thumb:hover {
   background-color: #646cff;
 }
+
 
 </style>
