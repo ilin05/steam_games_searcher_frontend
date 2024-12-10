@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LoginVue from "@/components/Login.vue";
 import RegisterVue from "@/components/Register.vue";
 import UserVue from "@/components/User.vue";
-import TempVue from "@/components/temp.vue"
+
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes:[
@@ -22,10 +22,6 @@ const router = createRouter({
             path:'/user',
             component: UserVue
         },
-        {
-            path:'/temp',
-            component:TempVue
-        }
 
     ]
 })

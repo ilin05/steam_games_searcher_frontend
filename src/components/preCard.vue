@@ -1,7 +1,8 @@
 <template>
   <div style="position: relative; width: 100%; height: 100%;" @mouseover="showTitle=true" @mouseleave="showTitle=false">
     <img :src="imageUrl" alt="preImage" class="zoom-image" @click="$emit('update-showGame')">
-    <div v-if="showTitle" class="title">{{title}}</div>
+    <!--
+    <div v-if="showTitle" class="title">{{title}}</div>-->
   </div>
 </template>
 

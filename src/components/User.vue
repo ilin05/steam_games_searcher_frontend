@@ -159,7 +159,7 @@
           </el-container>
           <el-container class="user-love-preCard-container">
             <div v-for="(game,index) in favoriteGames" key="game.appId">
-              <div style="width:18vw;height: 15vh;margin-left:2%;margin-top:1%;margin-bottom: 4%">
+              <div style="width:18vw;height: 15vh;margin-left:2%;margin-top:2%;margin-bottom: 4%">
                 <preCard :imageUrl="game.MainPictureSrc" @update-showGame="ShowFavoriteGame(game.appId)"></preCard>
               </div>
             </div>
@@ -171,6 +171,7 @@
         <el-card class="user-command-card">
           <el-container class="user-command-head-container">
             <div style="color:gainsboro;font-size:150%;width: 10vw">根据收藏猜您喜欢</div>
+            <!--
             <div style="margin-left: 63%;">
               <el-button style="background-color:lightblue" @click="handleExpanded(3)">
                 <el-icon style="font-size: 200%;">
@@ -178,19 +179,15 @@
                 </el-icon>
               </el-button>
             </div>
-
-
+            -->
           </el-container>
 
-          <el-container class="user-command-preCard-container">
-            <el-carousel :interval="4000" type="card" >
-              <el-carousel-item v-for="(game,index) in commandGames" :key="index">
-                <pre-card imageUrl="game.MainPictureSrc" @click="ShowFavoriteGame(game.appId)"> </pre-card>
 
-
-              </el-carousel-item>
-            </el-carousel>
-          </el-container>
+          <el-carousel :interval="2000" type="card" height="17vh" indicator-position="outside" style="margin-top: 3%" >
+            <el-carousel-item v-for="game in commandGames" :key="game.appId"  >
+              <preCard :imageUrl="game.MainPictureSrc" @update-showGame="ShowFavoriteGame(game.appId)"></preCard>
+            </el-carousel-item>
+          </el-carousel>
 
 
         </el-card>
@@ -440,6 +437,10 @@ export default {
         },
         {
           appId: 1,
+          MainPictureSrc: 'https://cdn.akamai.steamstatic.com/steam/apps/255710/header.jpg?t=1654076112',
+        },
+        {
+          appId: 2,
           MainPictureSrc: 'https://cdn.akamai.steamstatic.com/steam/apps/255710/header.jpg?t=1654076112',
         }
       ],
@@ -1166,7 +1167,7 @@ export default {
 
 .user-information-card {
   width: 100%;
-  height: 30%;
+  height: 40%;
   border: none;
   border-radius: 10px;
   display: flex;
@@ -1220,7 +1221,7 @@ export default {
 
 .user-command-card {
   width: 100%;
-  height: 43%;
+  height: 33%;
   margin-top: 1%;
   background: #2c3e50;
   border-radius: 10px;
