@@ -11,7 +11,14 @@
             @keydown.down="onArrowDown"
             @keydown.up="onArrowUp"
             @keydown.enter="onEnter"
+            style="width: 55.5vw;"
+
         />
+        <el-button type="text" style="position: absolute;font-size: 200%;display: block; left:55%;top:3.5% " @click="onEnter">
+          <el-icon><Search /></el-icon>
+      </el-button>
+
+
 
         <ul v-if="showSuggestions">
           <li
@@ -52,7 +59,7 @@
             <img :src=ToShowPicture alt="Head Picture" class="head-picture">
 
             <div style="display: flex; flex-direction: row;  overflow-x: auto;overflow-y:hidden;white-space: nowrap;margin-top: 5px">
-              <div v-for="(picture,index) in toShowGame.pictures" :key="index"
+              <div v-for="(picture,index) in toShowGame.screenshots" :key="index"
                    style="display:inline-block;margin-right: 5px">
                 <img :src=picture class="single-picOrMovie-card" alt="Need pic" @click="changePicture(picture)">
               </div>
@@ -61,7 +68,7 @@
           </el-container>
 
           <el-container class="detailed-information-container ">
-            <img :src="toShowGame.MainPictureSrc" alt="Main Picture" class="main-picture">
+            <img :src="toShowGame.headerImage" alt="Main Picture" class="main-picture">
             <div
                 style="width:100%;margin-top:5px;color: gainsboro;font-size: large;word-wrap: break-word;word-break: break-all;overflow: hidden;">
               <p> {{ toShowGame.description }}</p></div>
@@ -74,7 +81,7 @@
                 <span style="font-size: math;color:darkgray;">Release date</span>
                 <span
                     style="font-size: math;color:cornflowerblue; margin-left: 30%">{{
-                    this.toShowGame.releaseDate
+                    this.toShowGame.releasedDate
                   }}</span>
               </p>
             </div>
@@ -87,8 +94,8 @@
             </div>
 
             <div style="display: flex; flex-direction: row;overflow: hidden;margin-top: 4%;">
-              <div v-for="(count,tag) in this.toShowGame.tags" :key="tag">
-                <el-tag style="margin-left: 2px;font-size: 13px;color: #2c3e50"> {{ tag }}</el-tag>
+              <div v-for="(tag,index) in this.toShowGame.tags" :key="tag">
+                <el-tag v-if="index<5" style="margin-left: 2px;font-size: 13px;color: #2c3e50"> {{ tag }}</el-tag>
               </div>
             </div>
 
@@ -115,7 +122,7 @@
         <el-container class="search-related-container">
           <div v-for="(game,index) in games" key="game.appId">
             <div style="width:auto;height: 22vh;margin-right: 4%">
-              <preCard :imageUrl="game.MainPictureSrc" v-if="index>0" @update-showGame="updateShowGame(game)"></preCard>
+              <preCard :imageUrl="game.headerImage" v-if="index>0" @update-showGame="updateShowGame(game)"></preCard>
             </div>
           </div>
         </el-container>
@@ -160,7 +167,7 @@
           <el-container class="user-love-preCard-container">
             <div v-for="(game,index) in favoriteGames" key="game.appId">
               <div style="width:18vw;height: 15vh;margin-left:2%;margin-top:2%;margin-bottom: 4%">
-                <preCard :imageUrl="game.MainPictureSrc" @update-showGame="ShowFavoriteGame(game.appId)"></preCard>
+                <preCard :imageUrl="game.headerImage" @update-showGame="ShowFavoriteGame(game.appId)"></preCard>
               </div>
             </div>
           </el-container>
@@ -185,7 +192,7 @@
 
           <el-carousel :interval="2000" type="card" height="17vh" indicator-position="outside" style="margin-top: 3%" >
             <el-carousel-item v-for="game in commandGames" :key="game.appId"  >
-              <preCard :imageUrl="game.MainPictureSrc" @update-showGame="ShowFavoriteGame(game.appId)"></preCard>
+              <preCard :imageUrl="game.headerImage" @update-showGame="ShowFavoriteGame(game.appId)"></preCard>
             </el-carousel-item>
           </el-carousel>
 
@@ -219,7 +226,7 @@
           <el-container style="flex-direction: row;display: flex;width: 100%;height: 100%;gap: 2.6%;flex-wrap: wrap;overflow-x:hidden;overflow-y:auto">
           <div v-for="(game,index) in screenedFavorites" key="game.appId">
             <div style="width:18vw;height: 15vh;margin-left:1%;margin-top:1%;margin-bottom: 4%">
-              <preCard :imageUrl="game.MainPictureSrc" @update-showGame="ShowFavoriteGame(game.appId)"></preCard>
+              <preCard :imageUrl="game.headerImage" @update-showGame="ShowFavoriteGame(game.appId)"></preCard>
             </div>
           </div>
 
@@ -248,7 +255,7 @@
         <el-container style="display: flex;flex-direction: row; height: 600px">
           <el-container class="detailed-information-container ">
             <!--游戏主图-->
-            <img :src="toShowGame.MainPictureSrc" alt="Main Picture" width="100%" height="80%">
+            <img :src="toShowGame.headerImage" alt="Main Picture" width="100%" height="80%">
             <!--描述-->
             <div
                 style="width:100%;margin-top:5px;color: gainsboro;font-size: large;word-wrap: break-word;word-break: break-all;overflow: hidden;">
@@ -272,7 +279,7 @@
                 <span
                     style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Release date</span>
                 <span style="font-size: 18px; color: cornflowerblue; margin-left: 20px;">
-            {{ this.toShowGame.releaseDate }}
+            {{ this.toShowGame.releasedDate }}
           </span>
               </p>
             </div>
@@ -301,31 +308,31 @@
                 <span style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Support_OS</span>
                 <span style="font-size: 18px; color: cornflowerblue; margin-left: 20px;">
           <span
-              v-if="this.toShowGame.winSupport === true & this.toShowGame.macSupport === false & this.toShowGame.linuxSupport === false">
+              v-if="this.toShowGame.win === true & this.toShowGame.mac === false & this.toShowGame.linux === false">
             Windows
           </span>
           <span
-              v-if="this.toShowGame.winSupport === false & this.toShowGame.macSupport === true & this.toShowGame.linuxSupport === false">
+              v-if="this.toShowGame.win === false & this.toShowGame.mac === true & this.toShowGame.linux === false">
             Mac
           </span>
           <span
-              v-if="this.toShowGame.winSupport === false & this.toShowGame.macSupport === false & this.toShowGame.linuxSupport === true">
+              v-if="this.toShowGame.win === false & this.toShowGame.mac === false & this.toShowGame.linux === true">
             Linux
           </span>
           <span
-              v-if="this.toShowGame.winSupport === true & this.toShowGame.macSupport === true & this.toShowGame.linuxSupport === false">
+              v-if="this.toShowGame.win === true & this.toShowGame.mac === true & this.toShowGame.linux === false">
             Windows、Mac
           </span>
           <span
-              v-if="this.toShowGame.winSupport === false & this.toShowGame.macSupport === true & this.toShowGame.linuxSupport === true">
+              v-if="this.toShowGame.win === false & this.toShowGame.mac === true & this.toShowGame.linux === true">
             Mac、Linux
           </span>
           <span
-              v-if="this.toShowGame.winSupport === true & this.toShowGame.macSupport === false & this.toShowGame.linuxSupport === true">
+              v-if="this.toShowGame.win === true & this.toShowGame.mac === false & this.toShowGame.linux === true">
             Windows、Linux
           </span>
           <span
-              v-if="this.toShowGame.winSupport === true & this.toShowGame.macSupport === true & this.toShowGame.linuxSupport === true">
+              v-if="this.toShowGame.win === true & this.toShowGame.mac === true & this.toShowGame.linux === true">
             Windows、Mac、Linux
           </span>
           </span>
@@ -382,7 +389,7 @@
                 <span
                     style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Support_language</span>
                 <span style="font-size: 18px; color: cornflowerblue;"
-                      v-for="(dev, index) in toShowGame.supported_languages" :key="dev">
+                      v-for="(dev, index) in toShowGame.supportLanguage" :key="dev">
             <!-- 在第一个开发者之前添加一段距离 -->
             <span v-if="index === 0" style="margin-left: 20px;"></span>
             &lt;{{ dev }}&gt;
@@ -432,30 +439,30 @@ export default {
       searchInFavorites: '',
       commandGames: [
         {
-          appId: 0,
-          MainPictureSrc: 'https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469',
+          appId: 10,
+          headerImage: 'https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469',
         },
         {
-          appId: 1,
-          MainPictureSrc: 'https://cdn.akamai.steamstatic.com/steam/apps/255710/header.jpg?t=1654076112',
+          appId: 10,
+          headerImage: 'https://cdn.akamai.steamstatic.com/steam/apps/255710/header.jpg?t=1654076112',
         },
         {
-          appId: 2,
-          MainPictureSrc: 'https://cdn.akamai.steamstatic.com/steam/apps/255710/header.jpg?t=1654076112',
+          appId: 10,
+          headerImage: 'https://cdn.akamai.steamstatic.com/steam/apps/255710/header.jpg?t=1654076112',
         }
       ],
       dialog1: false,
       firstLoaded: true,
       favoriteGames: [
         {
-          appId: 0,
+          appId: 10,
           title:'PUBG:BATTLEGROUNDS',
-          MainPictureSrc: 'https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469',
+          headerImage: 'https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469',
         },
         {
-          appId: 1,
+          appId: 20,
           title:'Cities: Skylines',
-          MainPictureSrc: 'https://cdn.akamai.steamstatic.com/steam/apps/255710/header.jpg?t=1654076112',
+          headerImage: 'https://cdn.akamai.steamstatic.com/steam/apps/255710/header.jpg?t=1654076112',
         }
       ],
       expandedNum: 0,
@@ -469,20 +476,20 @@ export default {
       toShowGame: {
         appId: 0,
         title: '',
-        releaseDate: '',
-        winSupport: false,
-        macSupport: false,
-        linuxSupport: false,
+        releasedDate: '',
+        win: false,
+        mac: false,
+        linux: false,
         price: 0.00,
-        tags: {},
+        tags: [],
         supportedLanguages: [],
-        MainPictureSrc: '',
+        headerImage: '',
         positive: 0,
         negative: 0,
-        pictures: [],
+        screenshots: [],
         website: "http://www.pubg.com",
         support_url: "https://support.playbattlegrounds.com",
-        supported_languages: [],
+        supportLanguage: [],
         developers: [],
         publishers: [],
         categories: [],
@@ -493,26 +500,25 @@ export default {
       ToShowPicture: '',
       games: [
         {
-          appId: 0,
+          appId: 10,
           title: 'PUBG:BATTLEGROUNDS',
-          releaseDate: '2017 年 12 月 21 日',
-          winSupport: true,
-          macSupport: false,
-          linuxSupport: false,
+          releasedDate: '2017 年 12 月 21 日',
+          win: true,
+          mac: false,
+          linux: false,
           price: 0.00,
-          tags: {
-            "Survival": 14039,
-            "Shooter": 11849,
-            "Multiplayer": 10176,
-            "Battle Royale": 10065,
-            "FPS": 7776,
-
-          },
+          tags: [
+            "Survival",
+            "Shooter",
+            "Multiplayer",
+            "Battle Royale",
+            "FPS",
+          ],
           supportedLanguages: [],
-          MainPictureSrc: 'https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469',
+          headerImage: 'https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469',
           positive: 1154655,
           negative: 895978,
-          pictures: [
+          screenshots: [
             "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_e2cbfefdff39b9cb8e080da8f30cc07223b041b9.1920x1080.jpg?t=1658287469",
             "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_01d84950ddfb28ea611f1fa1a28c3cb08ccd7eee.1920x1080.jpg?t=1658287469",
             "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_606cee13e97530720c678513cb1138ef9854d7d5.1920x1080.jpg?t=1658287469",
@@ -547,7 +553,7 @@ export default {
           ],
           website: "http://www.pubg.com",
           support_url: "https://support.playbattlegrounds.com",
-          supported_languages: [
+          supportLanguage: [
             "English",
             "Korean",
             "Simplified Chinese",
@@ -589,25 +595,25 @@ export default {
           description: "Play PUBG: BATTLEGROUNDS for free. Land on strategic locations, loot weapons and supplies, and survive to become the last team standing across various, diverse Battlegrounds. Squad up and join the Battlegrounds for the original Battle Royale experience that only PUBG: BATTLEGROUNDS can offer.",
         },
         {
-          appId: 1,
+          appId: 10,
           title: 'Cities: Skylines',
-          releaseDate: 'Mar 10, 2015',
-          winSupport: false,
-          macSupport: false,
-          linuxSupport: false,
+          releasedDate: 'Mar 10, 2015',
+          win: false,
+          mac: false,
+          linux: false,
           price: 0.00,
-          tags: {
-            "City Builder": 4632,
-            "Simulation": 3375,
-            "Building": 2766,
-            "Management": 2242,
-            "Strategy": 2160,
-          },
+          tags: [
+            "City Builder",
+            "Simulation",
+            "Building",
+            "Management",
+            "Strategy",
+          ],
           supportedLanguages: [],
-          MainPictureSrc: 'https://cdn.akamai.steamstatic.com/steam/apps/255710/header.jpg?t=1654076112',
+          headerImage: 'https://cdn.akamai.steamstatic.com/steam/apps/255710/header.jpg?t=1654076112',
           positive: 187151,
           negative: 13180,
-          pictures: [
+          screenshots: [
             "https://cdn.akamai.steamstatic.com/steam/apps/255710/ss_0ff5efa28d8c6761ee2e9c57412ca3bd9e133fed.1920x1080.jpg?t=1654076112",
             "https://cdn.akamai.steamstatic.com/steam/apps/255710/ss_7d1f130bebd09e1f8457110d7ebae6eff9f25612.1920x1080.jpg?t=1654076112",
             "https://cdn.akamai.steamstatic.com/steam/apps/255710/ss_e90299bea1faee761c11c5242c4e6e89f3ef7fb9.1920x1080.jpg?t=1654076112",
@@ -622,29 +628,28 @@ export default {
           description: "Cities: Skylines is a modern take on the classic city simulation. The game introduces new game play elements to realize the thrill and hardships of creating and maintaining a real city whilst expanding on some well-established tropes of the city building experience.",
         },
         {
-          appId: 2,
+          appId: 20,
           title: "ELDEN RING",
-          releaseDate: 'Feb 24, 2022',
-          winSupport: false,
-          macSupport: false,
-          linuxSupport: false,
+          releasedDate: 'Feb 24, 2022',
+          win: false,
+          mac: false,
+          linux: false,
           price: 0.00,
-          tags: {
-            "Souls-like": 4585,
-            "Relaxing": 4247,
-            "Dark Fantasy": 3466,
-            "RPG": 3143,
-            "Difficult": 2984,
-          },
+          tags: [
+            "Souls-like",
+            "Relaxing",
+            "Dark Fantasy",
+            "RPG",
+          ],
           supportedLanguages: [],
 
-          MainPictureSrc: 'https://cdn.akamai.steamstatic.com/steam/apps/1245620/header.jpg?t=1654259241',
+          headerImage: 'https://cdn.akamai.steamstatic.com/steam/apps/1245620/header.jpg?t=1654259241',
 
 
           positive: 460812,
           negative: 51238,
 
-          pictures: [
+          screenshots: [
             "https://cdn.akamai.steamstatic.com/steam/apps/1245620/ss_e80a907c2c43337e53316c71555c3c3035a1343e.1920x1080.jpg?t=1654259241",
             "https://cdn.akamai.steamstatic.com/steam/apps/1245620/ss_25cd489871907387c1b915022a96b196661b6e17.1920x1080.jpg?t=1654259241",
             "https://cdn.akamai.steamstatic.com/steam/apps/1245620/ss_3e556415d1bda00d749b2166ced264bec76f06ee.1920x1080.jpg?t=1654259241",
@@ -669,7 +674,7 @@ export default {
           ],
           website: "http://www.pubg.com",
           support_url: "https://support.playbattlegrounds.com",
-          supported_languages: [
+          supportLanguage: [
             "English",
             "Korean",
             "Simplified Chinese",
@@ -711,29 +716,29 @@ export default {
           description: "THE NEW FANTASY ACTION RPG. Rise, Tarnished, and be guided by grace to brandish the power of the Elden Ring and become an Elden Lord in the Lands Between.",
         },
         {
-          appId: 3,
+          appId: 30,
           title: 'Black Myth: Wukong',
-          releaseDate: 'Aug 19, 2024',
-          winSupport: false,
-          macSupport: false,
-          linuxSupport: false,
+          releasedDate: 'Aug 19, 2024',
+          win: false,
+          mac: false,
+          linux: false,
           price: 0.00,
-          tags: {
-            "Mythology": 8718,
-            "Action RPG": 7211,
-            "Action": 6779,
-            "RPG": 6111,
-            "Souls-like": 5973,
-          },
+          tags: [
+            "Mythology",
+            "Action RPG",
+            "Action",
+            "RPG",
+            "Souls-like",
+          ],
           supportedLanguages: [],
 
-          MainPictureSrc: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2358720/header.jpg?t=1725007201',
+          headerImage: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2358720/header.jpg?t=1725007201',
 
 
           positive: 663109,
           negative: 28700,
 
-          pictures: [
+          screenshots: [
             "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2358720/ss_86c4b7462bba219a0d0b89931a35812b9f188976.1920x1080.jpg?t=1725007201",
             "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2358720/ss_d9391ab31a4d15dddf7ba4949bfa44f5d9170580.1920x1080.jpg?t=1725007201",
             "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2358720/ss_524a39da392ee83dde091033562bc719d46b5838.1920x1080.jpg?t=1725007201",
@@ -743,7 +748,7 @@ export default {
           ],
           website: "http://www.pubg.com",
           support_url: "https://support.playbattlegrounds.com",
-          supported_languages: [
+          supportLanguage: [
             "English",
             "Korean",
             "Simplified Chinese",
@@ -812,13 +817,12 @@ export default {
       this.expandedNum = num;
     },
     ShowFavoriteGame(appId) {
-      axios.post("/user/GetFavoriteGame", {
-        appId: appId,
-        userId: sessionStorage.getItem("token"),
-      })
+      axios.get(`/user/GetDetail?appId=${appId}`)
           .then((response) => {
             if (response.data.code === 1) {
               this.toShowGame = response.data.payload
+              this.ToShowPicture = this.toShowGame.headerImage
+              ElMessage.success("获取成功")
             } else {
               ElMessage.error("打开游戏失败")
             }
@@ -826,7 +830,7 @@ export default {
     },
     updateShowGame(game) {
       this.toShowGame = game;
-      this.ToShowPicture = this.toShowGame.pictures[0];
+      this.ToShowPicture = this.toShowGame.screenshots[0];
 
     },
     toggleLove() {
@@ -859,7 +863,7 @@ export default {
 
       let temp = {
         appId: this.toShowGame.appId,
-        MainPictureSrc: this.toShowGame.MainPictureSrc
+        headerImage: this.toShowGame.headerImage
       }
       this.favoriteGames.push(temp);
 
@@ -962,7 +966,7 @@ export default {
       this.firstLoaded = !this.firstLoaded;
     }
 
-    this.ToShowPicture = this.toShowGame.pictures[0];
+    this.ToShowPicture = this.toShowGame.screenshots[0];
   }
 
 
@@ -1004,8 +1008,8 @@ export default {
   margin-bottom: 0.5%;
   display: flex;
   background: #2c3e50;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+
 }
 
 .advanced-options-card {
