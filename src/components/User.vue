@@ -58,7 +58,7 @@
 
             <img :src=ToShowPicture alt="Head Picture" class="head-picture">
 
-            <div style="display: flex; flex-direction: row;  overflow-x: auto;overflow-y:hidden;white-space: nowrap;margin-top: 5px">
+            <div style="display: flex; flex-direction: row;  overflow-x: auto;overflow-y:hidden;white-space: nowrap;margin-top: 1%">
               <div v-for="(picture,index) in toShowGame.screenshots" :key="index"
                    style="display:inline-block;margin-right: 5px">
                 <img :src=picture class="single-picOrMovie-card" alt="Need pic" @click="changePicture(picture)">
@@ -177,7 +177,7 @@
 
         <el-card class="user-command-card">
           <el-container class="user-command-head-container">
-            <div style="color:gainsboro;font-size:150%;width: 10vw">根据收藏猜您喜欢</div>
+            <div style="color:gainsboro;font-size:150%;width: 10vw">猜您喜欢</div>
             <!--
             <div style="margin-left: 63%;">
               <el-button style="background-color:lightblue" @click="handleExpanded(3)">
@@ -262,8 +262,8 @@
               <p> {{ toShowGame.description }}</p></div>
             <!--标签-->
             <div style="display: flex; flex-direction: row;overflow: hidden;margin-top: 4%;">
-              <div v-for="(count,tag) in this.toShowGame.tags" :key="tag">
-                <el-tag style="margin-left: 2px;font-size: 13px;color: #2c3e50"> {{ tag }}</el-tag>
+              <div v-for="(tag,index) in this.toShowGame.tags" :key="tag">
+                <el-tag v-if="index<10" style="margin-left: 2px;font-size: 13px;color: #2c3e50"> {{ tag }}</el-tag>
               </div>
             </div>
 
@@ -949,6 +949,21 @@ export default {
             })
       }
 
+
+
+    },
+    getCommands()
+    {
+      axios.get(`/user/recommendGames?userId=${sessionStorage.getItem("token")}`)
+          .then(response => {
+            if(response.data.code === 1){
+              this.commandGames = response.data.payload
+              ElMessage.success("推荐成功")
+            }else
+            {
+              ElMessage.error("推荐失败")
+            }
+          })
     },
     DeleteToken() {
       sessionStorage.clear()
@@ -958,6 +973,8 @@ export default {
     sessionStorage.setItem("games", JSON.stringify(this.games));
   },
   mounted() {
+
+
     if (sessionStorage.getItem("games") != null) {
       this.games = JSON.parse(sessionStorage.getItem("games"));
     }
@@ -965,8 +982,11 @@ export default {
       this.toShowGame = this.games[0];
       this.firstLoaded = !this.firstLoaded;
     }
-
     this.ToShowPicture = this.toShowGame.screenshots[0];
+
+    //this.getCommands();
+
+
   }
 
 
@@ -1092,7 +1112,7 @@ export default {
 
 .head-picture {
   width: 100%;
-  height: 100%;
+  height: 35vh;
   padding-left: 0;
   padding-right: 0;
   object-fit: fill;
@@ -1106,6 +1126,7 @@ export default {
 
 .single-picOrMovie-card {
   width: 7vw;
+  height: 7vh;
   object-fit: fill;
 }
 
