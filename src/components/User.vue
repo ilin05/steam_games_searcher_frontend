@@ -7,14 +7,21 @@
             type="text"
             v-model="query"
             placeholder="请输入以查询"
+            maxlength="50"
             @input="onInput"
             @keydown.down="onArrowDown"
             @keydown.up="onArrowUp"
             @keydown.enter="onEnter"
-            style="width: 55.5vw;"
+            style="width: 47vw;"
 
         />
-        <el-button type="text" style="position: absolute;font-size: 200%;display: block; left:55%;top:3.5% " @click="onEnter">
+        <el-radio-group v-model="isPreciseSearch" size="large" style="margin-left:20px;position: relative;padding-top: 0">
+          <el-radio-button :value="true" style="">Precise</el-radio-button>
+          <el-radio-button :value="false" style="">Fuzzy</el-radio-button>
+        </el-radio-group>
+
+
+        <el-button type="text" style="position: absolute;font-size: 200%;display: block; left:47%;top:3.5% " @click="onEnter">
           <el-icon><Search  /></el-icon>
       </el-button>
 
@@ -68,9 +75,11 @@
           </el-container>
 
           <el-container class="detailed-information-container ">
+
+
             <img :src="toShowGame.headerImage" alt="Main Picture" class="main-picture">
             <div
-                style="width:100%;margin-top:5px;color: gainsboro;font-size: large;word-wrap: break-word;word-break: break-all;overflow: hidden;">
+                style="width:100%;margin-top:5px;color: gainsboro;font-size: large;word-wrap: break-word;word-break: break-all;overflow-x: hidden;overflow-y:auto;height: 13vh">
               <p> {{ toShowGame.description }}</p></div>
             <div
                 style="width: 100%;margin-top: 3px;margin-bottom:3px;text-align: center;color:deepskyblue;font-size:2em;font-weight: 300;">
@@ -137,7 +146,7 @@
           <el-container class="user-information-head-container">
             <div style="color: gainsboro;font-size: 150%;width: 10vw">用户个人信息</div>
             <div style="margin-left: 66%;">
-              <el-button type="text" @click="handleExpanded(1)">
+              <el-button type="text" >
                 <el-icon style="font-size: 300%">
                   <Avatar/>
                 </el-icon>
@@ -147,8 +156,63 @@
 
 
           <el-container class="user-information-body-container">
+            <el-menu
+                active-text-color="#ffd04b"
+                background-color="#2c3e50"
+                text-color="#fff"
+                default-active="1"
+                @select="handleSelect"
+                style="margin-top: 4%"
+            >
+              <el-menu-item index="1">
+
+                <el-icon><document /></el-icon>
+                <span>账户信息</span>
+              </el-menu-item>
+              <el-menu-item index="2">
+
+                <el-icon><setting /></el-icon>
+                <span>系统信息</span>
+              </el-menu-item>
+              <el-menu-item index="3">
+                <el-icon><Briefcase /></el-icon>
+                <span>团队信息</span>
+              </el-menu-item>
+              <el-menu-item index="4">
+                <el-icon><setting /></el-icon>
+                <span>系统设置</span>
+              </el-menu-item>
+              <el-menu-item index="5">
+                <el-icon><Guide /></el-icon>
+                <span>操作指引</span>
+              </el-menu-item>
+            </el-menu>
+            <el-container v-if="this.menuIndex === 1">
+                <span>1</span>
+            </el-container>
+            <el-container v-if="this.menuIndex === 2">
+              <span>2</span>/
+            </el-container>
+            <el-container v-if="this.menuIndex === 3">
+
+            </el-container>
+            <el-container v-if="this.menuIndex === 4">
+
+            </el-container>
+            <el-container v-if="this.menuIndex === 5">
+
+            </el-container>
+            <el-container v-if="this.menuIndex === 6">
+
+            </el-container>
+            <el-container v-if="this.menuIndex === 7">
+
+            </el-container>
+
+
 
           </el-container>
+
 
         </el-card>
         <el-card class="user-love-card">
@@ -201,9 +265,7 @@
 
       </el-container>
 
-      <el-container v-else-if="expandedNum===1" key="1" class="all-right-information-container">
 
-      </el-container>
 
       <el-container v-else-if="expandedNum===2" key="2" class="all-right-favorites-container">
         <el-card class="all-right-favorites-head-card">
@@ -234,9 +296,7 @@
         </el-card>
       </el-container>
 
-      <el-container v-else-if="expandedNum===3" key="3" class="all-right-command-container">
 
-      </el-container>
 
     <el-dialog
         v-model="dialog1"
@@ -467,6 +527,7 @@ export default {
       ],
       expandedNum: 0,
       query: '',
+      isPreciseSearch:true,
       showOptions: false,
       suggestions: [{"name": "Game A", "estimated_owners": "20000"},],
       toSearchGames: gamesData,
@@ -482,7 +543,7 @@ export default {
         linux: false,
         price: 0.00,
         tags: [],
-        supportedLanguages: [],
+        supportLanguages: [],
         headerImage: '',
         positive: 0,
         negative: 0,
@@ -496,13 +557,14 @@ export default {
         genres: [],
         description: "",
       },
-
+      menuIndex:1,
       ToShowPicture: '',
       games: [
         {
           appId: 10,
           title: 'PUBG:BATTLEGROUNDS',
           releasedDate: '2017 年 12 月 21 日',
+
           win: true,
           mac: false,
           linux: false,
@@ -514,7 +576,7 @@ export default {
             "Battle Royale",
             "FPS",
           ],
-          supportedLanguages: [],
+          supportLanguages: [],
           headerImage: 'https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469',
           positive: 1154655,
           negative: 895978,
@@ -609,7 +671,7 @@ export default {
             "Management",
             "Strategy",
           ],
-          supportedLanguages: [],
+          supportLanguages: [],
           headerImage: 'https://cdn.akamai.steamstatic.com/steam/apps/255710/header.jpg?t=1654076112',
           positive: 187151,
           negative: 13180,
@@ -641,7 +703,7 @@ export default {
             "Dark Fantasy",
             "RPG",
           ],
-          supportedLanguages: [],
+          supportLanguages: [],
 
           headerImage: 'https://cdn.akamai.steamstatic.com/steam/apps/1245620/header.jpg?t=1654259241',
 
@@ -730,7 +792,7 @@ export default {
             "RPG",
             "Souls-like",
           ],
-          supportedLanguages: [],
+          supportLanguages: [],
 
           headerImage: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2358720/header.jpg?t=1725007201',
 
@@ -810,6 +872,11 @@ export default {
   },
 
   methods: {
+    handleSelect(index,indexPath){
+      this.menuIndex = index;
+    },
+
+    
     ShowMoreInformation() {
       this.dialog1 = true
     },
@@ -1029,6 +1096,7 @@ export default {
   display: flex;
   background: #2c3e50;
   flex-direction: row;
+  flex-wrap: nowrap;
 
 }
 
@@ -1202,15 +1270,21 @@ export default {
 
 .user-information-head-container {
   width: 100%;
-  height: 30%;
+  height: 15%;
   display: flex;
   flex-direction: row;
 }
 
 .user-information-body-container {
   width: 100%;
-  height: 70%;
+  height: 85%;
   margin-top: 0;
+  display: flex;
+  flex-direction: row;
+
+}
+.custom-menu-item{
+
 }
 
 .user-love-card {
@@ -1306,6 +1380,12 @@ export default {
 
 .all-right-favorites-head-card:deep(.el-card__body) {
   padding: 0;
+}
+.el-radio-button {
+  font-size: 30px; /* 调整字体大小 */
+
+
+
 }
 
 .all-right-favorites-body-card {
