@@ -197,7 +197,9 @@
             <el-container v-if="this.menuIndex === 3" style="display: flex;flex-direction: column;height:100%">
               <div style="width: 100%;margin-top: 0;margin-bottom:3px;text-align: center;color: #ff9f28;font-size:2em;font-weight: 300;"> 开发团队声明</div>
               <div style="width:94%;margin-top:2%;margin-left:5%;margin-right: 5%  ;color: gainsboro;font-size: large;word-wrap: break-word;word-break: break-all;overflow-x: hidden;overflow-y:auto;height: 16.5vh"><p> {{ this.team.Statement }}</p></div>
-              <div style="text-align: right;color: #ffe424;;font-size: large;margin-top: 2%" >Developer List (in no particular order) </div>
+              <div  style="text-align: right;color: #ffe424;;font-size: large;margin-top: 2%" >Developer List (in no particular order)
+                <p style="margin-top: 1%;color: lightblue; ">{{team.Developer}}</p>
+              </div>
               <div style="text-align: right;color: #ffe424;;font-size: x-large;margin-top:1px" ><p>   {{ team.TeamEmail }}   </p></div>
 
             </el-container>
@@ -661,7 +663,7 @@ export default {
             '\n' +
             'Thank you for your support and trust in our products.',
         TeamEmail:'TingQD@outlook.com',
-        Developer:['LeChatelier-Lenz','wuwuwu3125','TingSCQD','wwwloewww','ilin05']
+        Developer:'LeChatelier-Lenz -- wuwuwu3125 -- TingSCQD -- wwwloewww -- ilin05',
       },
       isSearchTitle:true,
       showOptions: false,
@@ -1446,7 +1448,7 @@ export default {
 
 .user-information-body-container {
   width: 100%;
-  height: 85%;
+  height: 30vh;
   margin-top: 0;
   display: flex;
   flex-direction: row;
