@@ -435,6 +435,14 @@
         高级选项
       </div>
       <el-form :model="form" label-width="auto" style="max-width: 600px">
+        <span style="font-size: 18px; font-weight: bold; margin-left: 15px; color: darkgray;">（必选）选择你的搜索类型</span>
+        <el-form-item label="搜索类型">
+          <el-radio-group v-model="form.isTitle">
+            <el-radio value="1"  style="color: #ffffff">按名字搜索</el-radio>
+            <el-radio value="0"  style="color: #ffffff">按描述搜索</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <span style="font-size: 18px; font-weight: bold; margin-left: 15px; color: darkgray;">（可选）选择你希望支持的操作系统</span>
         <el-form-item label="Support OS:">
           <el-checkbox-group v-model="form.type">
             <el-checkbox value="Windows" name="type" style="color: #ffffff">
@@ -448,12 +456,15 @@
             </el-checkbox>
           </el-checkbox-group>
         </el-form-item>
+        <span style="font-size: 18px; font-weight: bold; margin-left: 15px; color: darkgray;">（可选）选择你希望的价格区间</span>
         <el-form-item label="Max Price">
           <el-input-number v-model="form.max" :step="1" />
         </el-form-item>
         <el-form-item label="Min Price">
           <el-input-number v-model="form.min" :step="1" />
         </el-form-item>
+        <span style="font-size: 18px; font-weight: bold; margin-left: 15px; color: darkgray;">（可选）选择一些你感兴趣的标签</span>
+
         <el-form-item label="Top-13 Tags:" >
           <el-checkbox-group v-model="form.tags" >
             <el-checkbox value="Singleplayer" name="tags" style="color: #ffffff;">
@@ -541,9 +552,10 @@ export default {
       Tags:alltag,
       mytags:[],
       form:{
+        isTitle:"1",
         type: [],
-        max:'',
-        min:'',
+        max:999999,
+        min:0,
         tags: []
 
       },
