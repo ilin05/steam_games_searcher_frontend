@@ -415,17 +415,7 @@
                 </el-link>
               </p>
             </div>
-            <!--            &lt;!&ndash;游戏外平台&ndash;&gt;-->
-            <!--            <div style="width:100%; margin-top: 10px;">-->
-            <!--              <p>-->
-            <!--                <span-->
-            <!--                    style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Support_platform</span>-->
-            <!--                <el-link :href="this.toShowGame.support_url"-->
-            <!--                         style="font-size: 18px; color: cornflowerblue; margin-left: 20px;">-->
-            <!--                  {{ this.toShowGame.support_url }}-->
-            <!--                </el-link>-->
-            <!--              </p>-->
-            <!--            </div>-->
+
             <!--开发者-->
             <div style="width:100%; margin-top: 10px;">
               <p>
@@ -500,13 +490,13 @@
         高级选项
       </div>
       <el-form :model="form" label-width="auto" style="max-width: 600px">
-        <span style="font-size: 18px; font-weight: bold; margin-left: 15px; color: darkgray;">（必选）选择你的搜索类型</span>
-        <el-form-item label="搜索类型">
-          <el-radio-group v-model="form.isTitle">
-            <el-radio value="1"  style="color: #ffffff">按名字搜索</el-radio>
-            <el-radio value="0"  style="color: #ffffff">按描述搜索</el-radio>
-          </el-radio-group>
-        </el-form-item>
+<!--        <span style="font-size: 18px; font-weight: bold; margin-left: 15px; color: darkgray;">（必选）选择你的搜索类型</span>-->
+<!--        <el-form-item label="搜索类型">-->
+<!--          <el-radio-group v-model="form.isTitle">-->
+<!--            <el-radio value="1"  style="color: #ffffff">按名字搜索</el-radio>-->
+<!--            <el-radio value="0"  style="color: #ffffff">按描述搜索</el-radio>-->
+<!--          </el-radio-group>-->
+<!--        </el-form-item>-->
         <span style="font-size: 18px; font-weight: bold; margin-left: 15px; color: darkgray;">（可选）选择你希望支持的操作系统</span>
         <el-form-item label="Support OS:">
           <el-checkbox-group v-model="form.type">
@@ -528,9 +518,9 @@
         <el-form-item label="Min Price">
           <el-input-number v-model="form.min" :step="1" />
         </el-form-item>
-        <span style="font-size: 18px; font-weight: bold; margin-left: 15px; color: darkgray;">（可选）选择一些你感兴趣的标签</span>
+        <span v-if="isSearchTitle" style="font-size: 18px; font-weight: bold; margin-left: 15px; color: darkgray;">（可选）选择一些你感兴趣的标签</span>
 
-        <el-form-item label="Top-13 Tags:" >
+        <el-form-item v-if="isSearchTitle" label="Top-13 Tags:" >
           <el-checkbox-group v-model="form.tags" >
             <el-checkbox value="Singleplayer" name="tags" style="color: #ffffff;">
               Singleplayer
@@ -573,7 +563,7 @@
             </el-checkbox>
           </el-checkbox-group>
         </el-form-item>
-        <el-form-item label="Other Tags">
+        <el-form-item v-if="isSearchTitle" label="Other Tags">
           <el-select
               v-model="mytags"
               filterable
@@ -1157,9 +1147,12 @@ export default {
             mac = true
           }
         })
-        let istitle = false
-        if(this.form.isTitle === '1'){
-          istitle = true
+        // let istitle = false
+        // if(this.form.isTitle === '1'){
+        //   istitle = true
+        // }
+        if(this.isSearchTitle === true){
+          this.form.tags = []
         }
         axios.post("/user/search", {
           query: this.query,
@@ -1170,7 +1163,7 @@ export default {
           winSupport: win,
           linuxSupport: linux,
           macSupport: mac,
-          isTitle: istitle
+          isTitle: this.isSearchTitle
           //password:SHA256(this.adminLoginInfo.password).toString(),
         })
             .then(response => {
