@@ -1008,8 +1008,8 @@ export default {
 
     
     clearit(){
-      this.form.max = ''
-      this.form.min = ''
+      this.form.max = 99999
+      this.form.min = 0
       this.form.type = []
       this.form.tags = []
       this.mytags = []
