@@ -1120,11 +1120,6 @@ export default {
       if (this.highlightedIndex >= 0) {
         this.selectSuggestion(this.filteredSuggestions[this.highlightedIndex]);
       }
-      if (this.query === "") {
-        this.backNum = this.firstbg;
-      } else {
-        if (this.backNum < 2) this.backNum++
-        else this.backNum = this.fpsbg;
         this.mytags.forEach(mytag => {
           this.form.tags.push(mytag)
         })
@@ -1149,22 +1144,14 @@ export default {
         if(this.isSearchTitle === true){
           this.form.tags = []
         }
-        axios.post("/user/search", {
-          query: this.query,
-          userId: sessionStorage.getItem("token"),
-          tags: this.form.tags,
-          lowestPrice: this.form.min,
-          highestPrice: this.form.max,
-          winSupport: win,
-          linuxSupport: linux,
-          macSupport: mac,
-          isTitle: this.isSearchTitle
-          //password:SHA256(this.adminLoginInfo.password).toString(),
-        })
+        // this.form.tags = ['rrr']
+        axios.get(`/user/search?query=${this.query}&userId=${sessionStorage.getItem("token")}&tags=${this.form.tags}&lowestPrice=${this.form.min}&highestPrice=${this.form.max}&winSupport=${win}&linuxSupport=${linux}&macSupport=${mac}&isTitle=${this.isSearchTitle}&supportLanguages=${[]}`)
             .then(response => {
               if (response.data.code === 1) {
                 ElMessage.success("搜索成功");
                 this.games = response.data.payload;
+                this.toShowGame = this.games[0];
+                this.ToShowPicture = this.toShowGame.screenshots[0];
                 sessionStorage.setItem("games", response.data.payload);
               } else {
                 ElMessage.error(response.data)
@@ -1173,7 +1160,6 @@ export default {
             .catch(error => {
               ElMessage.error("搜索失败");
             })
-      }
 
 
 
