@@ -6,7 +6,7 @@
         <input
             type="text"
             v-model="query"
-            placeholder="请输入以查询"
+            :placeholder="tips"
             maxlength="50"
             @input="onInput"
             @keydown.down="onArrowDown"
@@ -75,8 +75,8 @@
                 style="width:100%;margin-top:5px;color: gainsboro;font-size: large;word-wrap: break-word;word-break: break-all;overflow-x: hidden;overflow-y:auto;height: 13vh">
               <p> {{ toShowGame.description }}</p></div>
             <div
-                style="width: 100%;margin-top: 3px;margin-bottom:3px;text-align: center;color:deepskyblue;font-size:2em;font-weight: 300;">
-              <p> {{ toShowGame.title }} </p></div>
+                style="width: 100%;margin-top: 3px;margin-bottom:3px;text-align: center;color:deepskyblue;font-size:2em;font-weight: 300;flex-wrap: nowrap;overflow-x: auto">
+              <p> {{ toShowTitle }} </p></div>
 
             <div style="width:100%;">
               <p>
@@ -976,7 +976,19 @@ export default {
     }
   },
   computed: {
-
+    toShowTitle(){
+      if(this.toShowGame.title.length>25)
+        return this.toShowGame.title.slice(0,25) + '...';
+      else
+        return this.toShowGame.title
+    },
+    tips(){
+      if(this.isSearchTitle){
+        return '请输入名称查询'
+      }else{
+        return '支持输入描述或Tags搜索'
+      }
+    },
     screenedFavorites(){
       if(this.searchInFavorites.length > 0){
         return this.favoriteGames.filter(game => game.title.toLowerCase().includes(this.searchInFavorites.toLowerCase()))
@@ -1016,7 +1028,7 @@ export default {
           .then((response) => {
             if (response.data.code === 1) {
               this.toShowGame = response.data.payload
-              this.ToShowPicture = this.toShowGame.headerImage
+              this.ToShowPicture = this.toShowGame.screenshots[0];
               ElMessage.success("获取成功")
             } else {
               ElMessage.error("打开游戏失败")
@@ -1158,7 +1170,7 @@ export default {
               }
             })
             .catch(error => {
-              ElMessage.error("搜索失败");
+              ElMessage.error("异常");
             })
 
 
@@ -1170,6 +1182,8 @@ export default {
           .then(response => {
             if(response.data.code === 1){
               this.commandGames = response.data.payload
+              this.toShowGame = this.commandGames[0]
+              this.ToShowPicture = this.toShowGame.screenshots[0];
               ElMessage.success("推荐成功")
             }else
             {
@@ -1187,16 +1201,12 @@ export default {
   mounted() {
 
 
-    if (sessionStorage.getItem("games") != null) {
-      this.games = JSON.parse(sessionStorage.getItem("games"));
-    }
-    if (this.firstLoaded) {
-      this.toShowGame = this.games[0];
-      this.firstLoaded = !this.firstLoaded;
-    }
-    this.ToShowPicture = this.toShowGame.screenshots[0];
+    //if (sessionStorage.getItem("games") != null) {
+    //  this.games = JSON.parse(sessionStorage.getItem("games"));
+    //}
 
-    //this.getCommands();
+
+    this.getCommands();
 
 
   }
