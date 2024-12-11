@@ -552,7 +552,7 @@ export default {
       Tags:alltag,
       mytags:[],
       form:{
-        isTitle:"1",
+        isTitle:'1',
         type: [],
         max:999999,
         min:0,
@@ -1061,9 +1061,37 @@ export default {
       } else {
         if (this.backNum < 2) this.backNum++
         else this.backNum = this.fpsbg;
+        this.mytags.forEach(mytag => {
+          this.form.tags.push(mytag)
+        })
+        let win = false
+        let linux  = false
+        let mac = false
+        this.form.type.forEach(t => {
+          if(t === 'Windows'){
+            win = true
+          }
+          if(t === 'Linux'){
+            linux = true
+          }
+          if(t === 'Mac'){
+            mac = true
+          }
+        })
+        let istitle = false
+        if(this.form.isTitle === '1'){
+          istitle = true
+        }
         axios.post("/user/search", {
           query: this.query,
-          userId: sessionStorage.getItem("token")
+          userId: sessionStorage.getItem("token"),
+          tags: this.form.tags,
+          lowestPrice: this.form.min,
+          highestPrice: this.form.max,
+          winSupport: win,
+          linuxSupport: linux,
+          macSupport: mac,
+          isTitle: istitle
           //password:SHA256(this.adminLoginInfo.password).toString(),
         })
             .then(response => {
