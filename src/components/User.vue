@@ -498,7 +498,8 @@
 <!--          </el-radio-group>-->
 <!--        </el-form-item>-->
         <span style="font-size: 18px; font-weight: bold; margin-left: 15px; color: darkgray;">（可选）选择你希望支持的操作系统</span>
-        <el-form-item label="Support OS:">
+        <el-form-item>
+          <div style="color: white">Support OS</div>
           <el-checkbox-group v-model="form.type">
             <el-checkbox value="Windows" name="type" style="color: #ffffff">
               Windows
@@ -518,9 +519,9 @@
         <el-form-item label="Min Price">
           <el-input-number v-model="form.min" :step="1" />
         </el-form-item>
-        <span v-if="isSearchTitle" style="font-size: 18px; font-weight: bold; margin-left: 15px; color: darkgray;">（可选）选择一些你感兴趣的标签</span>
+        <span v-if="!isSearchTitle" style="font-size: 18px; font-weight: bold; margin-left: 15px; color: darkgray;">（可选）选择一些你感兴趣的标签</span>
 
-        <el-form-item v-if="isSearchTitle" label="Top-13 Tags:" >
+        <el-form-item v-if="!isSearchTitle" label="Top-13 Tags:" >
           <el-checkbox-group v-model="form.tags" >
             <el-checkbox value="Singleplayer" name="tags" style="color: #ffffff;">
               Singleplayer
@@ -563,7 +564,7 @@
             </el-checkbox>
           </el-checkbox-group>
         </el-form-item>
-        <el-form-item v-if="isSearchTitle" label="Other Tags">
+        <el-form-item v-if="!isSearchTitle" label="Other Tags">
           <el-select
               v-model="mytags"
               filterable
