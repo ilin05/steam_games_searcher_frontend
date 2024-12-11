@@ -1,0 +1,1750 @@
+[
+    {
+        "value": "Story Rich",
+        "label": "Story Rich"
+    },
+    {
+        "value": "Colorful",
+        "label": "Colorful"
+    },
+    {
+        "value": "Exploration",
+        "label": "Exploration"
+    },
+    {
+        "value": "Cute",
+        "label": "Cute"
+    },
+    {
+        "value": "First-Person",
+        "label": "First-Person"
+    },
+    {
+        "value": "Arcade",
+        "label": "Arcade"
+    },
+    {
+        "value": "Multiplayer",
+        "label": "Multiplayer"
+    },
+    {
+        "value": "Fantasy",
+        "label": "Fantasy"
+    },
+    {
+        "value": "Funny",
+        "label": "Funny"
+    },
+    {
+        "value": "Shooter",
+        "label": "Shooter"
+    },
+    {
+        "value": "Retro",
+        "label": "Retro"
+    },
+    {
+        "value": "Horror",
+        "label": "Horror"
+    },
+    {
+        "value": "Platformer",
+        "label": "Platformer"
+    },
+    {
+        "value": "Family Friendly",
+        "label": "Family Friendly"
+    },
+    {
+        "value": "Anime",
+        "label": "Anime"
+    },
+    {
+        "value": "Sci-fi",
+        "label": "Sci-fi"
+    },
+    {
+        "value": "Action-Adventure",
+        "label": "Action-Adventure"
+    },
+    {
+        "value": "Relaxing",
+        "label": "Relaxing"
+    },
+    {
+        "value": "Female Protagonist",
+        "label": "Female Protagonist"
+    },
+    {
+        "value": "Difficult",
+        "label": "Difficult"
+    },
+    {
+        "value": "VR",
+        "label": "VR"
+    },
+    {
+        "value": "Third Person",
+        "label": "Third Person"
+    },
+    {
+        "value": "Survival",
+        "label": "Survival"
+    },
+    {
+        "value": "Top-Down",
+        "label": "Top-Down"
+    },
+    {
+        "value": "Open World",
+        "label": "Open World"
+    },
+    {
+        "value": "Stylized",
+        "label": "Stylized"
+    },
+    {
+        "value": "Controller",
+        "label": "Controller"
+    },
+    {
+        "value": "Combat",
+        "label": "Combat"
+    },
+    {
+        "value": "Great Soundtrack",
+        "label": "Great Soundtrack"
+    },
+    {
+        "value": "Comedy",
+        "label": "Comedy"
+    },
+    {
+        "value": "Visual Novel",
+        "label": "Visual Novel"
+    },
+    {
+        "value": "2D Platformer",
+        "label": "2D Platformer"
+    },
+    {
+        "value": "FPS",
+        "label": "FPS"
+    },
+    {
+        "value": "Violent",
+        "label": "Violent"
+    },
+    {
+        "value": "Mystery",
+        "label": "Mystery"
+    },
+    {
+        "value": "Co-op",
+        "label": "Co-op"
+    },
+    {
+        "value": "Free to Play",
+        "label": "Free to Play"
+    },
+    {
+        "value": "Dark",
+        "label": "Dark"
+    },
+    {
+        "value": "Minimalist",
+        "label": "Minimalist"
+    },
+    {
+        "value": "Physics",
+        "label": "Physics"
+    },
+    {
+        "value": "Realistic",
+        "label": "Realistic"
+    },
+    {
+        "value": "Cartoony",
+        "label": "Cartoony"
+    },
+    {
+        "value": "Psychological Horror",
+        "label": "Psychological Horror"
+    },
+    {
+        "value": "Choices Matter",
+        "label": "Choices Matter"
+    },
+    {
+        "value": "Point & Click",
+        "label": "Point & Click"
+    },
+    {
+        "value": "Linear",
+        "label": "Linear"
+    },
+    {
+        "value": "Gore",
+        "label": "Gore"
+    },
+    {
+        "value": "Sandbox",
+        "label": "Sandbox"
+    },
+    {
+        "value": "PvP",
+        "label": "PvP"
+    },
+    {
+        "value": "Multiple Endings",
+        "label": "Multiple Endings"
+    },
+    {
+        "value": "Sports",
+        "label": "Sports"
+    },
+    {
+        "value": "Space",
+        "label": "Space"
+    },
+    {
+        "value": "Side Scroller",
+        "label": "Side Scroller"
+    },
+    {
+        "value": "Rogue-like",
+        "label": "Rogue-like"
+    },
+    {
+        "value": "Old School",
+        "label": "Old School"
+    },
+    {
+        "value": "Tactical",
+        "label": "Tactical"
+    },
+    {
+        "value": "Building",
+        "label": "Building"
+    },
+    {
+        "value": "PvE",
+        "label": "PvE"
+    },
+    {
+        "value": "Rogue-lite",
+        "label": "Rogue-lite"
+    },
+    {
+        "value": "Puzzle-Platformer",
+        "label": "Puzzle-Platformer"
+    },
+    {
+        "value": "Character Customization",
+        "label": "Character Customization"
+    },
+    {
+        "value": "Management",
+        "label": "Management"
+    },
+    {
+        "value": "Hidden Object",
+        "label": "Hidden Object"
+    },
+    {
+        "value": "Hand-drawn",
+        "label": "Hand-drawn"
+    },
+    {
+        "value": "Action RPG",
+        "label": "Action RPG"
+    },
+    {
+        "value": "Sexual Content",
+        "label": "Sexual Content"
+    },
+    {
+        "value": "Magic",
+        "label": "Magic"
+    },
+    {
+        "value": "Logic",
+        "label": "Logic"
+    },
+    {
+        "value": "Racing",
+        "label": "Racing"
+    },
+    {
+        "value": "Nudity",
+        "label": "Nudity"
+    },
+    {
+        "value": "Local Multiplayer",
+        "label": "Local Multiplayer"
+    },
+    {
+        "value": "Shoot 'Em Up",
+        "label": "Shoot 'Em Up"
+    },
+    {
+        "value": "3D Platformer",
+        "label": "3D Platformer"
+    },
+    {
+        "value": "Procedural Generation",
+        "label": "Procedural Generation"
+    },
+    {
+        "value": "Turn-Based Strategy",
+        "label": "Turn-Based Strategy"
+    },
+    {
+        "value": "Survival Horror",
+        "label": "Survival Horror"
+    },
+    {
+        "value": "Cartoon",
+        "label": "Cartoon"
+    },
+    {
+        "value": "Futuristic",
+        "label": "Futuristic"
+    },
+    {
+        "value": "Bullet Hell",
+        "label": "Bullet Hell"
+    },
+    {
+        "value": "Medieval",
+        "label": "Medieval"
+    },
+    {
+        "value": "Turn-Based Combat",
+        "label": "Turn-Based Combat"
+    },
+    {
+        "value": "Online Co-Op",
+        "label": "Online Co-Op"
+    },
+    {
+        "value": "Crafting",
+        "label": "Crafting"
+    },
+    {
+        "value": "Turn-Based Tactics",
+        "label": "Turn-Based Tactics"
+    },
+    {
+        "value": "Walking Simulator",
+        "label": "Walking Simulator"
+    },
+    {
+        "value": "Drama",
+        "label": "Drama"
+    },
+    {
+        "value": "Interactive Fiction",
+        "label": "Interactive Fiction"
+    },
+    {
+        "value": "Choose Your Own Adventure",
+        "label": "Choose Your Own Adventure"
+    },
+    {
+        "value": "Hack and Slash",
+        "label": "Hack and Slash"
+    },
+    {
+        "value": "Action Roguelike",
+        "label": "Action Roguelike"
+    },
+    {
+        "value": "Zombies",
+        "label": "Zombies"
+    },
+    {
+        "value": "1990's",
+        "label": "1990's"
+    },
+    {
+        "value": "Resource Management",
+        "label": "Resource Management"
+    },
+    {
+        "value": "Local Co-Op",
+        "label": "Local Co-Op"
+    },
+    {
+        "value": "Score Attack",
+        "label": "Score Attack"
+    },
+    {
+        "value": "JRPG",
+        "label": "JRPG"
+    },
+    {
+        "value": "Dungeon Crawler",
+        "label": "Dungeon Crawler"
+    },
+    {
+        "value": "Replay Value",
+        "label": "Replay Value"
+    },
+    {
+        "value": "Education",
+        "label": "Education"
+    },
+    {
+        "value": "Dark Fantasy",
+        "label": "Dark Fantasy"
+    },
+    {
+        "value": "Surreal",
+        "label": "Surreal"
+    },
+    {
+        "value": "War",
+        "label": "War"
+    },
+    {
+        "value": "Historical",
+        "label": "Historical"
+    },
+    {
+        "value": "Immersive Sim",
+        "label": "Immersive Sim"
+    },
+    {
+        "value": "Turn-Based",
+        "label": "Turn-Based"
+    },
+    {
+        "value": "Post-apocalyptic",
+        "label": "Post-apocalyptic"
+    },
+    {
+        "value": "Top-Down Shooter",
+        "label": "Top-Down Shooter"
+    },
+    {
+        "value": "Nature",
+        "label": "Nature"
+    },
+    {
+        "value": "Emotional",
+        "label": "Emotional"
+    },
+    {
+        "value": "Base-Building",
+        "label": "Base-Building"
+    },
+    {
+        "value": "Stealth",
+        "label": "Stealth"
+    },
+    {
+        "value": "Isometric",
+        "label": "Isometric"
+    },
+    {
+        "value": "Romance",
+        "label": "Romance"
+    },
+    {
+        "value": "Text-Based",
+        "label": "Text-Based"
+    },
+    {
+        "value": "Fast-Paced",
+        "label": "Fast-Paced"
+    },
+    {
+        "value": "Massively Multiplayer",
+        "label": "Massively Multiplayer"
+    },
+    {
+        "value": "Short",
+        "label": "Short"
+    },
+    {
+        "value": "Card Game",
+        "label": "Card Game"
+    },
+    {
+        "value": "Abstract",
+        "label": "Abstract"
+    },
+    {
+        "value": "Classic",
+        "label": "Classic"
+    },
+    {
+        "value": "Clicker",
+        "label": "Clicker"
+    },
+    {
+        "value": "RTS",
+        "label": "RTS"
+    },
+    {
+        "value": "Precision Platformer",
+        "label": "Precision Platformer"
+    },
+    {
+        "value": "Military",
+        "label": "Military"
+    },
+    {
+        "value": "1980s",
+        "label": "1980s"
+    },
+    {
+        "value": "2.5D",
+        "label": "2.5D"
+    },
+    {
+        "value": "Third-Person Shooter",
+        "label": "Third-Person Shooter"
+    },
+    {
+        "value": "Tower Defense",
+        "label": "Tower Defense"
+    },
+    {
+        "value": "Investigation",
+        "label": "Investigation"
+    },
+    {
+        "value": "Board Game",
+        "label": "Board Game"
+    },
+    {
+        "value": "Memes",
+        "label": "Memes"
+    },
+    {
+        "value": "Detective",
+        "label": "Detective"
+    },
+    {
+        "value": "Narration",
+        "label": "Narration"
+    },
+    {
+        "value": "RPGMaker",
+        "label": "RPGMaker"
+    },
+    {
+        "value": "Dating Sim",
+        "label": "Dating Sim"
+    },
+    {
+        "value": "Robots",
+        "label": "Robots"
+    },
+    {
+        "value": "Aliens",
+        "label": "Aliens"
+    },
+    {
+        "value": "Cyberpunk",
+        "label": "Cyberpunk"
+    },
+    {
+        "value": "Perma Death",
+        "label": "Perma Death"
+    },
+    {
+        "value": "Tabletop",
+        "label": "Tabletop"
+    },
+    {
+        "value": "Cinematic",
+        "label": "Cinematic"
+    },
+    {
+        "value": "Driving",
+        "label": "Driving"
+    },
+    {
+        "value": "VR Only",
+        "label": "VR Only"
+    },
+    {
+        "value": "Life Sim",
+        "label": "Life Sim"
+    },
+    {
+        "value": "Dark Humor",
+        "label": "Dark Humor"
+    },
+    {
+        "value": "Economy",
+        "label": "Economy"
+    },
+    {
+        "value": "Arena Shooter",
+        "label": "Arena Shooter"
+    },
+    {
+        "value": "Time Management",
+        "label": "Time Management"
+    },
+    {
+        "value": "Mature",
+        "label": "Mature"
+    },
+    {
+        "value": "4 Player Local",
+        "label": "4 Player Local"
+    },
+    {
+        "value": "Flight",
+        "label": "Flight"
+    },
+    {
+        "value": "Psychological",
+        "label": "Psychological"
+    },
+    {
+        "value": "Thriller",
+        "label": "Thriller"
+    },
+    {
+        "value": "Strategy RPG",
+        "label": "Strategy RPG"
+    },
+    {
+        "value": "Demons",
+        "label": "Demons"
+    },
+    {
+        "value": "Real Time Tactics",
+        "label": "Real Time Tactics"
+    },
+    {
+        "value": "City Builder",
+        "label": "City Builder"
+    },
+    {
+        "value": "Experimental",
+        "label": "Experimental"
+    },
+    {
+        "value": "Conversation",
+        "label": "Conversation"
+    },
+    {
+        "value": "Beat 'em up",
+        "label": "Beat 'em up"
+    },
+    {
+        "value": "Psychedelic",
+        "label": "Psychedelic"
+    },
+    {
+        "value": "Runner",
+        "label": "Runner"
+    },
+    {
+        "value": "Fighting",
+        "label": "Fighting"
+    },
+    {
+        "value": "LGBTQ+",
+        "label": "LGBTQ+"
+    },
+    {
+        "value": "Metroidvania",
+        "label": "Metroidvania"
+    },
+    {
+        "value": "Music",
+        "label": "Music"
+    },
+    {
+        "value": "Wargame",
+        "label": "Wargame"
+    },
+    {
+        "value": "Tactical RPG",
+        "label": "Tactical RPG"
+    },
+    {
+        "value": "Nonlinear",
+        "label": "Nonlinear"
+    },
+    {
+        "value": "Supernatural",
+        "label": "Supernatural"
+    },
+    {
+        "value": "Tutorial",
+        "label": "Tutorial"
+    },
+    {
+        "value": "Competitive",
+        "label": "Competitive"
+    },
+    {
+        "value": "Team-Based",
+        "label": "Team-Based"
+    },
+    {
+        "value": "Collectathon",
+        "label": "Collectathon"
+    },
+    {
+        "value": "Lore-Rich",
+        "label": "Lore-Rich"
+    },
+    {
+        "value": "Level Editor",
+        "label": "Level Editor"
+    },
+    {
+        "value": "Artificial Intelligence",
+        "label": "Artificial Intelligence"
+    },
+    {
+        "value": "Comic Book",
+        "label": "Comic Book"
+    },
+    {
+        "value": "Idler",
+        "label": "Idler"
+    },
+    {
+        "value": "Twin Stick Shooter",
+        "label": "Twin Stick Shooter"
+    },
+    {
+        "value": "Automobile Sim",
+        "label": "Automobile Sim"
+    },
+    {
+        "value": "Loot",
+        "label": "Loot"
+    },
+    {
+        "value": "Dystopian",
+        "label": "Dystopian"
+    },
+    {
+        "value": "Party-Based RPG",
+        "label": "Party-Based RPG"
+    },
+    {
+        "value": "Parkour",
+        "label": "Parkour"
+    },
+    {
+        "value": "Modern",
+        "label": "Modern"
+    },
+    {
+        "value": "Utilities",
+        "label": "Utilities"
+    },
+    {
+        "value": "Destruction",
+        "label": "Destruction"
+    },
+    {
+        "value": "Grid-Based Movement",
+        "label": "Grid-Based Movement"
+    },
+    {
+        "value": "2D Fighter",
+        "label": "2D Fighter"
+    },
+    {
+        "value": "Souls-like",
+        "label": "Souls-like"
+    },
+    {
+        "value": "Hentai",
+        "label": "Hentai"
+    },
+    {
+        "value": "Match 3",
+        "label": "Match 3"
+    },
+    {
+        "value": "Rhythm",
+        "label": "Rhythm"
+    },
+    {
+        "value": "Cats",
+        "label": "Cats"
+    },
+    {
+        "value": "Alternate History",
+        "label": "Alternate History"
+    },
+    {
+        "value": "Deckbuilding",
+        "label": "Deckbuilding"
+    },
+    {
+        "value": "Design & Illustration",
+        "label": "Design & Illustration"
+    },
+    {
+        "value": "Moddable",
+        "label": "Moddable"
+    },
+    {
+        "value": "CRPG",
+        "label": "CRPG"
+    },
+    {
+        "value": "Inventory Management",
+        "label": "Inventory Management"
+    },
+    {
+        "value": "Crime",
+        "label": "Crime"
+    },
+    {
+        "value": "Mythology",
+        "label": "Mythology"
+    },
+    {
+        "value": "Space Sim",
+        "label": "Space Sim"
+    },
+    {
+        "value": "Beautiful",
+        "label": "Beautiful"
+    },
+    {
+        "value": "Card Battler",
+        "label": "Card Battler"
+    },
+    {
+        "value": "Soundtrack",
+        "label": "Soundtrack"
+    },
+    {
+        "value": "Grand Strategy",
+        "label": "Grand Strategy"
+    },
+    {
+        "value": "World War II",
+        "label": "World War II"
+    },
+    {
+        "value": "Science",
+        "label": "Science"
+    },
+    {
+        "value": "Philosophical",
+        "label": "Philosophical"
+    },
+    {
+        "value": "Dark Comedy",
+        "label": "Dark Comedy"
+    },
+    {
+        "value": "Noir",
+        "label": "Noir"
+    },
+    {
+        "value": "Mystery Dungeon",
+        "label": "Mystery Dungeon"
+    },
+    {
+        "value": "3D Fighter",
+        "label": "3D Fighter"
+    },
+    {
+        "value": "Character Action Game",
+        "label": "Character Action Game"
+    },
+    {
+        "value": "Lovecraftian",
+        "label": "Lovecraftian"
+    },
+    {
+        "value": "Split Screen",
+        "label": "Split Screen"
+    },
+    {
+        "value": "Word Game",
+        "label": "Word Game"
+    },
+    {
+        "value": "NSFW",
+        "label": "NSFW"
+    },
+    {
+        "value": "Swordplay",
+        "label": "Swordplay"
+    },
+    {
+        "value": "Farming Sim",
+        "label": "Farming Sim"
+    },
+    {
+        "value": "Colony Sim",
+        "label": "Colony Sim"
+    },
+    {
+        "value": "Automation",
+        "label": "Automation"
+    },
+    {
+        "value": "Mouse only",
+        "label": "Mouse only"
+    },
+    {
+        "value": "Creature Collector",
+        "label": "Creature Collector"
+    },
+    {
+        "value": "e-sports",
+        "label": "e-sports"
+    },
+    {
+        "value": "6DOF",
+        "label": "6DOF"
+    },
+    {
+        "value": "Voxel",
+        "label": "Voxel"
+    },
+    {
+        "value": "3D Vision",
+        "label": "3D Vision"
+    },
+    {
+        "value": "Dragons",
+        "label": "Dragons"
+    },
+    {
+        "value": "Software",
+        "label": "Software"
+    },
+    {
+        "value": "Vehicular Combat",
+        "label": "Vehicular Combat"
+    },
+    {
+        "value": "Solitaire",
+        "label": "Solitaire"
+    },
+    {
+        "value": "Bullet Time",
+        "label": "Bullet Time"
+    },
+    {
+        "value": "Hero Shooter",
+        "label": "Hero Shooter"
+    },
+    {
+        "value": "Battle Royale",
+        "label": "Battle Royale"
+    },
+    {
+        "value": "Mechs",
+        "label": "Mechs"
+    },
+    {
+        "value": "Agriculture",
+        "label": "Agriculture"
+    },
+    {
+        "value": "Parody",
+        "label": "Parody"
+    },
+    {
+        "value": "Combat Racing",
+        "label": "Combat Racing"
+    },
+    {
+        "value": "Capitalism",
+        "label": "Capitalism"
+    },
+    {
+        "value": "Open World Survival Craft",
+        "label": "Open World Survival Craft"
+    },
+    {
+        "value": "Spectacle fighter",
+        "label": "Spectacle fighter"
+    },
+    {
+        "value": "America",
+        "label": "America"
+    },
+    {
+        "value": "Blood",
+        "label": "Blood"
+    },
+    {
+        "value": "Time Manipulation",
+        "label": "Time Manipulation"
+    },
+    {
+        "value": "Animation & Modeling",
+        "label": "Animation & Modeling"
+    },
+    {
+        "value": "Gun Customization",
+        "label": "Gun Customization"
+    },
+    {
+        "value": "Class-Based",
+        "label": "Class-Based"
+    },
+    {
+        "value": "Sokoban",
+        "label": "Sokoban"
+    },
+    {
+        "value": "MMORPG",
+        "label": "MMORPG"
+    },
+    {
+        "value": "Steampunk",
+        "label": "Steampunk"
+    },
+    {
+        "value": "FMV",
+        "label": "FMV"
+    },
+    {
+        "value": "Addictive",
+        "label": "Addictive"
+    },
+    {
+        "value": "Hex Grid",
+        "label": "Hex Grid"
+    },
+    {
+        "value": "God Game",
+        "label": "God Game"
+    },
+    {
+        "value": "Political",
+        "label": "Political"
+    },
+    {
+        "value": "Conspiracy",
+        "label": "Conspiracy"
+    },
+    {
+        "value": "Gothic",
+        "label": "Gothic"
+    },
+    {
+        "value": "Martial Arts",
+        "label": "Martial Arts"
+    },
+    {
+        "value": "Ninja",
+        "label": "Ninja"
+    },
+    {
+        "value": "Game Development",
+        "label": "Game Development"
+    },
+    {
+        "value": "Co-op Campaign",
+        "label": "Co-op Campaign"
+    },
+    {
+        "value": "Pirates",
+        "label": "Pirates"
+    },
+    {
+        "value": "Tanks",
+        "label": "Tanks"
+    },
+    {
+        "value": "Otome",
+        "label": "Otome"
+    },
+    {
+        "value": "Real-Time",
+        "label": "Real-Time"
+    },
+    {
+        "value": "Trading",
+        "label": "Trading"
+    },
+    {
+        "value": "Auto Battler",
+        "label": "Auto Battler"
+    },
+    {
+        "value": "Underground",
+        "label": "Underground"
+    },
+    {
+        "value": "Satire",
+        "label": "Satire"
+    },
+    {
+        "value": "Quick-Time Events",
+        "label": "Quick-Time Events"
+    },
+    {
+        "value": "Dog",
+        "label": "Dog"
+    },
+    {
+        "value": "Mining",
+        "label": "Mining"
+    },
+    {
+        "value": "Time Travel",
+        "label": "Time Travel"
+    },
+    {
+        "value": "Cooking",
+        "label": "Cooking"
+    },
+    {
+        "value": "Programming",
+        "label": "Programming"
+    },
+    {
+        "value": "Looter Shooter",
+        "label": "Looter Shooter"
+    },
+    {
+        "value": "4X",
+        "label": "4X"
+    },
+    {
+        "value": "Underwater",
+        "label": "Underwater"
+    },
+    {
+        "value": "Remake",
+        "label": "Remake"
+    },
+    {
+        "value": "Hacking",
+        "label": "Hacking"
+    },
+    {
+        "value": "Hunting",
+        "label": "Hunting"
+    },
+    {
+        "value": "Dynamic Narration",
+        "label": "Dynamic Narration"
+    },
+    {
+        "value": "Cult Classic",
+        "label": "Cult Classic"
+    },
+    {
+        "value": "Dinosaurs",
+        "label": "Dinosaurs"
+    },
+    {
+        "value": "Fishing",
+        "label": "Fishing"
+    },
+    {
+        "value": "Politics",
+        "label": "Politics"
+    },
+    {
+        "value": "Escape Room",
+        "label": "Escape Room"
+    },
+    {
+        "value": "Real-Time with Pause",
+        "label": "Real-Time with Pause"
+    },
+    {
+        "value": "Faith",
+        "label": "Faith"
+    },
+    {
+        "value": "Minigames",
+        "label": "Minigames"
+    },
+    {
+        "value": "Naval",
+        "label": "Naval"
+    },
+    {
+        "value": "Vampire",
+        "label": "Vampire"
+    },
+    {
+        "value": "Political Sim",
+        "label": "Political Sim"
+    },
+    {
+        "value": "Western",
+        "label": "Western"
+    },
+    {
+        "value": "Video Production",
+        "label": "Video Production"
+    },
+    {
+        "value": "Trading Card Game",
+        "label": "Trading Card Game"
+    },
+    {
+        "value": "Party Game",
+        "label": "Party Game"
+    },
+    {
+        "value": "Superhero",
+        "label": "Superhero"
+    },
+    {
+        "value": "Narrative",
+        "label": "Narrative"
+    },
+    {
+        "value": "Transportation",
+        "label": "Transportation"
+    },
+    {
+        "value": "Assassin",
+        "label": "Assassin"
+    },
+    {
+        "value": "Immersive",
+        "label": "Immersive"
+    },
+    {
+        "value": "Action RTS",
+        "label": "Action RTS"
+    },
+    {
+        "value": "Illuminati",
+        "label": "Illuminati"
+    },
+    {
+        "value": "Typing",
+        "label": "Typing"
+    },
+    {
+        "value": "MOBA",
+        "label": "MOBA"
+    },
+    {
+        "value": "Touch-Friendly",
+        "label": "Touch-Friendly"
+    },
+    {
+        "value": "Time Attack",
+        "label": "Time Attack"
+    },
+    {
+        "value": "Cozy",
+        "label": "Cozy"
+    },
+    {
+        "value": "Asynchronous Multiplayer",
+        "label": "Asynchronous Multiplayer"
+    },
+    {
+        "value": "Trivia",
+        "label": "Trivia"
+    },
+    {
+        "value": "Trains",
+        "label": "Trains"
+    },
+    {
+        "value": "On-Rails Shooter",
+        "label": "On-Rails Shooter"
+    },
+    {
+        "value": "Cold War",
+        "label": "Cold War"
+    },
+    {
+        "value": "Roguelike Deckbuilder",
+        "label": "Roguelike Deckbuilder"
+    },
+    {
+        "value": "Party",
+        "label": "Party"
+    },
+    {
+        "value": "Audio Production",
+        "label": "Audio Production"
+    },
+    {
+        "value": "Snow",
+        "label": "Snow"
+    },
+    {
+        "value": "Traditional Roguelike",
+        "label": "Traditional Roguelike"
+    },
+    {
+        "value": "Software Training",
+        "label": "Software Training"
+    },
+    {
+        "value": "Heist",
+        "label": "Heist"
+    },
+    {
+        "value": "Archery",
+        "label": "Archery"
+    },
+    {
+        "value": "Offroad",
+        "label": "Offroad"
+    },
+    {
+        "value": "Naval Combat",
+        "label": "Naval Combat"
+    },
+    {
+        "value": "Diplomacy",
+        "label": "Diplomacy"
+    },
+    {
+        "value": "Music-Based Procedural Generation",
+        "label": "Music-Based Procedural Generation"
+    },
+    {
+        "value": "Experience",
+        "label": "Experience"
+    },
+    {
+        "value": "Football",
+        "label": "Football"
+    },
+    {
+        "value": "Kickstarter",
+        "label": "Kickstarter"
+    },
+    {
+        "value": "Villain Protagonist",
+        "label": "Villain Protagonist"
+    },
+    {
+        "value": "Soccer",
+        "label": "Soccer"
+    },
+    {
+        "value": "Sailing",
+        "label": "Sailing"
+    },
+    {
+        "value": "Mars",
+        "label": "Mars"
+    },
+    {
+        "value": "Wholesome",
+        "label": "Wholesome"
+    },
+    {
+        "value": "Chess",
+        "label": "Chess"
+    },
+    {
+        "value": "Foreign",
+        "label": "Foreign"
+    },
+    {
+        "value": "Nostalgia",
+        "label": "Nostalgia"
+    },
+    {
+        "value": "GameMaker",
+        "label": "GameMaker"
+    },
+    {
+        "value": "Gambling",
+        "label": "Gambling"
+    },
+    {
+        "value": "Horses",
+        "label": "Horses"
+    },
+    {
+        "value": "Sequel",
+        "label": "Sequel"
+    },
+    {
+        "value": "Sniper",
+        "label": "Sniper"
+    },
+    {
+        "value": "Boxing",
+        "label": "Boxing"
+    },
+    {
+        "value": "Photo Editing",
+        "label": "Photo Editing"
+    },
+    {
+        "value": "Episodic",
+        "label": "Episodic"
+    },
+    {
+        "value": "World War I",
+        "label": "World War I"
+    },
+    {
+        "value": "Golf",
+        "label": "Golf"
+    },
+    {
+        "value": "Spelling",
+        "label": "Spelling"
+    },
+    {
+        "value": "Jet",
+        "label": "Jet"
+    },
+    {
+        "value": "Unforgiving",
+        "label": "Unforgiving"
+    },
+    {
+        "value": "Motorbike",
+        "label": "Motorbike"
+    },
+    {
+        "value": "Outbreak Sim",
+        "label": "Outbreak Sim"
+    },
+    {
+        "value": "Transhumanism",
+        "label": "Transhumanism"
+    },
+    {
+        "value": "Werewolves",
+        "label": "Werewolves"
+    },
+    {
+        "value": "Web Publishing",
+        "label": "Web Publishing"
+    },
+    {
+        "value": "Rome",
+        "label": "Rome"
+    },
+    {
+        "value": "Pinball",
+        "label": "Pinball"
+    },
+    {
+        "value": "Farming",
+        "label": "Farming"
+    },
+    {
+        "value": "Bikes",
+        "label": "Bikes"
+    },
+    {
+        "value": "Silent Protagonist",
+        "label": "Silent Protagonist"
+    },
+    {
+        "value": "Epic",
+        "label": "Epic"
+    },
+    {
+        "value": "Roguevania",
+        "label": "Roguevania"
+    },
+    {
+        "value": "Spaceships",
+        "label": "Spaceships"
+    },
+    {
+        "value": "Basketball",
+        "label": "Basketball"
+    },
+    {
+        "value": "Asymmetric VR",
+        "label": "Asymmetric VR"
+    },
+    {
+        "value": "Medical Sim",
+        "label": "Medical Sim"
+    },
+    {
+        "value": "Crowdfunded",
+        "label": "Crowdfunded"
+    },
+    {
+        "value": "Submarine",
+        "label": "Submarine"
+    },
+    {
+        "value": "LEGO",
+        "label": "LEGO"
+    },
+    {
+        "value": "Social Deduction",
+        "label": "Social Deduction"
+    },
+    {
+        "value": "Movie",
+        "label": "Movie"
+    },
+    {
+        "value": "Games Workshop",
+        "label": "Games Workshop"
+    },
+    {
+        "value": "360 Video",
+        "label": "360 Video"
+    },
+    {
+        "value": "Mini Golf",
+        "label": "Mini Golf"
+    },
+    {
+        "value": "Ambient",
+        "label": "Ambient"
+    },
+    {
+        "value": "Electronic Music",
+        "label": "Electronic Music"
+    },
+    {
+        "value": "Vikings",
+        "label": "Vikings"
+    },
+    {
+        "value": "Based On A Novel",
+        "label": "Based On A Novel"
+    },
+    {
+        "value": "Baseball",
+        "label": "Baseball"
+    },
+    {
+        "value": "Dungeons & Dragons",
+        "label": "Dungeons & Dragons"
+    },
+    {
+        "value": "Gaming",
+        "label": "Gaming"
+    },
+    {
+        "value": "Wrestling",
+        "label": "Wrestling"
+    },
+    {
+        "value": "Mod",
+        "label": "Mod"
+    },
+    {
+        "value": "Warhammer 40K",
+        "label": "Warhammer 40K"
+    },
+    {
+        "value": "Tennis",
+        "label": "Tennis"
+    },
+    {
+        "value": "Pool",
+        "label": "Pool"
+    },
+    {
+        "value": "Lemmings",
+        "label": "Lemmings"
+    },
+    {
+        "value": "Motocross",
+        "label": "Motocross"
+    },
+    {
+        "value": "Intentionally Awkward Controls",
+        "label": "Intentionally Awkward Controls"
+    },
+    {
+        "value": "Skateboarding",
+        "label": "Skateboarding"
+    },
+    {
+        "value": "Cycling",
+        "label": "Cycling"
+    },
+    {
+        "value": "Boomer Shooter",
+        "label": "Boomer Shooter"
+    },
+    {
+        "value": "Hockey",
+        "label": "Hockey"
+    },
+    {
+        "value": "Instrumental Music",
+        "label": "Instrumental Music"
+    },
+    {
+        "value": "Jump Scare",
+        "label": "Jump Scare"
+    },
+    {
+        "value": "Skating",
+        "label": "Skating"
+    },
+    {
+        "value": "Skiing",
+        "label": "Skiing"
+    },
+    {
+        "value": "Bowling",
+        "label": "Bowling"
+    },
+    {
+        "value": "Football (Soccer)",
+        "label": "Football (Soccer)"
+    },
+    {
+        "value": "TrackIR",
+        "label": "TrackIR"
+    },
+    {
+        "value": "Documentary",
+        "label": "Documentary"
+    },
+    {
+        "value": "Boss Rush",
+        "label": "Boss Rush"
+    },
+    {
+        "value": "Rock Music",
+        "label": "Rock Music"
+    },
+    {
+        "value": "8-bit Music",
+        "label": "8-bit Music"
+    },
+    {
+        "value": "Snowboarding",
+        "label": "Snowboarding"
+    },
+    {
+        "value": "Voice Control",
+        "label": "Voice Control"
+    },
+    {
+        "value": "Musou",
+        "label": "Musou"
+    },
+    {
+        "value": "Job Simulator",
+        "label": "Job Simulator"
+    },
+    {
+        "value": "BMX",
+        "label": "BMX"
+    },
+    {
+        "value": "Masterpiece",
+        "label": "Masterpiece"
+    },
+    {
+        "value": "Electronic",
+        "label": "Electronic"
+    },
+    {
+        "value": "ATV",
+        "label": "ATV"
+    },
+    {
+        "value": "Hardware",
+        "label": "Hardware"
+    },
+    {
+        "value": "Well-Written",
+        "label": "Well-Written"
+    },
+    {
+        "value": "Cricket",
+        "label": "Cricket"
+    },
+    {
+        "value": "Football (American)",
+        "label": "Football (American)"
+    },
+    {
+        "value": "Benchmark",
+        "label": "Benchmark"
+    },
+    {
+        "value": "Lara Croft",
+        "label": "Lara Croft"
+    },
+    {
+        "value": "Reboot",
+        "label": "Reboot"
+    },
+    {
+        "value": "Feature Film",
+        "label": "Feature Film"
+    },
+    {
+        "value": "Volleyball",
+        "label": "Volleyball"
+    },
+    {
+        "value": "Steam Machine",
+        "label": "Steam Machine"
+    },
+    {
+        "value": "Shop Keeper",
+        "label": "Shop Keeper"
+    },
+    {
+        "value": "Mahjong",
+        "label": "Mahjong"
+    },
+    {
+        "value": "Coding",
+        "label": "Coding"
+    },
+    {
+        "value": "Extraction Shooter",
+        "label": "Extraction Shooter"
+    },
+    {
+        "value": "Birds",
+        "label": "Birds"
+    },
+    {
+        "value": "Rugby",
+        "label": "Rugby"
+    },
+    {
+        "value": "Fox",
+        "label": "Fox"
+    },
+    {
+        "value": "Dwarf",
+        "label": "Dwarf"
+    },
+    {
+        "value": "Hobby Sim",
+        "label": "Hobby Sim"
+    },
+    {
+        "value": "Tile-Matching",
+        "label": "Tile-Matching"
+    },
+    {
+        "value": "Batman",
+        "label": "Batman"
+    },
+    {
+        "value": "Snooker",
+        "label": "Snooker"
+    }
+]

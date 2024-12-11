@@ -137,7 +137,7 @@ export default {
     //     router.push('/user');
     // },
     ConfirmUserLogin(){
-      ElMessage.success("登录成功");
+      //ElMessage.success("登录成功");
       axios.post("/user/login",{
         email:this.userLoginInfo.email,
         password:this.userLoginInfo.password

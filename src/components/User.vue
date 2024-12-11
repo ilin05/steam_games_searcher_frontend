@@ -7,23 +7,16 @@
             type="text"
             v-model="query"
             placeholder="请输入以查询"
-            maxlength="50"
             @input="onInput"
             @keydown.down="onArrowDown"
             @keydown.up="onArrowUp"
             @keydown.enter="onEnter"
-            style="width: 47vw;"
+            style="width: 55.5vw;"
 
         />
-        <el-radio-group v-model="isSearchTitle" size="large" style="margin-left:15px;position: relative;padding-top: 0">
-          <el-radio-button :value="true" style="">Title</el-radio-button>
-          <el-radio-button :value="false" style="">Describe</el-radio-button>
-        </el-radio-group>
-
-
-        <el-button type="text" style="position: absolute;font-size: 200%;display: block; left:47%;top:3.5% " @click="onEnter">
+        <el-button type="text" style="position: absolute;font-size: 200%;display: block; left:55%;top:3.5% " @click="onEnter">
           <el-icon><Search  /></el-icon>
-      </el-button>
+        </el-button>
 
 
 
@@ -44,17 +37,19 @@
       <el-card class="advanced-options-card">
 
         <el-container class="show-options-container">
-          <el-button type="primary" @click="showOptions" style="width:10%;height: 50px   ">高级选项
+          <el-button type="primary" @click="showoption" style="width:10%;height: 50px   ">高级选项
           </el-button>
-        </el-container>
-
-        <el-container class="advanced-options-container">
-          <div v-if="showOptions">
-            <el-button> type</el-button>
-          </div>
 
         </el-container>
+
+        <!--        <el-container class="advanced-options-container">-->
+        <!--          <div v-if="showOptions">-->
+        <!--            <el-button> type</el-button>-->
+        <!--          </div>-->
+
+        <!--        </el-container>-->
       </el-card>
+
 
 
       <el-card class="detailed-information-card">
@@ -75,11 +70,9 @@
           </el-container>
 
           <el-container class="detailed-information-container ">
-
-
             <img :src="toShowGame.headerImage" alt="Main Picture" class="main-picture">
             <div
-                style="width:100%;margin-top:5px;color: gainsboro;font-size: large;word-wrap: break-word;word-break: break-all;overflow-x: hidden;overflow-y:auto;height: 13vh">
+                style="width:100%;margin-top:5px;color: gainsboro;font-size: large;word-wrap: break-word;word-break: break-all;overflow: hidden;">
               <p> {{ toShowGame.description }}</p></div>
             <div
                 style="width: 100%;margin-top: 3px;margin-bottom:3px;text-align: center;color:deepskyblue;font-size:2em;font-weight: 300;">
@@ -140,162 +133,112 @@
     </el-container>
 
 
-      <el-container v-if="expandedNum===0" key="0" class="user-love-command-container">
+    <el-container v-if="expandedNum===0" key="0" class="user-love-command-container">
 
-        <el-card class="user-information-card">
-          <el-container class="user-information-head-container">
-            <div style="color: gainsboro;font-size: 150%;width: 10vw">用户个人信息</div>
-            <div style="margin-left: 66%;">
-              <el-button type="text" >
-                <el-icon style="font-size: 300%">
-                  <Avatar/>
-                </el-icon>
-              </el-button>
-            </div>
-          </el-container>
-
-
-          <el-container class="user-information-body-container">
-            <el-menu
-                active-text-color="#ffd04b"
-                background-color="#2c3e50"
-                text-color="#fff"
-                default-active="1"
-                @select="handleSelect"
-                style="margin-top: 4%;height: 100%"
-            >
-              <el-menu-item index="1" class="custom-menu-item">
-                <el-icon><document /></el-icon>
-                <span>账户信息</span>
-              </el-menu-item>
-              <el-menu-item index="2"  class="custom-menu-item">
-
-                <el-icon><setting /></el-icon>
-                <span>系统信息</span>
-              </el-menu-item>
-              <el-menu-item index="3"  class="custom-menu-item">
-                <el-icon><Briefcase /></el-icon>
-                <span>团队信息</span>
-              </el-menu-item>
-              <el-menu-item index="4" class="custom-menu-item">
-                <el-icon><setting /></el-icon>
-                <span>系统设置</span>
-              </el-menu-item>
-              <el-menu-item index="5" class="custom-menu-item">
-                <el-icon><Guide /></el-icon>
-                <span>操作指引</span>
-              </el-menu-item>
-            </el-menu>
-            <el-container v-if="this.menuIndex === 1">
-
-            </el-container>
-            <el-container v-if="this.menuIndex === 2">
-
-            </el-container>
-            <el-container v-if="this.menuIndex === 3">
-
-            </el-container>
-            <el-container v-if="this.menuIndex === 4">
-
-            </el-container>
-            <el-container v-if="this.menuIndex === 5">
-
-            </el-container>
-            <el-container v-if="this.menuIndex === 6">
-
-            </el-container>
-            <el-container v-if="this.menuIndex === 7">
-
-            </el-container>
+      <el-card class="user-information-card">
+        <el-container class="user-information-head-container">
+          <div style="color: gainsboro;font-size: 150%;width: 10vw">用户个人信息</div>
+          <div style="margin-left: 66%;">
+            <el-button type="text" @click="handleExpanded(1)">
+              <el-icon style="font-size: 300%">
+                <Avatar/>
+              </el-icon>
+            </el-button>
+          </div>
+        </el-container>
 
 
+        <el-container class="user-information-body-container">
 
-          </el-container>
+        </el-container>
 
-
-        </el-card>
-        <el-card class="user-love-card">
-          <el-container class="user-love-head-container">
-            <div style="color:gainsboro;font-size:150%;width: 10vw">用户收藏</div>
-            <div style="margin-left: 65%;">
-              <el-button type="text" @click="handleExpanded(2)">
-                <el-icon style="font-size: 200%;">
-                  <MoreFilled/>
-                </el-icon>
-              </el-button>
-            </div>
-
-
-          </el-container>
-          <el-container class="user-love-preCard-container">
-            <div v-for="(game,index) in favoriteGames" key="game.appId">
-              <div style="width:18vw;height: 15vh;margin-left:2%;margin-top:2%;margin-bottom: 4%">
-                <preCard :imageUrl="game.headerImage" @update-showGame="ShowFavoriteGame(game.appId)"></preCard>
-              </div>
-            </div>
-          </el-container>
-
-        </el-card>
+      </el-card>
+      <el-card class="user-love-card">
+        <el-container class="user-love-head-container">
+          <div style="color:gainsboro;font-size:150%;width: 10vw">用户收藏</div>
+          <div style="margin-left: 65%;">
+            <el-button type="text" @click="handleExpanded(2)">
+              <el-icon style="font-size: 200%;">
+                <MoreFilled/>
+              </el-icon>
+            </el-button>
+          </div>
 
 
-        <el-card class="user-command-card">
-          <el-container class="user-command-head-container">
-            <div style="color:gainsboro;font-size:150%;width: 10vw">猜您喜欢</div>
-            <!--
-            <div style="margin-left: 63%;">
-              <el-button style="background-color:lightblue" @click="handleExpanded(3)">
-                <el-icon style="font-size: 200%;">
-                  <FullScreen/>
-                </el-icon>
-              </el-button>
-            </div>
-            -->
-          </el-container>
-
-
-          <el-carousel :interval="2000" type="card" height="17vh" indicator-position="outside" style="margin-top: 3%" >
-            <el-carousel-item v-for="game in commandGames" :key="game.appId"  >
+        </el-container>
+        <el-container class="user-love-preCard-container">
+          <div v-for="(game,index) in favoriteGames" key="game.appId">
+            <div style="width:18vw;height: 15vh;margin-left:2%;margin-top:2%;margin-bottom: 4%">
               <preCard :imageUrl="game.headerImage" @update-showGame="ShowFavoriteGame(game.appId)"></preCard>
-            </el-carousel-item>
-          </el-carousel>
-
-
-        </el-card>
-
-      </el-container>
-
-
-
-      <el-container v-else-if="expandedNum===2" key="2" class="all-right-favorites-container">
-        <el-card class="all-right-favorites-head-card">
-          <el-container style="width:120%;  height: 100%;display: flex;flex-direction: row;">
-            <div style="color: gainsboro;font-size: 150%;margin-top: 1.5%;margin-left: 2%;width: 10vw">您的收藏</div>
-            <el-input v-model="searchInFavorites" placeholder="输入查询"
-                      style="width: 20vw;height: 70%;margin-top: 1%;margin-left: 20%">
-            </el-input>
-            <div style="margin-left: 1%;margin-top: 1%">
-              <el-button style="background-color: lightblue;height: 80%;width: 85%" @click="handleExpanded(0)">
-                <el-icon style="font-size: 200%">
-                  <HomeFilled/>
-                </el-icon>
-              </el-button>
             </div>
+          </div>
+        </el-container>
 
-          </el-container>
-        </el-card>
-        <el-card class="all-right-favorites-body-card">
-          <el-container style="flex-direction: row;display: flex;width: 100%;height: 100%;gap: 2.6%;flex-wrap: wrap;overflow-x:hidden;overflow-y:auto">
+      </el-card>
+
+
+      <el-card class="user-command-card">
+        <el-container class="user-command-head-container">
+          <div style="color:gainsboro;font-size:150%;width: 10vw">猜您喜欢</div>
+          <!--
+          <div style="margin-left: 63%;">
+            <el-button style="background-color:lightblue" @click="handleExpanded(3)">
+              <el-icon style="font-size: 200%;">
+                <FullScreen/>
+              </el-icon>
+            </el-button>
+          </div>
+          -->
+        </el-container>
+
+
+        <el-carousel :interval="2000" type="card" height="17vh" indicator-position="outside" style="margin-top: 3%" >
+          <el-carousel-item v-for="game in commandGames" :key="game.appId"  >
+            <preCard :imageUrl="game.headerImage" @update-showGame="ShowFavoriteGame(game.appId)"></preCard>
+          </el-carousel-item>
+        </el-carousel>
+
+
+      </el-card>
+
+    </el-container>
+
+    <el-container v-else-if="expandedNum===1" key="1" class="all-right-information-container">
+
+    </el-container>
+
+    <el-container v-else-if="expandedNum===2" key="2" class="all-right-favorites-container">
+      <el-card class="all-right-favorites-head-card">
+        <el-container style="width:120%;  height: 100%;display: flex;flex-direction: row;">
+          <div style="color: gainsboro;font-size: 150%;margin-top: 1.5%;margin-left: 2%;width: 10vw">您的收藏</div>
+          <el-input v-model="searchInFavorites" placeholder="输入查询"
+                    style="width: 20vw;height: 70%;margin-top: 1%;margin-left: 20%">
+          </el-input>
+          <div style="margin-left: 1%;margin-top: 1%">
+            <el-button style="background-color: lightblue;height: 80%;width: 85%" @click="handleExpanded(0)">
+              <el-icon style="font-size: 200%">
+                <HomeFilled/>
+              </el-icon>
+            </el-button>
+          </div>
+
+        </el-container>
+      </el-card>
+      <el-card class="all-right-favorites-body-card">
+        <el-container style="flex-direction: row;display: flex;width: 100%;height: 100%;gap: 2.6%;flex-wrap: wrap;overflow-x:hidden;overflow-y:auto">
           <div v-for="(game,index) in screenedFavorites" key="game.appId">
             <div style="width:18vw;height: 15vh;margin-left:1%;margin-top:1%;margin-bottom: 4%">
               <preCard :imageUrl="game.headerImage" @update-showGame="ShowFavoriteGame(game.appId)"></preCard>
             </div>
           </div>
 
-          </el-container>
-        </el-card>
-      </el-container>
+        </el-container>
+      </el-card>
+    </el-container>
 
+    <el-container v-else-if="expandedNum===3" key="3" class="all-right-command-container">
 
+    </el-container>
 
     <el-dialog
         v-model="dialog1"
@@ -407,17 +350,17 @@
                 </el-link>
               </p>
             </div>
-            <!--游戏外平台-->
-            <div style="width:100%; margin-top: 10px;">
-              <p>
-                <span
-                    style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Support_platform</span>
-                <el-link :href="this.toShowGame.support_url"
-                         style="font-size: 18px; color: cornflowerblue; margin-left: 20px;">
-                  {{ this.toShowGame.support_url }}
-                </el-link>
-              </p>
-            </div>
+            <!--            &lt;!&ndash;游戏外平台&ndash;&gt;-->
+            <!--            <div style="width:100%; margin-top: 10px;">-->
+            <!--              <p>-->
+            <!--                <span-->
+            <!--                    style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Support_platform</span>-->
+            <!--                <el-link :href="this.toShowGame.support_url"-->
+            <!--                         style="font-size: 18px; color: cornflowerblue; margin-left: 20px;">-->
+            <!--                  {{ this.toShowGame.support_url }}-->
+            <!--                </el-link>-->
+            <!--              </p>-->
+            <!--            </div>-->
             <!--开发者-->
             <div style="width:100%; margin-top: 10px;">
               <p>
@@ -478,6 +421,105 @@
       </div>
     </el-dialog>
 
+    <el-dialog
+        v-model="showOptions"
+        width="30%"
+        height="200%"
+        :show-close="false"
+        :close-on-click-modal="false"
+        :close-on-press-escape="false"
+        style="background-color: #2c3e50"
+    >
+      <div slot="title"
+           style="font-weight: bold; font-size: 24px; text-align: center; color: #cccccc; margin-bottom: 20px">
+        高级选项
+      </div>
+      <el-form :model="form" label-width="auto" style="max-width: 600px">
+        <el-form-item label="Support OS:">
+          <el-checkbox-group v-model="form.type">
+            <el-checkbox value="Windows" name="type" style="color: #ffffff">
+              Windows
+            </el-checkbox>
+            <el-checkbox value="Linux" name="type" style="color: #ffffff">
+              Linux
+            </el-checkbox>
+            <el-checkbox value="Mac" name="type" style="color: #ffffff">
+              Mac
+            </el-checkbox>
+          </el-checkbox-group>
+        </el-form-item>
+        <el-form-item label="Max Price">
+          <el-input-number v-model="form.max" :step="1" />
+        </el-form-item>
+        <el-form-item label="Min Price">
+          <el-input-number v-model="form.min" :step="1" />
+        </el-form-item>
+        <el-form-item label="Top-13 Tags:" >
+          <el-checkbox-group v-model="form.tags" >
+            <el-checkbox value="Singleplayer" name="tags" style="color: #ffffff;">
+              Singleplayer
+            </el-checkbox>
+            <el-checkbox value="Action" name="tags" style="color: #ffffff">
+              Action
+            </el-checkbox>
+            <el-checkbox value="Casual" name="tags" style="color: #ffffff">
+              Casual
+            </el-checkbox>
+            <el-checkbox value="Adventure" name="tags" style="color: #ffffff;">
+              Adventure
+            </el-checkbox>
+            <el-checkbox value="2D" name="tags" style="color: #ffffff">
+              2D
+            </el-checkbox>
+            <el-checkbox value="Casual" name="tags" style="color: #ffffff">
+              Strategy
+            </el-checkbox>
+            <el-checkbox value="Simulation" name="tags" style="color: #ffffff;">
+              Simulation
+            </el-checkbox>
+            <el-checkbox value="RPG" name="tags" style="color: #ffffff">
+              RPG
+            </el-checkbox>
+            <el-checkbox value="Puzzle" name="tags" style="color: #ffffff">
+              Puzzle
+            </el-checkbox>
+            <el-checkbox value="Atmospheric" name="tags" style="color: #ffffff">
+              Atmospheric
+            </el-checkbox>
+            <el-checkbox value="3D" name="tags" style="color: #ffffff">
+              3D
+            </el-checkbox>
+            <el-checkbox value="Early Access" name="tags" style="color: #ffffff">
+              Early Access
+            </el-checkbox>
+            <el-checkbox value="Pixel Graphics" name="tags" style="color: #ffffff">
+              Pixel Graphics
+            </el-checkbox>
+          </el-checkbox-group>
+        </el-form-item>
+        <el-form-item label="Other Tags">
+          <el-select
+              v-model="mytags"
+              filterable
+              reserve-keyword
+              multiple
+              placeholder="Select"
+              style="width: 240px"
+          >
+            <el-option
+                v-for="item in Tags"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="showOptions = false">保存设置</el-button>
+          <el-button @click="clearit">取消</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
 
   </el-container>
 </template>
@@ -486,6 +528,7 @@
 <script>
 import axios from 'axios';
 import gamesData from '@/assets/newgames.json';
+import alltag from '@/assets/tags.json';
 import {ElMessage, ElButton, ElIcon} from "element-plus";
 import PreCard from "@/components/preCard.vue";
 import {Avatar, Download, FullScreen, HomeFilled, MoreFilled, Upload} from "@element-plus/icons-vue";
@@ -495,6 +538,15 @@ export default {
 
   data() {
     return {
+      Tags:alltag,
+      mytags:[],
+      form:{
+        type: [],
+        max:'',
+        min:'',
+        tags: []
+
+      },
       searchInFavorites: '',
       commandGames: [
         {
@@ -526,7 +578,6 @@ export default {
       ],
       expandedNum: 0,
       query: '',
-      isSearchTitle:true,
       showOptions: false,
       suggestions: [{"name": "Game A", "estimated_owners": "20000"},],
       toSearchGames: gamesData,
@@ -548,7 +599,6 @@ export default {
         negative: 0,
         screenshots: [],
         website: "http://www.pubg.com",
-        support_url: "https://support.playbattlegrounds.com",
         supportLanguage: [],
         developers: [],
         publishers: [],
@@ -556,14 +606,13 @@ export default {
         genres: [],
         description: "",
       },
-      menuIndex:1,
+
       ToShowPicture: '',
       games: [
         {
           appId: 10,
           title: 'PUBG:BATTLEGROUNDS',
           releasedDate: '2017 年 12 月 21 日',
-
           win: true,
           mac: false,
           linux: false,
@@ -613,7 +662,6 @@ export default {
             "https://cdn.akamai.steamstatic.com/steam/apps/578080/ss_6595641da498162aedc71136a93feb5bcb1785d8.1920x1080.jpg?t=1658287469"
           ],
           website: "http://www.pubg.com",
-          support_url: "https://support.playbattlegrounds.com",
           supportLanguage: [
             "English",
             "Korean",
@@ -734,7 +782,6 @@ export default {
             "https://cdn.akamai.steamstatic.com/steam/apps/1245620/ss_35ff7ed4b67e2bb73e54f6c10a4f8d9390c16203.1920x1080.jpg?t=1654259241"
           ],
           website: "http://www.pubg.com",
-          support_url: "https://support.playbattlegrounds.com",
           supportLanguage: [
             "English",
             "Korean",
@@ -808,7 +855,6 @@ export default {
             "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2358720/ss_63477e8ce2c0582b81c6ed576377d78e692b5642.1920x1080.jpg?t=1725007201"
           ],
           website: "http://www.pubg.com",
-          support_url: "https://support.playbattlegrounds.com",
           supportLanguage: [
             "English",
             "Korean",
@@ -857,6 +903,7 @@ export default {
     }
   },
   computed: {
+
     screenedFavorites(){
       if(this.searchInFavorites.length > 0){
         return this.favoriteGames.filter(game => game.title.toLowerCase().includes(this.searchInFavorites.toLowerCase()))
@@ -871,14 +918,17 @@ export default {
   },
 
   methods: {
-    handleSelect(index,indexPath){
-      console.log(index);
-      this.menuIndex = index;
-      console.log(this.menuIndex);
-
+    clearit(){
+      this.form.max = ''
+      this.form.min = ''
+      this.form.type = []
+      this.form.tags = []
+      this.mytags = []
+      this.showOptions = false
     },
-
-    
+    showoption(){
+      this.showOptions = true
+    },
     ShowMoreInformation() {
       this.dialog1 = true
     },
@@ -951,9 +1001,9 @@ export default {
       this.ToShowPicture = picture;
     },
 
-    showOptions() {
-      this.showSuggestions = !this.showSuggestions;
-    },
+    // showOptions() {
+    //   this.showSuggestions = !this.showSuggestions;
+    // },
     sortGameData(games) {
       // 按照estimated_owners降序排序
       return games.sort((a, b) => {
@@ -1088,7 +1138,6 @@ export default {
 
 /**********                搜索卡片              *********/
 
-
 .auto-complete-search-card {
   width: 100%;
   height: 8%;
@@ -1098,7 +1147,6 @@ export default {
   display: flex;
   background: #2c3e50;
   flex-direction: row;
-  flex-wrap: nowrap;
 
 }
 
@@ -1272,22 +1320,15 @@ export default {
 
 .user-information-head-container {
   width: 100%;
-  height: 15%;
+  height: 30%;
   display: flex;
   flex-direction: row;
 }
 
 .user-information-body-container {
   width: 100%;
-  height: 85%;
+  height: 70%;
   margin-top: 0;
-  display: flex;
-  flex-direction: row;
-
-}
-.custom-menu-item{
-  height: 20%;
-  font-size: 100%;
 }
 
 .user-love-card {
@@ -1383,12 +1424,6 @@ export default {
 
 .all-right-favorites-head-card:deep(.el-card__body) {
   padding: 0;
-}
-.el-radio-button {
-  font-size: 30px; /* 调整字体大小 */
-
-
-
 }
 
 .all-right-favorites-body-card {
