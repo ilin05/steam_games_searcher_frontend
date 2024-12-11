@@ -46,15 +46,7 @@
         <el-container class="show-options-container">
           <el-button type="primary" @click="showoption" style="width:10%;height: 50px   ">高级选项
           </el-button>
-
         </el-container>
-
-        <!--        <el-container class="advanced-options-container">-->
-        <!--          <div v-if="showOptions">-->
-        <!--            <el-button> type</el-button>-->
-        <!--          </div>-->
-
-        <!--        </el-container>-->
       </el-card>
 
 
@@ -486,20 +478,14 @@
         style="background-color: #2c3e50"
     >
       <div slot="title"
-           style="font-weight: bold; font-size: 24px; text-align: center; color: #cccccc; margin-bottom: 20px">
+           style="font-weight: bold; font-size: 24px; text-align: center;  color: #cccccc; margin-bottom: 20px">
         高级选项
       </div>
-      <el-form :model="form" label-width="auto" style="max-width: 600px">
-<!--        <span style="font-size: 18px; font-weight: bold; margin-left: 15px; color: darkgray;">（必选）选择你的搜索类型</span>-->
-<!--        <el-form-item label="搜索类型">-->
-<!--          <el-radio-group v-model="form.isTitle">-->
-<!--            <el-radio value="1"  style="color: #ffffff">按名字搜索</el-radio>-->
-<!--            <el-radio value="0"  style="color: #ffffff">按描述搜索</el-radio>-->
-<!--          </el-radio-group>-->
-<!--        </el-form-item>-->
-        <span style="font-size: 18px; font-weight: bold; margin-left: 15px; color: darkgray;">（可选）选择你希望支持的操作系统</span>
+      <el-divider style="max-width: 600px"></el-divider>
+      <el-form :model="form" label-width="auto" style="max-width: 600px; ">
+        <span style="font-size: 18px; font-weight: bold; margin-left: 15px; margin-top: 15px; color: darkgray;">(可选)选择你希望支持的操作系统</span>
         <el-form-item>
-          <div style="color: white">Support OS</div>
+          <div style="font-size: 15px; margin-left: 15px; color: darkgray">Support OS：</div>
           <el-checkbox-group v-model="form.type">
             <el-checkbox value="Windows" name="type" style="color: #ffffff">
               Windows
@@ -512,17 +498,21 @@
             </el-checkbox>
           </el-checkbox-group>
         </el-form-item>
-        <span style="font-size: 18px; font-weight: bold; margin-left: 15px; color: darkgray;">（可选）选择你希望的价格区间</span>
-        <el-form-item label="Max Price">
+
+        <span style="font-size: 18px; font-weight: bold; margin-left: 15px; margin-top: 15px;  color: darkgray;">(可选)选择你希望的价格区间</span>
+        <el-form-item>
+          <div style="font-size: 15px; margin-left: 15px; color: darkgray">Max Price：</div>
           <el-input-number v-model="form.max" :step="1" />
         </el-form-item>
-        <el-form-item label="Min Price">
+        <el-form-item>
+          <div style="font-size: 15px; margin-left: 15px; color: darkgray">Min Price：</div>
           <el-input-number v-model="form.min" :step="1" />
         </el-form-item>
-        <span v-if="!isSearchTitle" style="font-size: 18px; font-weight: bold; margin-left: 15px; color: darkgray;">（可选）选择一些你感兴趣的标签</span>
-
-        <el-form-item v-if="!isSearchTitle" label="Top-13 Tags:" >
-          <el-checkbox-group v-model="form.tags" >
+        <el-divider></el-divider>
+        <span v-if="!isSearchTitle" style="font-size: 18px; font-weight: bold; margin-top: 15px;  margin-left: 15px; color: darkgray;">勾选一些你感兴趣的标签</span>
+        <el-form-item v-if="!isSearchTitle">
+<!--          <div style="font-size: 15px; margin-left: 15px; color: darkgray;">Top-13 Tags：</div>-->
+          <el-checkbox-group v-model="form.tags" style="margin-left: 20px; width: 70%">
             <el-checkbox value="Singleplayer" name="tags" style="color: #ffffff;">
               Singleplayer
             </el-checkbox>
@@ -564,14 +554,16 @@
             </el-checkbox>
           </el-checkbox-group>
         </el-form-item>
-        <el-form-item v-if="!isSearchTitle" label="Other Tags">
+        <span v-if="!isSearchTitle" style="font-size: 18px; font-weight: bold; margin-top: 15px;  margin-left: 15px; color: darkgray;">选择更多的标签</span>
+        <el-form-item v-if="!isSearchTitle">
+<!--          <div style="font-size: 15px; margin-left: 15px; color: darkgray">Other Tags：</div>-->
           <el-select
               v-model="mytags"
               filterable
               reserve-keyword
               multiple
               placeholder="Select"
-              style="width: 240px"
+              style="width: 240px;margin-left: 20px;margin-top: 10px"
           >
             <el-option
                 v-for="item in Tags"
@@ -581,6 +573,8 @@
             />
           </el-select>
         </el-form-item>
+        <el-divider v-if="!isSearchTitle"></el-divider>
+
         <el-form-item>
           <el-button type="primary" @click="showOptions = false">保存设置</el-button>
           <el-button @click="clearit">取消</el-button>
