@@ -15,9 +15,9 @@
             style="width: 47vw;"
 
         />
-        <el-radio-group v-model="isPreciseSearch" size="large" style="margin-left:20px;position: relative;padding-top: 0">
-          <el-radio-button :value="true" style="">Precise</el-radio-button>
-          <el-radio-button :value="false" style="">Fuzzy</el-radio-button>
+        <el-radio-group v-model="isSearchTitle" size="large" style="margin-left:15px;position: relative;padding-top: 0">
+          <el-radio-button :value="true" style="">Title</el-radio-button>
+          <el-radio-button :value="false" style="">Describe</el-radio-button>
         </el-radio-group>
 
 
@@ -162,36 +162,35 @@
                 text-color="#fff"
                 default-active="1"
                 @select="handleSelect"
-                style="margin-top: 4%"
+                style="margin-top: 4%;height: 100%"
             >
-              <el-menu-item index="1">
-
+              <el-menu-item index="1" class="custom-menu-item">
                 <el-icon><document /></el-icon>
                 <span>账户信息</span>
               </el-menu-item>
-              <el-menu-item index="2">
+              <el-menu-item index="2"  class="custom-menu-item">
 
                 <el-icon><setting /></el-icon>
                 <span>系统信息</span>
               </el-menu-item>
-              <el-menu-item index="3">
+              <el-menu-item index="3"  class="custom-menu-item">
                 <el-icon><Briefcase /></el-icon>
                 <span>团队信息</span>
               </el-menu-item>
-              <el-menu-item index="4">
+              <el-menu-item index="4" class="custom-menu-item">
                 <el-icon><setting /></el-icon>
                 <span>系统设置</span>
               </el-menu-item>
-              <el-menu-item index="5">
+              <el-menu-item index="5" class="custom-menu-item">
                 <el-icon><Guide /></el-icon>
                 <span>操作指引</span>
               </el-menu-item>
             </el-menu>
             <el-container v-if="this.menuIndex === 1">
-                <span>1</span>
+
             </el-container>
             <el-container v-if="this.menuIndex === 2">
-              <span>2</span>/
+
             </el-container>
             <el-container v-if="this.menuIndex === 3">
 
@@ -527,7 +526,7 @@ export default {
       ],
       expandedNum: 0,
       query: '',
-      isPreciseSearch:true,
+      isSearchTitle:true,
       showOptions: false,
       suggestions: [{"name": "Game A", "estimated_owners": "20000"},],
       toSearchGames: gamesData,
@@ -873,7 +872,10 @@ export default {
 
   methods: {
     handleSelect(index,indexPath){
+      console.log(index);
       this.menuIndex = index;
+      console.log(this.menuIndex);
+
     },
 
     
@@ -1284,7 +1286,8 @@ export default {
 
 }
 .custom-menu-item{
-
+  height: 20%;
+  font-size: 100%;
 }
 
 .user-love-card {
