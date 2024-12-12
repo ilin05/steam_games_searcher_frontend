@@ -300,7 +300,7 @@
     <el-dialog
         v-model="dialog1"
         width="80%"
-        height="200%"
+        height="250%"
         :show-close="false"
         :close-on-click-modal="false"
         :close-on-press-escape="false"
@@ -311,7 +311,7 @@
         游戏详细信息
       </div>
       <el-card class="detailed-information-card">
-        <el-container style="display: flex;flex-direction: row; height: 600px">
+        <el-container style="display: flex;flex-direction: row; height: 650px">
           <el-container class="detailed-information-container ">
             <!--游戏主图-->
             <img :src="toShowGame.headerImage" alt="Main Picture" width="100%" height="80%">
@@ -454,6 +454,16 @@
             <!-- 在第一个开发者之前添加一段距离 -->
             <span v-if="index === 0" style="margin-left: 20px;"></span>
             <el-tag style="margin-left: 2px;font-size: 13px;color: #2c3e50"> {{ dev }}</el-tag>
+          </span>
+              </p>
+            </div>
+            <!-- 游戏指导 -->
+            <div style="width:100%; margin-top: 10px;">
+              <p>
+                <span
+                    style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Guidance</span>
+                <span style="font-size: 18px; color: cornflowerblue; margin-left: 20px;">
+            {{this.toShowGame.guidance}}
           </span>
               </p>
             </div>
@@ -678,6 +688,7 @@ export default {
         categories: [],
         genres: [],
         description: "",
+        guidance:''
       },
       menuIndex:1,
       ToShowPicture: '',
@@ -986,7 +997,7 @@ export default {
       if(this.isSearchTitle){
         return '请输入名称查询'
       }else{
-        return '支持输入描述或Tags搜索'
+        return '支持输入描述或在高级选项中选择Tags搜索'
       }
     },
     screenedFavorites(){
@@ -1007,7 +1018,7 @@ export default {
 
     
     clearit(){
-      this.form.max = 99999
+      this.form.max = 1000
       this.form.min = 0
       this.form.type = []
       this.form.tags = []
