@@ -110,7 +110,9 @@
       <el-card class="Action-field-card">
         <el-container class="Action-field-container">
           <div style="color: gainsboro;font-size: 150%;margin-top: 0.5%;margin-left: 1%">更多搜索相关</div>
-          <el-button style="margin-top: 0.5%;margin-left: 68%;height: 3vh " @click="ShowMoreInformation">查看更多信息
+          <el-button style="margin-top: 0.5%;margin-left: 58%;height: 3vh " @click="ShowMoreInformation">查看更多信息
+          </el-button>
+          <el-button style="margin-top: 0.5%;margin-left: 1%;height: 3vh " @click="ShowGuidance">获取游戏指导
           </el-button>
           <el-button v-if="!isLoved" style="margin-top: 0.5%;margin-left:1%;height: 3vh" @click="toggleLove">收藏
           </el-button>
@@ -296,7 +298,23 @@
       </el-container>
 
 
+    <el-drawer v-model="showguidance"
+               :close-on-click-modal="false"
+               :close-on-press-escape="false"
+               >
+      <div slot="title"
+           style="font-weight: bold; font-size: 24px; text-align: center; color: #333; margin-bottom: 20px">
+        Game Guidance
+      </div>
+      <el-container v-loading="loading" element-loading-text="Loading..." style="color: #0f184d; width: 100%; height: 100%">
 
+<!--      <template>-->
+        <div  v-html="htmlguidance"></div>
+<!--      </template>-->
+      </el-container>
+    </el-drawer>
+
+    <!-- 游戏详细信息 -->
     <el-dialog
         v-model="dialog1"
         width="80%"
@@ -457,16 +475,7 @@
           </span>
               </p>
             </div>
-            <!-- 游戏指导 -->
-            <div style="width:100%; margin-top: 10px;">
-              <p>
-                <span
-                    style="font-size: 18px; font-weight: bold; margin-left: 20px; color: darkgray;">Guidance</span>
-                <span style="font-size: 18px; color: cornflowerblue; margin-left: 20px;">
-            {{this.toShowGame.guidance}}
-          </span>
-              </p>
-            </div>
+
 
           </el-container>
 
@@ -478,6 +487,7 @@
       </div>
     </el-dialog>
 
+    <!-- 高级搜索   -->
     <el-dialog
         v-model="showOptions"
         width="30%"
@@ -598,6 +608,7 @@
 
 <script>
 import axios from 'axios';
+import { marked }from 'marked';
 import gamesData from '@/assets/newgames.json';
 import alltag from '@/assets/tags.json';
 import {ElMessage, ElButton, ElIcon} from "element-plus";
@@ -609,6 +620,10 @@ export default {
 
   data() {
     return {
+      loading:true,
+      mdguidance:'',
+      showguidance:false,
+      htmlguidance:'',
       Tags:alltag,
       mytags:[],
       form:{
@@ -1014,9 +1029,6 @@ export default {
   },
 
   methods: {
-
-
-    
     clearit(){
       this.form.max = 1000
       this.form.min = 0
@@ -1030,6 +1042,30 @@ export default {
     },
     ShowMoreInformation() {
       this.dialog1 = true
+    },
+    ShowGuidance(){
+      this.showguidance = true
+      this.loading = true
+      axios.get(`/user/getGuidance?appId=${this.toShowGame.appId}`)
+
+          .then((response) => {
+            if(response.data.code === 1){
+              this.mdguidance = response.data.payload
+              let regex = /^((?:.|\n)*?<!--\s*toc\s*-->)/;
+              // 移除匹配到的内容
+              let contentAfterToc = this.mdguidance.replace(regex, '');
+              let r2 = /^((?:.|\n)*?[-_*]{3,})/;
+              let c2 = contentAfterToc.replace(r2, '');
+              this.htmlguidance = marked(c2);
+              // this.htmlguidance = marked(this.mdguidance)
+              this.loading = false
+              ElMessage.success("获取成功")
+            }else{
+              this.loading = false
+              this.showguidance = false
+              ElMessage.error("获取失败")
+            }
+          })
     },
     handleExpanded(num) {
       this.expandedNum = num;
@@ -1045,6 +1081,11 @@ export default {
               ElMessage.error("打开游戏失败")
             }
           })
+    },
+    removeToc(markdown) {
+      // 正则表达式匹配Markdown中的目录部分
+      const tocRegex = /(<!-- toc -->[\s\S]*?<!-- tocstop -->)/;
+      return markdown.replace(tocRegex, '');
     },
     updateShowGame(game) {
       this.toShowGame = game;
