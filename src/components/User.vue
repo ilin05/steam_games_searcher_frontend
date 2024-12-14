@@ -1,5 +1,5 @@
 <template>
-  <el-container class="main-container">
+  <el-container v-loading="loading2" element-loading-text="正在搜索..." class="main-container">
 
     <el-container class="search-show-container">
       <el-card class="auto-complete-search-card">
@@ -11,6 +11,7 @@
             @input="onInput"
             @keydown.down="onArrowDown"
             @keydown.up="onArrowUp"
+
             @keydown.enter="this.showOptions = true"
             style="width: 47vw;"
 
@@ -622,6 +623,7 @@ export default {
     return {
       showmore:false,
       loading:true,
+      loading2:false,
       mdguidance:'',
       showguidance:false,
       htmlguidance:'',
@@ -1182,24 +1184,30 @@ export default {
       }
     },
     onEnter() {
-      this.showOptions = false
-      if (this.highlightedIndex >= 0) {
-        this.selectSuggestion(this.filteredSuggestions[this.highlightedIndex]);
-      }
+      if (this.isSearchTitle && this.query === '') {
+        ElMessage.error("搜素信息不能为空")
+      } else if (!this.isSearchTitle && (this.query === '' && this.mytags.length === 0 && this.form.tags.length === 0)) {
+        ElMessage.error("搜索框和tags不能均为空")
+      } else {
+        this.loading2 = true
+        this.showOptions = false
+        if (this.highlightedIndex >= 0) {
+          this.selectSuggestion(this.filteredSuggestions[this.highlightedIndex]);
+        }
         this.mytags.forEach(mytag => {
           this.form.tags.push(mytag)
         })
         let win = false
-        let linux  = false
+        let linux = false
         let mac = false
         this.form.type.forEach(t => {
-          if(t === 'Windows'){
+          if (t === 'Windows') {
             win = true
           }
-          if(t === 'Linux'){
+          if (t === 'Linux') {
             linux = true
           }
-          if(t === 'Mac'){
+          if (t === 'Mac') {
             mac = true
           }
         })
@@ -1207,27 +1215,29 @@ export default {
         // if(this.form.isTitle === '1'){
         //   istitle = true
         // }
-        if(this.isSearchTitle === true){
+        if (this.isSearchTitle === true) {
           this.form.tags = []
         }
         // this.form.tags = ['rrr']
         axios.get(`/user/search?query=${this.query}&userId=${sessionStorage.getItem("token")}&tags=${this.form.tags}&lowestPrice=${this.form.min}&highestPrice=${this.form.max}&winSupport=${win}&linuxSupport=${linux}&macSupport=${mac}&isTitle=${this.isSearchTitle}&supportLanguages=${[]}`)
             .then(response => {
               if (response.data.code === 1) {
+                this.loading2 = false
                 ElMessage.success("搜索成功");
                 this.games = response.data.payload;
                 this.toShowGame = this.games[0];
                 this.ToShowPicture = this.toShowGame.screenshots[0];
                 sessionStorage.setItem("games", response.data.payload);
               } else {
+                this.loading2 = false
                 ElMessage.error(response.data)
               }
             })
             .catch(error => {
+              this.loading2 = false
               ElMessage.error("异常");
             })
-
-
+      }
 
     },
     getCommands()
