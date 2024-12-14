@@ -11,7 +11,7 @@
             @input="onInput"
             @keydown.down="onArrowDown"
             @keydown.up="onArrowUp"
-            @keydown.enter="onEnter"
+            @keydown.enter="this.showOptions = true"
             style="width: 47vw;"
 
         />
@@ -21,7 +21,7 @@
         </el-radio-group>
 
 
-        <el-button type="text" style="position: absolute;font-size: 200%;display: block; left:47%;top:3.5% " @click="onEnter">
+        <el-button type="text" style="position: absolute;font-size: 200%;display: block; left:47%;top:3.5% " @click="this.showOptions = true">
           <el-icon><Search  /></el-icon>
       </el-button>
 
@@ -43,10 +43,10 @@
 
       <el-card class="advanced-options-card">
 
-        <el-container class="show-options-container">
-          <el-button type="primary" @click="showoption" style="width:10%;height: 50px   ">高级选项
-          </el-button>
-        </el-container>
+<!--        <el-container class="show-options-container">-->
+<!--          <el-button type="primary" @click="showoption" style="width:10%;height: 50px   ">高级选项-->
+<!--          </el-button>-->
+<!--        </el-container>-->
       </el-card>
 
 
@@ -529,7 +529,7 @@
           <el-input-number v-model="form.min" :step="1" />
         </el-form-item>
         <el-divider></el-divider>
-        <span v-if="!isSearchTitle" style="font-size: 18px; font-weight: bold; margin-top: 15px;  margin-left: 15px; color: darkgray;">勾选一些你感兴趣的标签</span>
+        <span v-if="!isSearchTitle" style="font-size: 18px; font-weight: bold; margin-top: 15px;  margin-left: 15px; color: darkgray;">勾选一些你感兴趣的标签(注意：当输入描述为空时，此项为必选)</span>
         <el-form-item v-if="!isSearchTitle">
 <!--          <div style="font-size: 15px; margin-left: 15px; color: darkgray;">Top-13 Tags：</div>-->
           <el-checkbox-group v-model="form.tags" style="margin-left: 20px; width: 70%">
@@ -596,7 +596,7 @@
         <el-divider v-if="!isSearchTitle"></el-divider>
 
         <el-form-item>
-          <el-button type="primary" @click="showOptions = false">保存设置</el-button>
+          <el-button type="primary" @click="onEnter">开始搜索</el-button>
           <el-button @click="clearit">取消</el-button>
         </el-form-item>
       </el-form>
@@ -620,6 +620,7 @@ export default {
 
   data() {
     return {
+      showmore:false,
       loading:true,
       mdguidance:'',
       showguidance:false,
@@ -1181,6 +1182,7 @@ export default {
       }
     },
     onEnter() {
+      this.showOptions = false
       if (this.highlightedIndex >= 0) {
         this.selectSuggestion(this.filteredSuggestions[this.highlightedIndex]);
       }
