@@ -111,23 +111,21 @@
       <el-card class="Action-field-card">
         <el-container class="Action-field-container">
           <div style="color: gainsboro;font-size: 150%;margin-top: 0.5%;margin-left: 1%">更多搜索相关</div>
-          <el-button style="margin-top: 0.5%;margin-left: 58%;height: 3vh " @click="ShowMoreInformation">查看更多信息
+          <el-button style="margin-top: 0.5%;margin-left: 68%;height: 3vh " @click="ShowMoreInformation">查看更多信息
           </el-button>
-          <el-button style="margin-top: 0.5%;margin-left: 1%;height: 3vh " @click="ShowGuidance">获取游戏指导
+          <el-button v-if="!this.isLoved" style="margin-top: 0.5%;margin-left:1%;height: 3vh" @click="toggleLove">收藏
           </el-button>
-          <el-button v-if="!isLoved" style="margin-top: 0.5%;margin-left:1%;height: 3vh" @click="toggleLove">收藏
-          </el-button>
-          <el-button v-if="isLoved" style="margin-top: 0.5%;margin-left:1%;height:3vh " @click="toggleLove">移出收藏
+          <el-button v-if="this.isLoved" style="margin-top: 0.5%;margin-left:1%;height:3vh " @click="toggleLove">移出收藏
           </el-button>
         </el-container>
 
       </el-card>
 
       <el-card class="search-related-card">
-        <el-container class="search-related-container">
-          <div v-for="(game,index) in games" key="game.appId">
-            <div style="width:auto;height: 22vh;margin-right: 4%">
-              <preCard :imageUrl="game.headerImage" v-if="index>0" @update-showGame="updateShowGame(game)"></preCard>
+        <el-container class="search-related-container"   >
+          <div v-for="(game,index) in games" key="game.appId"  >
+            <div style="width:18vw;height: 22vh;">
+              <preCard :imageUrl="game.headerImage"  @update-showGame="updateShowGame(game)"></preCard>
             </div>
           </div>
         </el-container>
@@ -142,11 +140,12 @@
           <el-container class="user-information-head-container">
             <div style="color: gainsboro;font-size: 150%;width: 10vw">用户个人信息</div>
             <div style="margin-left: 66%;">
-              <el-button type="text" >
+              <el-tooltip content="退出登录" >
+              <el-button type="text" @click=" router().push('/login'); " >
                 <el-icon style="font-size: 300%">
                   <Avatar/>
                 </el-icon>
-              </el-button>
+              </el-button></el-tooltip>
             </div>
           </el-container>
 
@@ -182,8 +181,8 @@
               </el-menu-item>
             </el-menu>
             <el-container v-if="this.menuIndex === 1" style="display: flex; flex-direction: column;">
-              <div style="width: 100%;margin-top: 0;margin-bottom:3px;text-align: center;color: #ff9f28;font-size:2em;font-weight: 300;"> 开发团队声明</div>
-              <div style="width:94%;margin-top:2%;margin-left:5%;margin-right: 5%  ;color: gainsboro;font-size: large;word-wrap: break-word;word-break: break-all;overflow-x: hidden;overflow-y:auto;height: 13vh"><p> {{ toShowGame.description }}</p></div>
+              <div style="color: gainsboro"> 用户名</div>
+              <div style="color: gainsboro"> 账户邮箱</div>
 
             </el-container>
             <el-container v-if="this.menuIndex === 2">
@@ -477,7 +476,6 @@
               </p>
             </div>
 
-
           </el-container>
 
 
@@ -615,18 +613,31 @@ import alltag from '@/assets/tags.json';
 import {ElMessage, ElButton, ElIcon} from "element-plus";
 import PreCard from "@/components/preCard.vue";
 import {Avatar, Download, FullScreen, HomeFilled, MoreFilled, Upload} from "@element-plus/icons-vue";
+import router from "@/router/index.js";
 
 export default {
   components: {HomeFilled, Avatar, MoreFilled, FullScreen, Upload, Download, PreCard},
 
   data() {
     return {
+      isLoved:false,
+      userInfo:{
+        userName:'',
+        email:'',
+      },
       showmore:false,
       loading:true,
       loading2:false,
       mdguidance:'',
       showguidance:false,
       htmlguidance:'',
+      user:{
+        userName:'',
+        email:'',
+        oldPassword:'',
+        newPassword:'',
+      },
+      guide:'',
       Tags:alltag,
       mytags:[],
       form:{
@@ -643,27 +654,14 @@ export default {
           appId: 10,
           headerImage: 'https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469',
         },
-        {
-          appId: 10,
-          headerImage: 'https://cdn.akamai.steamstatic.com/steam/apps/255710/header.jpg?t=1654076112',
-        },
-        {
-          appId: 10,
-          headerImage: 'https://cdn.akamai.steamstatic.com/steam/apps/255710/header.jpg?t=1654076112',
-        }
       ],
       dialog1: false,
       firstLoaded: true,
       favoriteGames: [
         {
           appId: 10,
-          title:'PUBG:BATTLEGROUNDS',
           headerImage: 'https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469',
-        },
-        {
-          appId: 20,
-          title:'Cities: Skylines',
-          headerImage: 'https://cdn.akamai.steamstatic.com/steam/apps/255710/header.jpg?t=1654076112',
+          title:'pubg'
         }
       ],
       expandedNum: 0,
@@ -712,7 +710,7 @@ export default {
       ToShowPicture: '',
       games: [
         {
-          appId: 10,
+          appId: 578080,
           title: 'PUBG:BATTLEGROUNDS',
           releasedDate: '2017 年 12 月 21 日',
           win: true,
@@ -806,7 +804,7 @@ export default {
           description: "Play PUBG: BATTLEGROUNDS for free. Land on strategic locations, loot weapons and supplies, and survive to become the last team standing across various, diverse Battlegrounds. Squad up and join the Battlegrounds for the original Battle Royale experience that only PUBG: BATTLEGROUNDS can offer.",
         },
         {
-          appId: 10,
+          appId: 255710,
           title: 'Cities: Skylines',
           releasedDate: 'Mar 10, 2015',
           win: false,
@@ -839,7 +837,7 @@ export default {
           description: "Cities: Skylines is a modern take on the classic city simulation. The game introduces new game play elements to realize the thrill and hardships of creating and maintaining a real city whilst expanding on some well-established tropes of the city building experience.",
         },
         {
-          appId: 20,
+          appId: 1245620,
           title: "ELDEN RING",
           releasedDate: 'Feb 24, 2022',
           win: false,
@@ -926,7 +924,7 @@ export default {
           description: "THE NEW FANTASY ACTION RPG. Rise, Tarnished, and be guided by grace to brandish the power of the Elden Ring and become an Elden Lord in the Lands Between.",
         },
         {
-          appId: 30,
+          appId: 2358720,
           title: 'Black Myth: Wukong',
           releasedDate: 'Aug 19, 2024',
           win: false,
@@ -1001,6 +999,7 @@ export default {
         },
 
 
+
       ]
     }
   },
@@ -1026,12 +1025,17 @@ export default {
         return this.favoriteGames
       }
     },
-    isLoved() {
-      return this.favoriteGames.find(item => item.appId === this.toShowGame.appId);
-    },
+
+
   },
 
   methods: {
+    router() {
+      return router
+    },
+
+
+    
     clearit(){
       this.form.max = 1000
       this.form.min = 0
@@ -1091,11 +1095,23 @@ export default {
       return markdown.replace(tocRegex, '');
     },
     updateShowGame(game) {
+
       this.toShowGame = game;
+      console.log(this.toShowGame)
       this.ToShowPicture = this.toShowGame.screenshots[0];
+
+      if (this.favoriteGames.find(item=>item.appId === this.toShowGame.appId))
+      {
+        this.isLoved = true;
+      }
+      else {
+        this.isLoved = false ;
+      }
+      console.log(this.isLoved)
 
     },
     toggleLove() {
+      console.log(this.isLoved)
       if (this.isLoved) {
         this.deleteLove();
       } else {
@@ -1117,18 +1133,16 @@ export default {
               ElMessage.success("更改成功");
             } else {
               ElMessage.error("更改失败")
-
             }
           })
     },
     addLove() {
-
       let temp = {
-        appId: this.toShowGame.appId,
-        headerImage: this.toShowGame.headerImage
+        appId :this.toShowGame.appId,
+        headerImage:this.toShowGame.headerImage,
+        title:this.toShowGame.title
       }
-      this.favoriteGames.push(temp);
-
+      this.favoriteGames.push(temp)
 
       axios.post("/user/addFavorites", {appId: this.toShowGame.appId, userId: sessionStorage.getItem("token")})
           .then(response => {
@@ -1138,6 +1152,8 @@ export default {
               ElMessage.error("更改失败");
             }
           })
+
+
 
     },
     changePicture(picture) {
@@ -1240,15 +1256,48 @@ export default {
       }
 
     },
+    getFavorites(){
+      axios.get(`/user/getFavorites?userId=${sessionStorage.getItem('token')}`)
+          .then(response=>{
+            if(response.data.code === 1)
+            {
+              let temp = response.data.payload
+              this.favoriteGames = [];
+              temp.forEach(game=>{
+                this.favoriteGames.push(game)
+              })
+
+
+            }else
+            {
+              ElMessage.error("获取收藏失败")
+            }
+          })
+    },
+    getUserInfo(){
+      axios.get(`user/getUserInfo?userId=${sessionStorage.getItem("token")}`)
+          .then(response => {
+            if(response.data.code === 1)
+            {
+                this.userInfo = response.data.payload;
+                console.log(this.userInfo)
+
+            }else{
+              ElMessage.error("用户信息初始化失败")
+            }
+          })
+    },
     getCommands()
     {
       axios.get(`/user/recommendGames?userId=${sessionStorage.getItem("token")}`)
           .then(response => {
             if(response.data.code === 1){
               this.commandGames = response.data.payload
+
               this.toShowGame = this.commandGames[0]
               this.ToShowPicture = this.toShowGame.screenshots[0];
-              ElMessage.success("推荐成功")
+
+
             }else
             {
               ElMessage.error("推荐失败")
@@ -1271,6 +1320,8 @@ export default {
 
 
     this.getCommands();
+    this.getUserInfo();
+    this.getFavorites();
 
 
   }
@@ -1459,9 +1510,13 @@ export default {
 
 .search-related-container {
   width: 100%;
-  height: 100%;
+  padding-left:0;
   display: flex;
   flex-direction: row;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap:1%
 
 }
 
