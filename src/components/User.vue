@@ -38,6 +38,7 @@
           >
             {{ suggestion }}
           </li>
+
         </ul>
       </el-card>
 
