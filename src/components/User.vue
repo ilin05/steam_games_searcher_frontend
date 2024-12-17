@@ -43,11 +43,9 @@
 
 
       <el-card class="advanced-options-card">
+        <img src="../assets/game.jpeg" alt="gamePic" style="object-fit: cover;height: 10vh;width:60vw;
+  object-position: center;">
 
-<!--        <el-container class="show-options-container">-->
-<!--          <el-button type="primary" @click="showoption" style="width:10%;height: 50px   ">高级选项-->
-<!--          </el-button>-->
-<!--        </el-container>-->
       </el-card>
 
 
@@ -111,11 +109,14 @@
       <el-card class="Action-field-card">
         <el-container class="Action-field-container">
           <div style="color: gainsboro;font-size: 150%;margin-top: 0.5%;margin-left: 1%">更多搜索相关</div>
-          <el-button style="margin-top: 0.5%;margin-left: 68%;height: 3vh " @click="ShowMoreInformation">查看更多信息
+          <el-button style="margin-top: 0.5%;margin-left: 58%;height: 3vh " @click="ShowMoreInformation">查看更多信息
           </el-button>
-          <el-button v-if="!this.isLoved" style="margin-top: 0.5%;margin-left:1%;height: 3vh" @click="toggleLove">收藏
+          <el-button style="margin-top: 0.5%;margin-left: 1%;height: 3vh " @click="ShowGuidance">获取游戏指导
           </el-button>
-          <el-button v-if="this.isLoved" style="margin-top: 0.5%;margin-left:1%;height:3vh " @click="toggleLove">移出收藏
+          <el-button v-if="!isLoved" style="margin-top: 0.5%;margin-left:1%;height: 3vh" @click="toggleLove">收藏
+          </el-button>
+
+          <el-button v-if="isLoved" style="margin-top: 0.5%;margin-left:1%;height:3vh " @click="toggleLove">移出收藏
           </el-button>
         </el-container>
 
@@ -162,18 +163,10 @@
                 <el-icon><document /></el-icon>
                 <span>账户信息</span>
               </el-menu-item>
-              <el-menu-item index="2"  class="custom-menu-item" @click="this.menuIndex=2">
 
-                <el-icon><setting /></el-icon>
-                <span>系统信息</span>
-              </el-menu-item>
               <el-menu-item index="3"  class="custom-menu-item" @click="this.menuIndex=3">
                 <el-icon><Briefcase /></el-icon>
                 <span>团队信息</span>
-              </el-menu-item>
-              <el-menu-item index="4" class="custom-menu-item" @click="this.menuIndex=4">
-                <el-icon><setting /></el-icon>
-                <span>系统设置</span>
               </el-menu-item>
               <el-menu-item index="5" class="custom-menu-item" @click="this.menuIndex=5">
                 <el-icon><Guide /></el-icon>
@@ -181,11 +174,16 @@
               </el-menu-item>
             </el-menu>
             <el-container v-if="this.menuIndex === 1" style="display: flex; flex-direction: column;">
-              <div style="color: gainsboro"> 用户名</div>
-              <div style="color: gainsboro"> 账户邮箱</div>
-
-            </el-container>
-            <el-container v-if="this.menuIndex === 2">
+              <div style="color: white ;font-size: x-large;margin-top: 8%;margin-left: 10%;"> 用户名:
+                    <el-button type="text" style="color: gainsboro;font-size: 100%;margin-left: 20%" @click="changeUserName">{{this.userInfo.userName}}</el-button>
+              </div>
+              <div style="color: white ;font-size: x-large;margin-top: 4%;margin-left: 10%;width: 15vw"> 邮箱:
+                <el-button type="text" style="color: gainsboro;font-size: 100%;margin-left: 45%" @click="showEmail">{{this.userInfo.email}}</el-button>
+              </div>
+              <div style="margin-top:15%;margin-left:60%">
+                <el-button>修改密码</el-button>
+                <el-button>注销账户</el-button>
+              </div>
 
             </el-container>
             <el-container v-if="this.menuIndex === 3" style="display: flex;flex-direction: column;height:100%">
@@ -197,18 +195,10 @@
               <div style="text-align: right;color: #ffe424;;font-size: x-large;margin-top:1px" ><p>   {{ team.TeamEmail }}   </p></div>
 
             </el-container>
-            <el-container v-if="this.menuIndex === 4">
-
-            </el-container>
             <el-container v-if="this.menuIndex === 5">
 
             </el-container>
-            <el-container v-if="this.menuIndex === 6">
 
-            </el-container>
-            <el-container v-if="this.menuIndex === 7">
-
-            </el-container>
 
 
 
@@ -332,10 +322,10 @@
         <el-container style="display: flex;flex-direction: row; height: 650px">
           <el-container class="detailed-information-container ">
             <!--游戏主图-->
-            <img :src="toShowGame.headerImage" alt="Main Picture" width="100%" height="80%">
+            <img :src="toShowGame.headerImage" alt="Main Picture" width="100%" style="height: 35vh">
             <!--描述-->
             <div
-                style="width:100%;margin-top:5px;color: gainsboro;font-size: large;word-wrap: break-word;word-break: break-all;overflow: hidden;">
+                style="width:100%;margin-top:5px;height: 14vh;color: gainsboro;font-size: large;word-wrap: break-word;word-break: break-all;overflow-y:auto; overflow-x: hidden">
               <p> {{ toShowGame.description }}</p></div>
             <!--标签-->
             <div style="display: flex; flex-direction: row;overflow: hidden;margin-top: 4%;">
@@ -620,7 +610,6 @@ export default {
 
   data() {
     return {
-      isLoved:false,
       userInfo:{
         userName:'',
         email:'',
@@ -1025,7 +1014,18 @@ export default {
         return this.favoriteGames
       }
     },
+    isLoved(){
 
+      if(this.favoriteGames.find(item=>Number(item.appId) === Number(this.toShowGame.appId)))
+      {
+        console.log(true)
+        return true;
+      }
+      else {
+        return false;
+      }
+
+    },
 
   },
 
@@ -1033,9 +1033,6 @@ export default {
     router() {
       return router
     },
-
-
-    
     clearit(){
       this.form.max = 1000
       this.form.min = 0
@@ -1094,20 +1091,15 @@ export default {
       const tocRegex = /(<!-- toc -->[\s\S]*?<!-- tocstop -->)/;
       return markdown.replace(tocRegex, '');
     },
+
+
+
     updateShowGame(game) {
 
       this.toShowGame = game;
       console.log(this.toShowGame)
       this.ToShowPicture = this.toShowGame.screenshots[0];
 
-      if (this.favoriteGames.find(item=>item.appId === this.toShowGame.appId))
-      {
-        this.isLoved = true;
-      }
-      else {
-        this.isLoved = false ;
-      }
-      console.log(this.isLoved)
 
     },
     toggleLove() {
@@ -1378,7 +1370,11 @@ export default {
   margin-bottom: 10px;
   display: flex;
   background: #2c3e50;
-  flex-direction: column;
+  flex-direction: row;
+}
+.advanced-options-card:deep(.el-card__body)
+{
+  padding:0;
 }
 
 
@@ -1558,7 +1554,7 @@ export default {
 
 }
 .custom-menu-item{
-  height: 20%;
+  height: 33%;
   font-size: 100%;
 }
 
