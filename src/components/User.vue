@@ -171,7 +171,7 @@
               </el-menu-item>
               <el-menu-item index="5" class="custom-menu-item" @click="this.menuIndex=5">
                 <el-icon><Guide /></el-icon>
-                <span>操作指引</span>
+                <span>使用指南</span>
               </el-menu-item>
             </el-menu>
             <el-container v-if="this.menuIndex === 1" style="display: flex; flex-direction: column;">
@@ -196,8 +196,11 @@
               <div style="text-align: right;color: #ffe424;;font-size: x-large;margin-top:1px" ><p>   {{ team.TeamEmail }}   </p></div>
 
             </el-container>
-            <el-container v-if="this.menuIndex === 5">
-
+            <el-container v-if="this.menuIndex === 5" style="display: flex;flex-direction: column;overflow-x: hidden;overflow-y: auto">
+              <div style="width:92%;color: gainsboro;margin-left: 5%;font-size: 140%;word-wrap: break-word;word-break: break-all;">{{UserGuide[0]}}</div>
+              <div style="width:92%;color: gainsboro;margin-left: 5%;font-size: 140%;word-wrap: break-word;word-break: break-all;">{{UserGuide[1]}}</div>
+              <div style="width:92%;color: gainsboro;margin-left: 5%;font-size: 140%;word-wrap: break-word;word-break: break-all;">{{UserGuide[2]}}</div>
+              <div style="width:92%;color: gainsboro;margin-left: 5%;font-size: 140%;word-wrap: break-word;word-break: break-all;">{{UserGuide[3]}}</div>
             </el-container>
 
 
@@ -611,6 +614,12 @@ export default {
 
   data() {
     return {
+      UserGuide:[
+          'The main function of this product is a vertical search engine for game product information on the market, which aims to provide detailed information of various games efficiently for users who need it.',
+          'Combined with the use of ai, the product can support both precise and fuzzy search, and can filter the search using data such as platform, price, release date, etc.',
+          'At the same time, the product uses the mode of account management to enhance security and ease of use for each user. Users can collect specified games, and users can also intelligently recommend games that users may like according to their collection and search history, greatly increasing the personalization of each user\'s use.',
+          'In addition, this product also uses ai to add the function of helping users obtain game guidance, aiming to provide the most and most perfect service for users.'
+      ],
       userInfo:{
         userName:'',
         email:'',
