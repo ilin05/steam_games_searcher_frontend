@@ -22,10 +22,12 @@
         </el-radio-group>
 
 
-        <el-button type="text" style="position: absolute;font-size: 200%;display: block; left:47%;top:3.5% " @click="this.showOptions = true">
-          <el-icon><Search  /></el-icon>
-      </el-button>
-
+        <el-button type="text" style="position: absolute;font-size: 200%;display: block; left:47%;top:3.5% "
+                   @click="this.showOptions = true">
+          <el-icon>
+            <Search/>
+          </el-icon>
+        </el-button>
 
 
         <ul v-if="showSuggestions">
@@ -58,7 +60,8 @@
 
             <img :src=ToShowPicture alt="Head Picture" class="head-picture">
 
-            <div style="display: flex; flex-direction: row;  overflow-x: auto;overflow-y:hidden;white-space: nowrap;margin-top: 1%">
+            <div
+                style="display: flex; flex-direction: row;  overflow-x: auto;overflow-y:hidden;white-space: nowrap;margin-top: 1%">
               <div v-for="(picture,index) in toShowGame.screenshots" :key="index"
                    style="display:inline-block;margin-right: 5px">
                 <img :src=picture class="single-picOrMovie-card" alt="Need pic" @click="changePicture(picture)">
@@ -124,10 +127,10 @@
       </el-card>
 
       <el-card class="search-related-card">
-        <el-container class="search-related-container"   >
-          <div v-for="(game,index) in games" key="game.appId"  >
+        <el-container class="search-related-container">
+          <div v-for="(game,index) in games" key="game.appId">
             <div style="width:18vw;height: 22vh;">
-              <preCard :imageUrl="game.headerImage"  @update-showGame="updateShowGame(game)"></preCard>
+              <preCard :imageUrl="game.headerImage" @update-showGame="updateShowGame(game)"></preCard>
             </div>
           </div>
         </el-container>
@@ -136,175 +139,227 @@
     </el-container>
 
 
-      <el-container v-if="expandedNum===0" key="0" class="user-love-command-container">
+    <el-container v-if="expandedNum===0" key="0" class="user-love-command-container">
 
-        <el-card class="user-information-card">
-          <el-container class="user-information-head-container">
-            <div style="color: gainsboro;font-size: 150%;width: 10vw">用户个人信息</div>
-            <div style="margin-left: 66%;">
-              <el-tooltip content="退出登录" >
-              <el-button type="text" @click=" router().push('/login'); " >
+      <el-card class="user-information-card">
+        <el-container class="user-information-head-container">
+          <div style="color: gainsboro;font-size: 150%;width: 10vw">用户个人信息</div>
+          <div style="margin-left: 66%;">
+            <el-tooltip content="退出登录">
+              <el-button type="text" @click=" router().push('/login'); ">
                 <el-icon style="font-size: 300%">
                   <Avatar/>
                 </el-icon>
-              </el-button></el-tooltip>
-            </div>
-          </el-container>
+              </el-button>
+            </el-tooltip>
+          </div>
+        </el-container>
 
 
-          <el-container class="user-information-body-container">
-            <el-menu
-                active-text-color="#ffd04b"
-                background-color="#2c3e50"
-                text-color="#fff"
-                default-active="1"
-                style="margin-top: 4%;height: 26vh"
-            >
-              <el-menu-item index="1" class="custom-menu-item" @click="this.menuIndex=1">
-                <el-icon><document /></el-icon>
-                <span>账户信息</span>
-              </el-menu-item>
+        <el-container class="user-information-body-container">
+          <el-menu
+              active-text-color="#ffd04b"
+              background-color="#2c3e50"
+              text-color="#fff"
+              default-active="1"
+              style="margin-top: 4%;height: 26vh"
+          >
+            <el-menu-item index="1" class="custom-menu-item" @click="this.menuIndex=1">
+              <el-icon>
+                <document/>
+              </el-icon>
+              <span>账户信息</span>
+            </el-menu-item>
 
-              <el-menu-item index="3"  class="custom-menu-item" @click="this.menuIndex=3">
-                <el-icon><Briefcase /></el-icon>
-                <span>团队信息</span>
-              </el-menu-item>
-              <el-menu-item index="5" class="custom-menu-item" @click="this.menuIndex=5">
-                <el-icon><Guide /></el-icon>
-                <span>使用指南</span>
-              </el-menu-item>
-            </el-menu>
-            <el-container v-if="this.menuIndex === 1" style="display: flex; flex-direction: column;">
-              <div style="color: white ;font-size: x-large;margin-top: 8%;margin-left: 10%;"> 用户名:
-                    <el-button type="text" style="color: gainsboro;font-size: 100%;margin-left: 20%" @click="changeUserName">{{this.userInfo.userName}}</el-button>
-              </div>
-              <div style="color: white ;font-size: x-large;margin-top: 4%;margin-left: 10%;width: 15vw"> 邮箱:
-                <el-button type="text" style="color: gainsboro;font-size: 100%;margin-left: 45%" @click="showEmail">{{this.userInfo.email}}</el-button>
-              </div>
-              <div style="margin-top:15%;margin-left:60%">
-                <el-button>修改密码</el-button>
-                <el-button>注销账户</el-button>
-              </div>
-
-            </el-container>
-            <el-container v-if="this.menuIndex === 3" style="display: flex;flex-direction: column;height:100%">
-              <div style="width: 100%;margin-top: 0;margin-bottom:3px;text-align: center;color: #ff9f28;font-size:2em;font-weight: 300;"> 开发团队声明</div>
-              <div style="width:94%;margin-top:2%;margin-left:5%;margin-right: 5%  ;color: gainsboro;font-size: large;word-wrap: break-word;word-break: break-all;overflow-x: hidden;overflow-y:auto;height: 16.5vh"><p> {{ this.team.Statement }}</p></div>
-              <div  style="text-align: right;color: #ffe424;;font-size: large;margin-top: 2%" >Developer List (in no particular order)
-                <p style="margin-top: 1%;color: lightblue; ">{{team.Developer}}</p>
-              </div>
-              <div style="text-align: right;color: #ffe424;;font-size: x-large;margin-top:1px" ><p>   {{ team.TeamEmail }}   </p></div>
-
-            </el-container>
-            <el-container v-if="this.menuIndex === 5" style="display: flex;flex-direction: column;overflow-x: hidden;overflow-y: auto">
-              <div style="width:92%;color: gainsboro;margin-left: 5%;font-size: 140%;word-wrap: break-word;word-break: break-all;">{{UserGuide[0]}}</div>
-              <div style="width:92%;color: gainsboro;margin-left: 5%;font-size: 140%;word-wrap: break-word;word-break: break-all;">{{UserGuide[1]}}</div>
-              <div style="width:92%;color: gainsboro;margin-left: 5%;font-size: 140%;word-wrap: break-word;word-break: break-all;">{{UserGuide[2]}}</div>
-              <div style="width:92%;color: gainsboro;margin-left: 5%;font-size: 140%;word-wrap: break-word;word-break: break-all;">{{UserGuide[3]}}</div>
-            </el-container>
-
-
-
-
-          </el-container>
-
-
-        </el-card>
-        <el-card class="user-love-card">
-          <el-container class="user-love-head-container">
-            <div style="color:gainsboro;font-size:150%;width: 10vw">用户收藏</div>
-            <div style="margin-left: 65%;">
-              <el-button type="text" @click="handleExpanded(2)">
-                <el-icon style="font-size: 200%;">
-                  <MoreFilled/>
-                </el-icon>
+            <el-menu-item index="3" class="custom-menu-item" @click="this.menuIndex=3">
+              <el-icon>
+                <Briefcase/>
+              </el-icon>
+              <span>团队信息</span>
+            </el-menu-item>
+            <el-menu-item index="5" class="custom-menu-item" @click="this.menuIndex=5">
+              <el-icon>
+                <Guide/>
+              </el-icon>
+              <span>使用指南</span>
+            </el-menu-item>
+          </el-menu>
+          <el-container v-if="this.menuIndex === 1" style="display: flex; flex-direction: column;">
+            <div style="color: white ;font-size: x-large;margin-top: 8%;margin-left: 10%;"> 用户名:
+              <el-button v-if="!this.changeUserName" type="text"
+                         style="color: gainsboro;font-size: 100%;margin-left: 15%" @click="this.changeUserName = true">
+                {{ this.userInfo.userName }}
+              </el-button>
+              <el-input v-if="this.changeUserName" v-model="this.user.userName" style="width: 15vw;margin-left: 3%;"
+                        @keydown.enter="changeName" :placeholder="this.userInfo.userName"></el-input>
+              <el-button v-if="this.changeUserName" @click="this.changeUserName = false" style="margin-left: 2%">取消
               </el-button>
             </div>
-
-
-          </el-container>
-          <el-container class="user-love-preCard-container">
-            <div v-for="(game,index) in favoriteGames" key="game.appId">
-              <div style="width:18vw;height: 15vh;margin-left:2%;margin-top:2%;margin-bottom: 4%">
-                <preCard :imageUrl="game.headerImage" @update-showGame="ShowFavoriteGame(game.appId)"></preCard>
-              </div>
-            </div>
-          </el-container>
-
-        </el-card>
-
-
-        <el-card class="user-command-card">
-          <el-container class="user-command-head-container">
-            <div style="color:gainsboro;font-size:150%;width: 10vw">猜您喜欢</div>
-            <!--
-            <div style="margin-left: 63%;">
-              <el-button style="background-color:lightblue" @click="handleExpanded(3)">
-                <el-icon style="font-size: 200%;">
-                  <FullScreen/>
-                </el-icon>
+            <div style="color: white ;font-size: x-large;margin-top: 4%;margin-left: 10%;"> 邮箱:
+              <el-button type="text" style="color: gainsboro;font-size: 100%;margin-left:15%" @click="showEmail">
+                {{ this.userInfo.email }}
               </el-button>
             </div>
-            -->
+            <div style="margin-top:15%;margin-left:60%">
+              <el-button @click="this.changePasswordDia= true">修改密码</el-button>
+              <el-button @click="this.logoutDia = true">注销账户</el-button>
+            </div>
+            <el-dialog v-model="this.changePasswordDia"
+                       style="width:25vw;height:20vh;background-color: #213547;margin-left: 68%;margin-top: 10%">
+              <div style="color: #ffbc31;font-size: x-large">旧密码
+                <el-input v-model="this.user.oldPassword" style="width: 60%;margin-left: 5%;"></el-input>
+              </div>
+              <div style="color: #ffbc31;font-size: x-large;margin-top: 3%">新密码
+                <el-input v-model="this.user.newPassword" style="width: 60%;margin-left: 5%;"></el-input>
+              </div>
+              <el-button style="margin-left: 80%;margin-top: 10%" @click="changePassword">确认</el-button>
+            </el-dialog>
+            <el-dialog v-model="this.logoutDia"
+                       style=";width: 30vw;height: 20vh;background-color:#213547 ;display: flex; flex-direction: column;">
+              <div style="color: #ffbc31;font-size: 250%"> 您真的要注销此账户吗？您的所有个人信息都将被清除</div>
+              <el-button type="danger" style="margin-left: 85%;margin-top: 3%" @click="deleteAccount">确认</el-button>
+
+            </el-dialog>
+
+          </el-container>
+          <el-container v-if="this.menuIndex === 3" style="display: flex;flex-direction: column;height:100%">
+            <div
+                style="width: 100%;margin-top: 0;margin-bottom:3px;text-align: center;color: #ff9f28;font-size:2em;font-weight: 300;">
+              开发团队声明
+            </div>
+            <div
+                style="width:94%;margin-top:2%;margin-left:5%;margin-right: 5%  ;color: gainsboro;font-size: large;word-wrap: break-word;word-break: break-all;overflow-x: hidden;overflow-y:auto;height: 16.5vh">
+              <p> {{ this.team.Statement }}</p></div>
+            <div style="text-align: right;color: #ffe424;;font-size: large;margin-top: 2%">Developer List (in no
+              particular order)
+              <p style="margin-top: 1%;color: lightblue; ">{{ team.Developer }}</p>
+            </div>
+            <div style="text-align: right;color: #ffe424;;font-size: x-large;margin-top:1px"><p> {{
+                team.TeamEmail
+              }} </p></div>
+
+          </el-container>
+          <el-container v-if="this.menuIndex === 5"
+                        style="display: flex;flex-direction: column;overflow-x: hidden;overflow-y: auto">
+            <div
+                style="width:92%;color: gainsboro;margin-left: 5%;font-size: 140%;word-wrap: break-word;word-break: break-all;">
+              {{ UserGuide[0] }}
+            </div>
+            <div
+                style="width:92%;color: gainsboro;margin-left: 5%;font-size: 140%;word-wrap: break-word;word-break: break-all;">
+              {{ UserGuide[1] }}
+            </div>
+            <div
+                style="width:92%;color: gainsboro;margin-left: 5%;font-size: 140%;word-wrap: break-word;word-break: break-all;">
+              {{ UserGuide[2] }}
+            </div>
+            <div
+                style="width:92%;color: gainsboro;margin-left: 5%;font-size: 140%;word-wrap: break-word;word-break: break-all;">
+              {{ UserGuide[3] }}
+            </div>
           </el-container>
 
 
-          <el-carousel :interval="2000" type="card" height="17vh" indicator-position="outside" style="margin-top: 3%" >
-            <el-carousel-item v-for="game in commandGames" :key="game.appId"  >
+        </el-container>
+
+
+      </el-card>
+      <el-card class="user-love-card">
+        <el-container class="user-love-head-container">
+          <div style="color:gainsboro;font-size:150%;width: 10vw">用户收藏</div>
+          <div style="margin-left: 65%;">
+            <el-button type="text" @click="handleExpanded(2)">
+              <el-icon style="font-size: 200%;">
+                <MoreFilled/>
+              </el-icon>
+            </el-button>
+          </div>
+
+
+        </el-container>
+        <el-container class="user-love-preCard-container">
+          <div v-for="(game,index) in favoriteGames" key="game.appId">
+            <div style="width:18vw;height: 15vh;margin-left:2%;margin-top:2%;margin-bottom: 4%">
               <preCard :imageUrl="game.headerImage" @update-showGame="ShowFavoriteGame(game.appId)"></preCard>
-            </el-carousel-item>
-          </el-carousel>
-
-
-        </el-card>
-
-      </el-container>
-
-
-
-      <el-container v-else-if="expandedNum===2" key="2" class="all-right-favorites-container">
-        <el-card class="all-right-favorites-head-card">
-          <el-container style="width:120%;  height: 100%;display: flex;flex-direction: row;">
-            <div style="color: gainsboro;font-size: 150%;margin-top: 1.5%;margin-left: 2%;width: 10vw">您的收藏</div>
-            <el-input v-model="searchInFavorites" placeholder="输入查询"
-                      style="width: 20vw;height: 70%;margin-top: 1%;margin-left: 20%">
-            </el-input>
-            <div style="margin-left: 1%;margin-top: 1%">
-              <el-button style="background-color: lightblue;height: 80%;width: 85%" @click="handleExpanded(0)">
-                <el-icon style="font-size: 200%">
-                  <HomeFilled/>
-                </el-icon>
-              </el-button>
             </div>
+          </div>
+        </el-container>
 
-          </el-container>
-        </el-card>
-        <el-card class="all-right-favorites-body-card">
-          <el-container style="flex-direction: row;display: flex;width: 100%;height: 100%;gap: 2.6%;flex-wrap: wrap;overflow-x:hidden;overflow-y:auto">
+      </el-card>
+
+
+      <el-card class="user-command-card">
+        <el-container class="user-command-head-container">
+          <div style="color:gainsboro;font-size:150%;width: 10vw">猜您喜欢</div>
+          <!--
+          <div style="margin-left: 63%;">
+            <el-button style="background-color:lightblue" @click="handleExpanded(3)">
+              <el-icon style="font-size: 200%;">
+                <FullScreen/>
+              </el-icon>
+            </el-button>
+          </div>
+          -->
+        </el-container>
+
+
+        <el-carousel :interval="2000" type="card" height="17vh" indicator-position="outside" style="margin-top: 3%">
+          <el-carousel-item v-for="game in commandGames" :key="game.appId">
+            <preCard :imageUrl="game.headerImage" @update-showGame="ShowFavoriteGame(game.appId)"></preCard>
+          </el-carousel-item>
+        </el-carousel>
+
+
+      </el-card>
+
+    </el-container>
+
+
+    <el-container v-else-if="expandedNum===2" key="2" class="all-right-favorites-container">
+      <el-card class="all-right-favorites-head-card">
+        <el-container style="width:120%;  height: 100%;display: flex;flex-direction: row;">
+          <div style="color: gainsboro;font-size: 150%;margin-top: 1.5%;margin-left: 2%;width: 10vw">您的收藏</div>
+          <el-input v-model="searchInFavorites" placeholder="输入查询"
+                    style="width: 20vw;height: 70%;margin-top: 1%;margin-left: 20%">
+          </el-input>
+          <div style="margin-left: 1%;margin-top: 1%">
+            <el-button style="background-color: lightblue;height: 80%;width: 85%" @click="handleExpanded(0)">
+              <el-icon style="font-size: 200%">
+                <HomeFilled/>
+              </el-icon>
+            </el-button>
+          </div>
+
+        </el-container>
+      </el-card>
+      <el-card class="all-right-favorites-body-card">
+        <el-container
+            style="display: flex;flex-direction: row;width: 100%;height: 100%;gap: 2.6%;flex-wrap: wrap;overflow-y: auto">
           <div v-for="(game,index) in screenedFavorites" key="game.appId">
             <div style="width:18vw;height: 15vh;margin-left:1%;margin-top:1%;margin-bottom: 4%">
               <preCard :imageUrl="game.headerImage" @update-showGame="ShowFavoriteGame(game.appId)"></preCard>
             </div>
           </div>
 
-          </el-container>
-        </el-card>
-      </el-container>
+        </el-container>
+      </el-card>
+    </el-container>
 
 
     <el-drawer v-model="showguidance"
                :close-on-click-modal="false"
                :close-on-press-escape="false"
-               >
+    >
       <div slot="title"
            style="font-weight: bold; font-size: 24px; text-align: center; color: #333; margin-bottom: 20px">
         Game Guidance
       </div>
-      <el-container v-loading="loading" element-loading-text="Loading..." style="color: #0f184d; width: 100%; height: 100%">
+      <el-container v-loading="loading" element-loading-text="Loading..."
+                    style="color: #0f184d; width: 100%; height: 100%">
 
-<!--      <template>-->
-        <div  v-html="htmlguidance"></div>
-<!--      </template>-->
+        <!--      <template>-->
+        <div v-html="htmlguidance"></div>
+        <!--      </template>-->
       </el-container>
     </el-drawer>
 
@@ -515,16 +570,17 @@
         <span style="font-size: 18px; font-weight: bold; margin-left: 15px; margin-top: 15px;  color: darkgray;">(可选)选择你希望的价格区间</span>
         <el-form-item>
           <div style="font-size: 15px; margin-left: 15px; color: darkgray">Max Price：</div>
-          <el-input-number v-model="form.max" :step="1" />
+          <el-input-number v-model="form.max" :step="1"/>
         </el-form-item>
         <el-form-item>
           <div style="font-size: 15px; margin-left: 15px; color: darkgray">Min Price：</div>
-          <el-input-number v-model="form.min" :step="1" />
+          <el-input-number v-model="form.min" :step="1"/>
         </el-form-item>
         <el-divider></el-divider>
-        <span v-if="!isSearchTitle" style="font-size: 18px; font-weight: bold; margin-top: 15px;  margin-left: 15px; color: darkgray;">勾选一些你感兴趣的标签(注意：当输入描述为空时，此项为必选)</span>
+        <span v-if="!isSearchTitle"
+              style="font-size: 18px; font-weight: bold; margin-top: 15px;  margin-left: 15px; color: darkgray;">勾选一些你感兴趣的标签(注意：当输入描述为空时，此项为必选)</span>
         <el-form-item v-if="!isSearchTitle">
-<!--          <div style="font-size: 15px; margin-left: 15px; color: darkgray;">Top-13 Tags：</div>-->
+          <!--          <div style="font-size: 15px; margin-left: 15px; color: darkgray;">Top-13 Tags：</div>-->
           <el-checkbox-group v-model="form.tags" style="margin-left: 20px; width: 70%">
             <el-checkbox value="Singleplayer" name="tags" style="color: #ffffff;">
               Singleplayer
@@ -567,9 +623,10 @@
             </el-checkbox>
           </el-checkbox-group>
         </el-form-item>
-        <span v-if="!isSearchTitle" style="font-size: 18px; font-weight: bold; margin-top: 15px;  margin-left: 15px; color: darkgray;">选择更多的标签</span>
+        <span v-if="!isSearchTitle"
+              style="font-size: 18px; font-weight: bold; margin-top: 15px;  margin-left: 15px; color: darkgray;">选择更多的标签</span>
         <el-form-item v-if="!isSearchTitle">
-<!--          <div style="font-size: 15px; margin-left: 15px; color: darkgray">Other Tags：</div>-->
+          <!--          <div style="font-size: 15px; margin-left: 15px; color: darkgray">Other Tags：</div>-->
           <el-select
               v-model="mytags"
               filterable
@@ -601,7 +658,7 @@
 
 <script>
 import axios from 'axios';
-import { marked }from 'marked';
+import {marked} from 'marked';
 import gamesData from '@/assets/newgames.json';
 import alltag from '@/assets/tags.json';
 import {ElMessage, ElButton, ElIcon} from "element-plus";
@@ -614,36 +671,39 @@ export default {
 
   data() {
     return {
-      UserGuide:[
-          'The main function of this product is a vertical search engine for game product information on the market, which aims to provide detailed information of various games efficiently for users who need it.',
-          'Combined with the use of ai, the product can support both precise and fuzzy search, and can filter the search using data such as platform, price, release date, etc.',
-          'At the same time, the product uses the mode of account management to enhance security and ease of use for each user. Users can collect specified games, and users can also intelligently recommend games that users may like according to their collection and search history, greatly increasing the personalization of each user\'s use.',
-          'In addition, this product also uses ai to add the function of helping users obtain game guidance, aiming to provide the most and most perfect service for users.'
+      changePasswordDia: false,
+      logoutDia: false,
+      changeUserName: false,
+      UserGuide: [
+        'The main function of this product is a vertical search engine for game product information on the market, which aims to provide detailed information of various games efficiently for users who need it.',
+        'Combined with the use of ai, the product can support both precise and fuzzy search, and can filter the search using data such as platform, price, release date, etc.',
+        'At the same time, the product uses the mode of account management to enhance security and ease of use for each user. Users can collect specified games, and users can also intelligently recommend games that users may like according to their collection and search history, greatly increasing the personalization of each user\'s use.',
+        'In addition, this product also uses ai to add the function of helping users obtain game guidance, aiming to provide the most and most perfect service for users.'
       ],
-      userInfo:{
-        userName:'',
-        email:'',
+      userInfo: {
+        userName: '',
+        email: '',
       },
-      showmore:false,
-      loading:true,
-      loading2:false,
-      mdguidance:'',
-      showguidance:false,
-      htmlguidance:'',
-      user:{
-        userName:'',
-        email:'',
-        oldPassword:'',
-        newPassword:'',
+      showmore: false,
+      loading: true,
+      loading2: false,
+      mdguidance: '',
+      showguidance: false,
+      htmlguidance: '',
+      user: {
+        userName: '',
+        email: '',
+        oldPassword: '',
+        newPassword: '',
       },
-      guide:'',
-      Tags:alltag,
-      mytags:[],
-      form:{
-        isTitle:'1',
+      guide: '',
+      Tags: alltag,
+      mytags: [],
+      form: {
+        isTitle: '1',
         type: [],
-        max:999999,
-        min:0,
+        max: 999999,
+        min: 0,
         tags: []
 
       },
@@ -660,22 +720,22 @@ export default {
         {
           appId: 10,
           headerImage: 'https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469',
-          title:'pubg'
+          title: 'pubg'
         }
       ],
       expandedNum: 0,
       query: '',
-      team:{
-        Statement:'This product is independently developed by the second team of soft Engineering Management, we are committed to providing high-quality service and experience. In the process of product development, we strictly abide by intellectual property laws and regulations, and ensure that all images, videos and data information used are from recognized open source shared resources. If you find any problem that may involve copyright, please contact us in time, we will immediately make the necessary corrections.\n' +
+      team: {
+        Statement: 'This product is independently developed by the second team of soft Engineering Management, we are committed to providing high-quality service and experience. In the process of product development, we strictly abide by intellectual property laws and regulations, and ensure that all images, videos and data information used are from recognized open source shared resources. If you find any problem that may involve copyright, please contact us in time, we will immediately make the necessary corrections.\n' +
             'In addition, we highly value the valuable opinions of each user. We encourage you to share your feedback and suggestions with us through the team\'s official email. We promise to take every feedback seriously and use it as an important reference for product improvement and development.\n' +
             '\n' +
             '\n' +
             '\n' +
             'Thank you for your support and trust in our products.',
-        TeamEmail:'TingQD@outlook.com',
-        Developer:'LeChatelier-Lenz -- wuwuwu3125 -- TingSCQD -- wwwloewww -- ilin05',
+        TeamEmail: 'TingQD@outlook.com',
+        Developer: 'LeChatelier-Lenz -- wuwuwu3125 -- TingSCQD -- wwwloewww -- ilin05',
       },
-      isSearchTitle:true,
+      isSearchTitle: true,
       showOptions: false,
       suggestions: [{"name": "Game A", "estimated_owners": "20000"},],
       toSearchGames: gamesData,
@@ -703,9 +763,9 @@ export default {
         categories: [],
         genres: [],
         description: "",
-        guidance:''
+        guidance: ''
       },
-      menuIndex:1,
+      menuIndex: 1,
       ToShowPicture: '',
       games: [
         {
@@ -998,40 +1058,36 @@ export default {
         },
 
 
-
       ]
     }
   },
   computed: {
-    toShowTitle(){
-      if(this.toShowGame.title.length>25)
-        return this.toShowGame.title.slice(0,25) + '...';
+    toShowTitle() {
+      if (this.toShowGame.title.length > 25)
+        return this.toShowGame.title.slice(0, 25) + '...';
       else
         return this.toShowGame.title
     },
-    tips(){
-      if(this.isSearchTitle){
+    tips() {
+      if (this.isSearchTitle) {
         return '请输入名称查询'
-      }else{
+      } else {
         return '支持输入描述或在高级选项中选择Tags搜索'
       }
     },
-    screenedFavorites(){
-      if(this.searchInFavorites.length > 0){
+    screenedFavorites() {
+      if (this.searchInFavorites.length > 0) {
         return this.favoriteGames.filter(game => game.title.toLowerCase().includes(this.searchInFavorites.toLowerCase()))
-      }
-      else{
+      } else {
         return this.favoriteGames
       }
     },
-    isLoved(){
+    isLoved() {
 
-      if(this.favoriteGames.find(item=>Number(item.appId) === Number(this.toShowGame.appId)))
-      {
+      if (this.favoriteGames.find(item => Number(item.appId) === Number(this.toShowGame.appId))) {
         console.log(true)
         return true;
-      }
-      else {
+      } else {
         return false;
       }
 
@@ -1040,10 +1096,54 @@ export default {
   },
 
   methods: {
+    changePassword(){
+      axios.post('/user/modifyPassword',{
+        userId:sessionStorage.getItem("token"),
+        oldPassword:this.user.oldPassword,
+        newPassword:this.user.newPassword
+      }).then(response=>{
+        if(response.data.code ===1 )
+        {
+          router.push('/login')
+          ElMessage.success("修改成功，请重新登陆")
+        }else{
+          ElMessage.error("修改失败")
+        }
+      })
+    },
+    deleteAccount() {
+      axios.post('/user/deleteAccount', {
+        userId: sessionStorage.getItem("token")
+      })
+          .then(response => {
+            if (response.data.code === 1) {
+              router.push('/login')
+              ElMessage.success("账户已成功注销")
+            } else {
+              ElMessage.error(response.data.message)
+            }
+          })
+    },
+    changeName() {
+      axios.post('/user/modifyUserName', {
+        userId: sessionStorage.getItem("token"),
+        newName: this.user.userName
+      })
+          .then(response => {
+            if (response.data.code === 1) {
+              this.userInfo.userName = this.user.userName
+              ElMessage.success('修改成功')
+            } else {
+              ElMessage.error('修改失败')
+            }
+          })
+      this.changeUserName = false
+
+    },
     router() {
       return router
     },
-    clearit(){
+    clearit() {
       this.form.max = 1000
       this.form.min = 0
       this.form.type = []
@@ -1051,19 +1151,19 @@ export default {
       this.mytags = []
       this.showOptions = false
     },
-    showoption(){
+    showoption() {
       this.showOptions = true
     },
     ShowMoreInformation() {
       this.dialog1 = true
     },
-    ShowGuidance(){
+    ShowGuidance() {
       this.showguidance = true
       this.loading = true
       axios.get(`/user/getGuidance?appId=${this.toShowGame.appId}`)
 
           .then((response) => {
-            if(response.data.code === 1){
+            if (response.data.code === 1) {
               this.mdguidance = response.data.payload
               let regex = /^((?:.|\n)*?<!--\s*toc\s*-->)/;
               // 移除匹配到的内容
@@ -1074,7 +1174,7 @@ export default {
               // this.htmlguidance = marked(this.mdguidance)
               this.loading = false
               ElMessage.success("获取成功")
-            }else{
+            } else {
               this.loading = false
               this.showguidance = false
               ElMessage.error("获取失败")
@@ -1090,7 +1190,7 @@ export default {
             if (response.data.code === 1) {
               this.toShowGame = response.data.payload
               this.ToShowPicture = this.toShowGame.screenshots[0];
-              ElMessage.success("获取成功")
+
             } else {
               ElMessage.error("打开游戏失败")
             }
@@ -1101,7 +1201,6 @@ export default {
       const tocRegex = /(<!-- toc -->[\s\S]*?<!-- tocstop -->)/;
       return markdown.replace(tocRegex, '');
     },
-
 
 
     updateShowGame(game) {
@@ -1140,9 +1239,9 @@ export default {
     },
     addLove() {
       let temp = {
-        appId :this.toShowGame.appId,
-        headerImage:this.toShowGame.headerImage,
-        title:this.toShowGame.title
+        appId: this.toShowGame.appId,
+        headerImage: this.toShowGame.headerImage,
+        title: this.toShowGame.title
       }
       this.favoriteGames.push(temp)
 
@@ -1154,7 +1253,6 @@ export default {
               ElMessage.error("更改失败");
             }
           })
-
 
 
     },
@@ -1258,50 +1356,45 @@ export default {
       }
 
     },
-    getFavorites(){
+    getFavorites() {
       axios.get(`/user/getFavorites?userId=${sessionStorage.getItem('token')}`)
-          .then(response=>{
-            if(response.data.code === 1)
-            {
+          .then(response => {
+            if (response.data.code === 1) {
               let temp = response.data.payload
               this.favoriteGames = [];
-              temp.forEach(game=>{
+              temp.forEach(game => {
                 this.favoriteGames.push(game)
               })
 
 
-            }else
-            {
+            } else {
               ElMessage.error("获取收藏失败")
             }
           })
     },
-    getUserInfo(){
+    getUserInfo() {
       axios.get(`user/getUserInfo?userId=${sessionStorage.getItem("token")}`)
           .then(response => {
-            if(response.data.code === 1)
-            {
-                this.userInfo = response.data.payload;
-                console.log(this.userInfo)
+            if (response.data.code === 1) {
+              this.userInfo = response.data.payload;
+              console.log(this.userInfo)
 
-            }else{
+            } else {
               ElMessage.error("用户信息初始化失败")
             }
           })
     },
-    getCommands()
-    {
+    getCommands() {
       axios.get(`/user/recommendGames?userId=${sessionStorage.getItem("token")}`)
           .then(response => {
-            if(response.data.code === 1){
+            if (response.data.code === 1) {
               this.commandGames = response.data.payload
 
               this.toShowGame = this.commandGames[0]
               this.ToShowPicture = this.toShowGame.screenshots[0];
 
 
-            }else
-            {
+            } else {
               ElMessage.error("推荐失败")
             }
           })
@@ -1382,9 +1475,9 @@ export default {
   background: #2c3e50;
   flex-direction: row;
 }
-.advanced-options-card:deep(.el-card__body)
-{
-  padding:0;
+
+.advanced-options-card:deep(.el-card__body) {
+  padding: 0;
 }
 
 
@@ -1516,13 +1609,13 @@ export default {
 
 .search-related-container {
   width: 100%;
-  padding-left:0;
+  padding-left: 0;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   overflow-x: auto;
   overflow-y: hidden;
-  gap:1%
+  gap: 1%
 
 }
 
@@ -1563,7 +1656,8 @@ export default {
   flex-direction: row;
 
 }
-.custom-menu-item{
+
+.custom-menu-item {
   height: 33%;
   font-size: 100%;
 }
@@ -1624,7 +1718,6 @@ export default {
 }
 
 
-
 .all-right-information-container {
   width: 55%;
   height: 100%;
@@ -1662,16 +1755,16 @@ export default {
 .all-right-favorites-head-card:deep(.el-card__body) {
   padding: 0;
 }
+
 .el-radio-button {
   font-size: 30px; /* 调整字体大小 */
-
 
 
 }
 
 .all-right-favorites-body-card {
   width: 100%;
-  height: 100%;
+  height: 90.5vh;
   margin-top: 2%;
   background-color: #2c3e50;
   border: none;
