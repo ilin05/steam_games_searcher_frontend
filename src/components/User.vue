@@ -1,6 +1,5 @@
 <template>
   <el-container v-loading="loading2" element-loading-text="正在搜索..." class="main-container">
-
     <el-container class="search-show-container">
       <el-card class="auto-complete-search-card">
         <input
@@ -146,7 +145,7 @@
           <div style="color: gainsboro;font-size: 150%;width: 10vw">用户个人信息</div>
           <div style="margin-left: 66%;">
             <el-tooltip content="退出登录">
-              <el-button type="text" @click=" router().push('/login'); ">
+              <el-button type="text" @click=" quit ">
                 <el-icon style="font-size: 300%">
                   <Avatar/>
                 </el-icon>
@@ -653,6 +652,7 @@
     </el-dialog>
 
   </el-container>
+
 </template>
 
 
@@ -1062,6 +1062,15 @@ export default {
     }
   },
   computed: {
+    isLogin(){
+      if(sessionStorage.getItem("token") === null)
+      {
+        return false;
+      }else
+      {
+        return true
+      }
+    },
     toShowTitle() {
       if (this.toShowGame.title.length > 25)
         return this.toShowGame.title.slice(0, 25) + '...';
@@ -1096,6 +1105,10 @@ export default {
   },
 
   methods: {
+    quit(){
+      sessionStorage.clear();
+      router.push('/login')
+    },
     changePassword(){
       axios.post('/user/modifyPassword',{
         userId:sessionStorage.getItem("token"),
@@ -1104,7 +1117,7 @@ export default {
       }).then(response=>{
         if(response.data.code ===1 )
         {
-          router.push('/login')
+          this.quit();
           ElMessage.success("修改成功，请重新登陆")
         }else{
           ElMessage.error("修改失败")
@@ -1117,7 +1130,7 @@ export default {
       })
           .then(response => {
             if (response.data.code === 1) {
-              router.push('/login')
+              this.quit()
               ElMessage.success("账户已成功注销")
             } else {
               ElMessage.error(response.data.message)
@@ -1416,11 +1429,15 @@ export default {
     //  this.games = JSON.parse(sessionStorage.getItem("games"));
     //}
 
-
-    this.getCommands();
-    this.getUserInfo();
-    this.getFavorites();
-
+    if (sessionStorage.getItem("token")) {
+      this.getCommands();
+      this.getUserInfo();
+      this.getFavorites();
+    }
+    else {
+       ElMessage.error("您必须先登陆才能访问该界面")
+      this.quit();
+    }
 
   }
 
